@@ -1,0 +1,24 @@
+package com.vanskarner.adapters.common;
+
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+public abstract class BasicClickAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+        extends BasicAdapter<T, ItemViewHolder> {
+
+    protected View.OnClickListener onItemClickListener;
+
+    protected BasicClickAdapter(List<T> list) {
+        super(list);
+    }
+
+    //Custom methods
+
+    public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+}
