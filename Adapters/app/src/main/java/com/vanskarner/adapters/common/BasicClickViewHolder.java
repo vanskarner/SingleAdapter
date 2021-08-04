@@ -15,5 +15,4 @@ public abstract class BasicClickViewHolder extends RecyclerView.ViewHolder {
         itemView.setTag(this);
         itemView.setOnClickListener(onItemClickListener);
     }
-
 }
