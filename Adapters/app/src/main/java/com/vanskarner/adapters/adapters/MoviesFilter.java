@@ -9,16 +9,20 @@ import androidx.annotation.NonNull;
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.BasicClickViewHolder;
-import com.vanskarner.adapters.common.BasicEndlessAdapter;
+import com.vanskarner.adapters.common.BasicFilterAdapter;
 
 import java.util.List;
 
-public class MoviesNew
-        extends BasicEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder> {
+public class MoviesFilter
+        extends BasicFilterAdapter<MovieModel, MoviesFilter.ItemClickViewHolder> {
 
-
-    public MoviesNew(List<MovieModel> list) {
+    public MoviesFilter(List<MovieModel> list) {
         super(list);
+    }
+
+    @Override
+    protected boolean filterCondition(MovieModel item, String filterPatter) {
+        return item.getTitle().toLowerCase().equals(filterPatter);
     }
 
     @Override
@@ -27,18 +31,8 @@ public class MoviesNew
     }
 
     @Override
-    protected int setLoadLayout() {
-        return R.layout.item_loading;
-    }
-
-    @Override
     protected ItemClickViewHolder createViewHolder(View view) {
-        return new ItemClickViewHolder(view, onItemClickListener);
-    }
-
-    @Override
-    protected boolean filterCondition(MovieModel item, String filterPattern) {
-        return item.getTitle().toLowerCase().contains(filterPattern);
+        return new ItemClickViewHolder(view, super.onItemClickListener);
     }
 
     @Override
@@ -58,7 +52,6 @@ public class MoviesNew
         protected void setupView(View itemView) {
             itemTitle = itemView.findViewById(R.id.tvItem);
         }
-
     }
 
 }

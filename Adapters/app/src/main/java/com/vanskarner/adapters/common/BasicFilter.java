@@ -2,25 +2,21 @@ package com.vanskarner.adapters.common;
 
 import android.widget.Filter;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterCustom<T,S extends RecyclerView.ViewHolder,ItemA extends Adapter<S>>
-        extends Filter {
+public class BasicFilter<T, S extends ViewHolder> extends Filter {
 
     private final List<T> list;
     private final List<T> originalList;
-    private final ItemA adapter;
-    private final Filtered<T> tFiltered;
+    private final BasicFilterAdapter<T, S> adapter;
 
-    public FilterCustom(List<T> list, List<T> originalList, ItemA adapter, Filtered<T> tFiltered) {
+    public BasicFilter(List<T> list, List<T> originalList, BasicFilterAdapter<T, S> adapter) {
         this.list = list;
         this.originalList = originalList;
         this.adapter = adapter;
-        this.tFiltered = tFiltered;
     }
 
     @Override
@@ -31,7 +27,7 @@ public class FilterCustom<T,S extends RecyclerView.ViewHolder,ItemA extends Adap
         } else {
             String filterPatter = constraint.toString().toLowerCase().trim();
             for (T item : originalList) {
-                if (tFiltered.filterCondition(item, filterPatter)) {
+                if (adapter.filterCondition(item, filterPatter)) {
                     filteredList.add(item);
                 }
             }
@@ -47,10 +43,6 @@ public class FilterCustom<T,S extends RecyclerView.ViewHolder,ItemA extends Adap
         list.clear();
         list.addAll((List<T>) results.values);
         adapter.notifyDataSetChanged();
-    }
-    
-    public interface Filtered<T>{
-        boolean filterCondition(T item, String filterPatter);
     }
 
 }

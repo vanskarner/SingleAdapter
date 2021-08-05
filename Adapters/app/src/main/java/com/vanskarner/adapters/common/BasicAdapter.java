@@ -14,7 +14,7 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
 
     protected List<T> list;
 
-    protected BasicAdapter(List<T> list) {
+    public BasicAdapter(List<T> list) {
         this.list = list;
     }
 

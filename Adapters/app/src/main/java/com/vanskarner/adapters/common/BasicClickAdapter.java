@@ -11,7 +11,7 @@ public abstract class BasicClickAdapter<T, ItemViewHolder extends RecyclerView.V
 
     protected View.OnClickListener onItemClickListener;
 
-    protected BasicClickAdapter(List<T> list) {
+    public BasicClickAdapter(List<T> list) {
         super(list);
     }
 
