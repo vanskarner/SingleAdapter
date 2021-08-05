@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements Filterable {
+        implements Filterable{
 
     public static final int VIEW_TYPE_ITEM = 0;
     public static final int VIEW_TYPE_LOADING = 1;

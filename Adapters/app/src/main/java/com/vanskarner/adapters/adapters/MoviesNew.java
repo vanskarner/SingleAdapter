@@ -13,7 +13,8 @@ import com.vanskarner.adapters.common.BasicEndlessAdapter;
 
 import java.util.List;
 
-public class MoviesNew extends BasicEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder> {
+public class MoviesNew
+        extends BasicEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder>{
 
 
     public MoviesNew(List<MovieModel> list) {
