@@ -21,7 +21,7 @@ public class MoviesFilter
     }
 
     @Override
-    protected boolean filterCondition(MovieModel item, String filterPatter) {
+    public boolean filterCondition(MovieModel item, String filterPatter) {
         return item.getTitle().toLowerCase().equals(filterPatter);
     }
 

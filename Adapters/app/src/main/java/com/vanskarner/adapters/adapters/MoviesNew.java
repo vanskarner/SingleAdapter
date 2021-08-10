@@ -37,7 +37,7 @@ public class MoviesNew
     }
 
     @Override
-    protected boolean filterCondition(MovieModel item, String filterPattern) {
+    public boolean filterCondition(MovieModel item, String filterPattern) {
         return item.getTitle().toLowerCase().contains(filterPattern);
     }
 

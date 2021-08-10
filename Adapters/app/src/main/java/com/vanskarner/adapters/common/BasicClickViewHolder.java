@@ -9,7 +9,8 @@ public abstract class BasicClickViewHolder extends RecyclerView.ViewHolder {
 
     protected abstract void setupView(View itemView);
 
-    protected BasicClickViewHolder(@NonNull View itemView, View.OnClickListener onItemClickListener) {
+    protected BasicClickViewHolder(@NonNull View itemView,
+                                   View.OnClickListener onItemClickListener) {
         super(itemView);
         setupView(itemView);
         itemView.setTag(this);

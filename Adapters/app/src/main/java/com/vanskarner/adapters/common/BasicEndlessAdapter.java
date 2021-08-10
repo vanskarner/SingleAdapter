@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements Filterable{
+        implements Filterable, BasicFilter.Filtered<T>{
 
     public static final int VIEW_TYPE_ITEM = 0;
     public static final int VIEW_TYPE_LOADING = 1;
@@ -22,7 +22,7 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
     protected List<T> list;
     protected List<T> originalList;
     protected View.OnClickListener onItemClickListener;
-    private Filter filter;
+    protected Filter filter;
 
     protected BasicEndlessAdapter(List<T> list) {
         this.list = list;
@@ -37,35 +37,8 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
 
     protected abstract void bindItem(ItemViewHolder holder, T item, int position);
 
-    protected abstract boolean filterCondition(T item, String filterPattern);
-
     protected Filter createFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                List<T> filteredList = new ArrayList<>();
-                if (constraint == null || constraint.length() == 0) {
-                    filteredList.addAll(originalList);
-                } else {
-                    String filterPatter = constraint.toString().toLowerCase().trim();
-                    for (T item : originalList) {
-                        if (filterCondition(item, filterPatter)) {
-                            filteredList.add(item);
-                        }
-                    }
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
-                return filterResults;
-            }
-
-            @SuppressWarnings("unchecked")
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                list = (List<T>) results.values;
-                notifyDataSetChanged();
-            }
-        };
+        return new BasicFilter<>(list, originalList, this, this);
     }
 
     @NonNull
@@ -110,10 +83,10 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
     }
 
     public void updateList(List<T> newList) {
-        this.list.clear();
-        this.list.addAll(newList);
-        this.originalList.clear();
-        this.originalList.addAll(newList);
+        list.clear();
+        list.addAll(newList);
+        originalList.clear();
+        originalList.addAll(newList);
         notifyDataSetChanged();
     }
 

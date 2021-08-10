@@ -2,6 +2,7 @@ package com.vanskarner.adapters.common;
 
 import android.widget.Filter;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.ArrayList;
@@ -11,12 +12,17 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
 
     private final List<T> list;
     private final List<T> originalList;
-    private final BasicFilterAdapter<T, S> adapter;
+    private final RecyclerView.Adapter<S> adapter;
+    private final Filtered<T> filtered;
 
-    public BasicFilter(List<T> list, List<T> originalList, BasicFilterAdapter<T, S> adapter) {
+    public BasicFilter(List<T> list,
+                       List<T> originalList,
+                       RecyclerView.Adapter<S> adapter,
+                       Filtered<T> filtered) {
         this.list = list;
         this.originalList = originalList;
         this.adapter = adapter;
+        this.filtered = filtered;
     }
 
     @Override
@@ -27,7 +33,7 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         } else {
             String filterPatter = constraint.toString().toLowerCase().trim();
             for (T item : originalList) {
-                if (adapter.filterCondition(item, filterPatter)) {
+                if (filtered.filterCondition(item, filterPatter)) {
                     filteredList.add(item);
                 }
             }
@@ -43,6 +49,10 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         list.clear();
         list.addAll((List<T>) results.values);
         adapter.notifyDataSetChanged();
+    }
+
+    interface Filtered<T> {
+        boolean filterCondition(T item, String filterPattern);
     }
 
 }

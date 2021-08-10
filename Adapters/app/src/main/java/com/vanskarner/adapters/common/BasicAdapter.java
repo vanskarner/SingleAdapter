@@ -45,11 +45,10 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
     //Custom methods
 
     public void updateList(List<T> newList) {
-        this.list.clear();
-        this.list.addAll(newList);
+        list.clear();
+        list.addAll(newList);
         notifyDataSetChanged();
     }
-
 
     public void addList(List<T> listAdd) {
         if (listAdd.size() > 0) {
@@ -58,4 +57,5 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
             notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
         }
     }
+
 }

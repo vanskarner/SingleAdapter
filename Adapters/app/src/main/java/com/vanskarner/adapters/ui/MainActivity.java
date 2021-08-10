@@ -2,6 +2,7 @@ package com.vanskarner.adapters.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Filter;
 import android.widget.ProgressBar;
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.adapters.MoviesFilter;
+import com.vanskarner.adapters.adapters.MoviesNew;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SearchView searchView;
-    MoviesFilter moviesAdapter;
-    ProgressBar progressBar;
+    MoviesNew moviesAdapter;
+//    ProgressBar progressBar;
     ArrayList<MovieModel> rowsArrayList = new ArrayList<>();
     boolean isLoading = false;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adapter);
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-        progressBar=findViewById(R.id.progressBar);
+//        progressBar=findViewById(R.id.progressBar);
         searchView.setQueryHint("Buscar");
 //        populateData();
         initAdapter();
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        moviesAdapter = new MoviesFilter(rowsArrayList);
+        moviesAdapter = new MoviesNew(rowsArrayList);
         recyclerView.setAdapter(moviesAdapter);
         moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -113,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadMore() {
-//        moviesAdapter.showProgress();
-        progressBar.setVisibility(View.VISIBLE);
+        moviesAdapter.showProgress();
+//        progressBar.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-//            moviesAdapter.hideProgress();
-            progressBar.setVisibility(View.GONE);
+            moviesAdapter.hideProgress();
+//            progressBar.setVisibility(View.GONE);
             moviesAdapter.addList(populateDataExtra());
             isLoading = false;
         }, 2000);
@@ -135,13 +136,13 @@ public class MainActivity extends AppCompatActivity {
     }//OK
 
     public void actionShow(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-//        moviesAdapter.showProgress();
+//        progressBar.setVisibility(View.VISIBLE);
+        moviesAdapter.showProgress();
     }
 
     public void actionHide(View view) {
-//        moviesAdapter.hideProgress();
-        progressBar.setVisibility(View.GONE);
+        moviesAdapter.hideProgress();
+//        progressBar.setVisibility(View.GONE);
     }
 
 }
