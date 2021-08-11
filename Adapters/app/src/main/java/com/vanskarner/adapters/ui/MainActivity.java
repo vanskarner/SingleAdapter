@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Filter;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SearchView searchView;
     MoviesNew moviesAdapter;
-//    ProgressBar progressBar;
     ArrayList<MovieModel> rowsArrayList = new ArrayList<>();
     boolean isLoading = false;
+    boolean isFiltering = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adapter);
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-//        progressBar=findViewById(R.id.progressBar);
         searchView.setQueryHint("Buscar");
 //        populateData();
         initAdapter();
@@ -49,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                isFiltering = true;
                 Filter myFilterB = moviesAdapter.getFilter();
                 myFilterB.filter(newText);
                 return false;
@@ -56,27 +55,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void populateData() {
-        rowsArrayList.add(new MovieModel(0, "Pedro", "IMAGE 1"));
-        rowsArrayList.add(new MovieModel(1, "Juan", "IMAGE 2"));
-        rowsArrayList.add(new MovieModel(2, "Diego", "IMAGE 3"));
-        rowsArrayList.add(new MovieModel(3, "Ramirez", "IMAGE 4"));
-        rowsArrayList.add(new MovieModel(4, "Pablo", "IMAGE 5"));
-        rowsArrayList.add(new MovieModel(5, "Luis", "IMAGE 6"));
-        rowsArrayList.add(new MovieModel(6, "Daniel", "IMAGE 7"));
-        rowsArrayList.add(new MovieModel(7, "Fabian", "IMAGE 8"));
-        rowsArrayList.add(new MovieModel(8, "Carlos", "IMAGE 9"));
-        rowsArrayList.add(new MovieModel(9, "Echina", "IMAGE 10"));
+    private List<MovieModel> populateData() {
+        List<MovieModel> movieModels = new ArrayList<>();
+        movieModels.add(new MovieModel(0, "Pedro", "IMAGE 1"));
+        movieModels.add(new MovieModel(1, "Juan", "IMAGE 2"));
+        movieModels.add(new MovieModel(2, "Diego", "IMAGE 3"));
+        movieModels.add(new MovieModel(3, "Ramirez", "IMAGE 4"));
+        movieModels.add(new MovieModel(4, "Pablo", "IMAGE 5"));
+        movieModels.add(new MovieModel(5, "Luis", "IMAGE 6"));//-
+        movieModels.add(new MovieModel(6, "Daniel", "IMAGE 7"));
+        movieModels.add(new MovieModel(7, "Fabian", "IMAGE 8"));
+        movieModels.add(new MovieModel(8, "Carlos", "IMAGE 9"));//-
+        movieModels.add(new MovieModel(9, "Echina", "IMAGE 10"));
+        return movieModels;
     }
 
     private List<MovieModel> populateDataExtra() {
         List<MovieModel> movieModels = new ArrayList<>();
         movieModels.add(new MovieModel(10, "Tafur", "IMG 11"));
-//        movieModels.add(null);
         movieModels.add(new MovieModel(11, "Valeria", "IMG 12"));
-//        movieModels.add(new MovieModel(12, "Vanesa", "IMG 13"));
-//        movieModels.add(new MovieModel(13, "Start", "IMG 14"));
-//        movieModels.add(new MovieModel(14, "Sara", "IMG 15"));
+        movieModels.add(new MovieModel(12, "Vanesa", "IMG 13"));//-
+        movieModels.add(new MovieModel(13, "Start", "IMG 14"));//-
+        movieModels.add(new MovieModel(14, "Sara", "IMG 15"));//-
         return movieModels;
     }
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             Toast.makeText(MainActivity.this, "You Clicked: " +
-                            rowsArrayList.get(viewHolder.getAdapterPosition()).getTitle(),
+                            rowsArrayList.get(viewHolder.getAdapterPosition()).toString(),
                     Toast.LENGTH_SHORT).show();
         });
     }
@@ -115,11 +115,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadMore() {
         moviesAdapter.showProgress();
-//        progressBar.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             moviesAdapter.hideProgress();
-//            progressBar.setVisibility(View.GONE);
             moviesAdapter.addList(populateDataExtra());
             isLoading = false;
         }, 2000);
@@ -128,21 +126,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void actionUpdate(View view) {
-        moviesAdapter.updateList(populateDataExtra());
-    }//OK
+        moviesAdapter.updateList(populateData());
+    }
 
     public void actionAdd(View view) {
-        moviesAdapter.addList(populateDataExtra());
-    }//OK
+        if (!isFiltering) {
+            moviesAdapter.addList(populateDataExtra());
+        }
+    }
 
     public void actionShow(View view) {
-//        progressBar.setVisibility(View.VISIBLE);
         moviesAdapter.showProgress();
     }
 
     public void actionHide(View view) {
         moviesAdapter.hideProgress();
-//        progressBar.setVisibility(View.GONE);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.vanskarner.adapters;
 
+import androidx.annotation.NonNull;
+
 public class MovieModel {
     private final int id;
     private final String title;
@@ -21,5 +23,14 @@ public class MovieModel {
 
     public String getImage() {
         return image;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
