@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-        <activity android:name="com.vanskarner.adapters.ui.MainActivity2">
+        <activity android:name="com.vanskarner.adapters.ui.MoviePaginationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
