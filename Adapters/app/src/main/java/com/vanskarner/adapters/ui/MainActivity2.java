@@ -2,11 +2,8 @@ package com.vanskarner.adapters.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Filter;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +15,12 @@ import com.vanskarner.adapters.adapters.MoviesNew;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends BasePaginationActiviy {
 
     RecyclerView recyclerView;
     SearchView searchView;
     MoviesNew moviesAdapter;
     ArrayList<MovieModel> rowsArrayList = new ArrayList<>();
-    private int pageNumber = 1;
-    boolean isLoading = false;
-    boolean isFiltering = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +31,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setQueryHint("Buscar");
         initAdapter();
         initScrollListener();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                isFiltering = true;
-                Filter myFilterB = moviesAdapter.getFilter();
-                myFilterB.filter(newText);
-                return false;
-            }
-        });
+        searchView.setOnQueryTextListener(super.searchViewOnQueryTextListener(moviesAdapter.getFilter()));
     }
 
     private List<MovieModel> populateData() {
@@ -82,34 +63,24 @@ public class MainActivity extends AppCompatActivity {
         moviesAdapter.addList(populateData());
         moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            Toast.makeText(MainActivity.this, "You Clicked: " +
+            Toast.makeText(MainActivity2.this, "You Clicked: " +
                             rowsArrayList.get(viewHolder.getAdapterPosition()).toString(),
                     Toast.LENGTH_SHORT).show();
         });
     }
 
     private void initScrollListener() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                if (!isLoading && !isFiltering) {
-                    if (linearLayoutManager != null &&
-                            linearLayoutManager.findLastCompletelyVisibleItemPosition() == rowsArrayList.size() - 1) {
-                        pageNumber++;
-                        loadMore();
-                        isLoading = true;
-                    }
-                }
-            }
-        });
-
-
+        recyclerView.addOnScrollListener(super.recyclerOnScrollListener());
     }
 
-    private void loadMore() {
+    @Override
+    protected int lastVisibleItemPosition() {
+        LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        return (manager != null) ? manager.findLastCompletelyVisibleItemPosition() : 0;
+    }
+
+    @Override
+    protected void loadMore() {
         moviesAdapter.showProgress();
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -117,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             moviesAdapter.addList(populateDataExtra2());
             isLoading = false;
         }, 2000);
+    }
+
+    @Override
+    protected int setListSize() {
+        return rowsArrayList.size();
     }
 
 }
