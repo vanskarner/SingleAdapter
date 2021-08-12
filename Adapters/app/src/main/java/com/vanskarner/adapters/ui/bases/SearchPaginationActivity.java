@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui;
+package com.vanskarner.adapters.ui.bases;
 
 import android.os.Bundle;
 import android.widget.Filter;
@@ -8,29 +8,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class BasePaginationActivity extends BaseActivity {
+public abstract class SearchPaginationActivity extends PaginationActivity {
 
-    protected int pageNumber = 1;
-    protected boolean isLoading = false;
     protected boolean isFiltering = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupAdapter();
         setupSearcher();
     }
 
-    protected abstract void setupAdapter();
-
     protected abstract void setupSearcher();
 
-    protected abstract int setLastVisibleItemPosition(RecyclerView.LayoutManager layoutManager);
-
-    protected abstract int setListSize();
-
-    protected abstract void loadMore();
-
+    @Override
     protected RecyclerView.OnScrollListener recyclerOnScrollListener() {
         return new RecyclerView.OnScrollListener() {
             @Override

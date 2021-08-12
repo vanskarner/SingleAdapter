@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.adapters.MoviesNew;
+import com.vanskarner.adapters.ui.bases.PaginationActivity;
+import com.vanskarner.adapters.ui.bases.SearchPaginationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviePaginationActivity extends BasePaginationActivity {
+public class MoviePaginationActivity extends SearchPaginationActivity {
 
     RecyclerView recyclerView;
     SearchView searchView;
