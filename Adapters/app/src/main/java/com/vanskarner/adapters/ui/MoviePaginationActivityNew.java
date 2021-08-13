@@ -62,7 +62,7 @@ public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
             moviesAdapter.hideProgress();
             moviesAdapter.addList(sequentialData());
             super.isLoading = false;
-        }, 2000);
+        }, 4000);
     }
 
 
