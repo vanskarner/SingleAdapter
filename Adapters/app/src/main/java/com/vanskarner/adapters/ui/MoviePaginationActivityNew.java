@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.adapters.MoviesNew;
-import com.vanskarner.adapters.ui.bases.SearchPaginationActivity;
+import com.vanskarner.adapters.ui.bases.SearchPaginationActivityNew;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviePaginationActivity extends SearchPaginationActivity {
+public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
 
     RecyclerView recyclerView;
     SearchView searchView;
@@ -32,10 +32,6 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-    }
-
-    @Override
-    protected void setupAdapter() {
         moviesAdapter = new MoviesNew(movieModels);
         recyclerView.setAdapter(moviesAdapter);
         moviesAdapter.addList(initialDate());
@@ -44,15 +40,12 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
-        recyclerView.addOnScrollListener(super.recyclerOnScrollListener());
+        searchView.setQueryHint(getString(R.string.search));
     }
 
     @Override
-    protected void setupSearcher() {
-        searchView.setQueryHint(getString(R.string.search));
-        Filter filter = moviesAdapter.getFilter();
-        searchView.setOnQueryTextListener(super.searchViewOnQueryTextListener(filter));
-        searchView.setOnCloseListener(super.searchViewCloseListener());
+    protected RecyclerView setRecyclerView() {
+        return recyclerView;
     }
 
     @Override
@@ -62,19 +55,25 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
     }
 
     @Override
-    protected int setListSize() {
-        return movieModels.size();
-    }
-
-    @Override
     protected void loadMore() {
         moviesAdapter.showProgress();
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             moviesAdapter.hideProgress();
             moviesAdapter.addList(sequentialData());
-            isLoading = false;
+            super.isLoading = false;
         }, 2000);
+    }
+
+
+    @Override
+    protected SearchView setSearchView() {
+        return searchView;
+    }
+
+    @Override
+    protected Filter setFilter() {
+        return moviesAdapter.getFilter();
     }
 
     //Generate data
