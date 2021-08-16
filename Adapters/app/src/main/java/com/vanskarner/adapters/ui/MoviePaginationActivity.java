@@ -1,7 +1,6 @@
 package com.vanskarner.adapters.ui;
 
 import android.os.Handler;
-import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
@@ -12,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.adapters.MoviesNew;
-import com.vanskarner.adapters.ui.bases.SearchPaginationActivityNew;
+import com.vanskarner.adapters.ui.bases.SearchPaginationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
+public class MoviePaginationActivity extends SearchPaginationActivity {
 
     RecyclerView recyclerView;
     SearchView searchView;

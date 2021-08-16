@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class PaginationActivityNew extends BaseActivity {
+public abstract class PaginationActivity extends BaseActivity {
 
     protected int pageNumber = 1;
     protected boolean isLoading = false;

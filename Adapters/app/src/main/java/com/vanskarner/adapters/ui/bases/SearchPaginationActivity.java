@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class SearchPaginationActivityNew extends PaginationActivityNew {
+public abstract class SearchPaginationActivity extends PaginationActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
