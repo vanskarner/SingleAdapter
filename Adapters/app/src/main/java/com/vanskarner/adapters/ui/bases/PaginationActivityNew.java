@@ -15,8 +15,7 @@ public abstract class PaginationActivityNew extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView = setRecyclerView();
-        RecyclerView.OnScrollListener onScrollListener = recyclerOnScrollListener();
-        recyclerView.addOnScrollListener(onScrollListener);
+        recyclerView.addOnScrollListener(recyclerOnScrollListener());
     }
 
     protected abstract RecyclerView setRecyclerView();

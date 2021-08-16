@@ -11,9 +11,6 @@
         android:theme="@style/Theme.Adapters"
         tools:ignore="AllowBackup">
 
-        <activity android:name="com.vanskarner.adapters.ui.MoviePaginationActivity">
-
-        </activity>
         <activity android:name="com.vanskarner.adapters.ui.MoviePaginationActivityNew">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

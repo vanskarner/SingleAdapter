@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class SearchPaginationActivityNew extends PaginationActivityNew {
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SearchView searchView = setSearchView();
-        SearchView.OnQueryTextListener onQueryTextListener = searchViewOnQueryTextListener();
-        searchView.setOnQueryTextListener(onQueryTextListener);
+        searchView.setOnQueryTextListener(searchViewOnQueryTextListener());
     }
 
     @Override

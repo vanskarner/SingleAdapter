@@ -73,7 +73,6 @@ public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
         }, 5000);
     }
 
-
     @Override
     protected SearchView setSearchView() {
         return searchView;
