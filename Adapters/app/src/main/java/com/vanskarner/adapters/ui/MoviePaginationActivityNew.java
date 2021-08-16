@@ -1,6 +1,7 @@
 package com.vanskarner.adapters.ui;
 
 import android.os.Handler;
+import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnSearchClickListener(view -> moviesAdapter.hideProgress());
     }
 
     @Override
@@ -60,9 +62,15 @@ public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             moviesAdapter.hideProgress();
-            moviesAdapter.addList(sequentialData());
             super.isLoading = false;
-        }, 4000);
+            if (searchView.isIconified()) {
+                //unused searchview
+                moviesAdapter.addList(sequentialData());
+            } else {
+                //searchview in use
+                super.pageNumber--;
+            }
+        }, 5000);
     }
 
 
@@ -85,10 +93,10 @@ public class MoviePaginationActivityNew extends SearchPaginationActivityNew {
         movieModels.add(new MovieModel(2, "Diego", "IMAGE 3"));
         movieModels.add(new MovieModel(3, "Ramirez", "IMAGE 4"));
         movieModels.add(new MovieModel(4, "Pablo", "IMAGE 5"));
-        movieModels.add(new MovieModel(5, "Luis", "IMAGE 6"));//-
+        movieModels.add(new MovieModel(5, "Luis", "IMAGE 6"));
         movieModels.add(new MovieModel(6, "Daniel", "IMAGE 7"));
         movieModels.add(new MovieModel(7, "Fabian", "IMAGE 8"));
-        movieModels.add(new MovieModel(8, "Carlos", "IMAGE 9"));//-
+        movieModels.add(new MovieModel(8, "Carlos", "IMAGE 9"));
         movieModels.add(new MovieModel(9, "Ana", "IMAGE 10"));
         return movieModels;
     }
