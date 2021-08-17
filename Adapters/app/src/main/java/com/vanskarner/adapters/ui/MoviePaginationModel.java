@@ -8,15 +8,16 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 
-public class MoviePaginationInteractor {
+public class MoviePaginationModel {
 
-    public Single<List<MovieModel>> dataFromNetwork(final int page) {
+    public Single<List<MovieModel>> sampleData(final int page) {
         return Single.just(true)
-                .delay(2, TimeUnit.SECONDS)
+                .delay(4, TimeUnit.SECONDS)
                 .map(value -> {
                     List<MovieModel> items = new ArrayList<>();
                     for (int i = 1; i <= 10; i++) {
-                        items.add(new MovieModel(i, "Item " + (page * 10 + i), "IMG"));
+                        int id = (page * 10 + i);
+                        items.add(new MovieModel(id, "Item " + id, "IMG"));
                     }
                     return items;
                 });

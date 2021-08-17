@@ -1,7 +1,6 @@
 package com.vanskarner.adapters.ui;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.vanskarner.adapters.MovieModel;
 
@@ -15,19 +14,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MoviePaginationPresenter implements MoviePaginationContract.presenter {
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private MoviePaginationContract.view view;
-    private MoviePaginationInteractor moviePaginationInteractor;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final MoviePaginationContract.view view;
+    private final MoviePaginationModel moviePaginationModel;
 
-    public MoviePaginationPresenter(MoviePaginationContract.view view, MoviePaginationInteractor moviePaginationInteractor) {
+    public MoviePaginationPresenter(MoviePaginationContract.view view) {
         this.view = view;
-        this.moviePaginationInteractor = moviePaginationInteractor;
+        this.moviePaginationModel = new MoviePaginationModel();
     }
 
     @Override
-    public void loadMore(int pageNumber) {
-        view.showProgress();
-        moviePaginationInteractor.dataFromNetwork(pageNumber)
+    public void loadMore(int pageNumber, boolean isInitialData) {
+        if (!isInitialData) {
+            view.showProgress();
+        }
+        moviePaginationModel.sampleData(pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<MovieModel>>() {
@@ -49,6 +50,7 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
                     }
                 });
     }
+
 
     @Override
     public void onDestroy() {

@@ -15,7 +15,9 @@ public interface MoviePaginationContract {
     }
 
     interface presenter {
-        void loadMore(int pageNumber);
+
+        void loadMore(int pageNumber,boolean isInitialData);
+
         void onDestroy();
     }
 

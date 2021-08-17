@@ -1,6 +1,5 @@
 package com.vanskarner.adapters.ui;
 
-import android.os.Handler;
 import android.widget.Filter;
 import android.widget.Toast;
 
@@ -16,12 +15,14 @@ import com.vanskarner.adapters.ui.bases.SearchPaginationActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviePaginationActivity extends SearchPaginationActivity {
+public class MoviePaginationActivity extends SearchPaginationActivity
+        implements MoviePaginationContract.view {
 
     RecyclerView recyclerView;
     SearchView searchView;
     MoviesNew moviesAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
+    MoviePaginationContract.presenter presenter;
 
     @Override
     protected int setLayout() {
@@ -34,14 +35,18 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
         searchView = findViewById(R.id.searchView);
         moviesAdapter = new MoviesNew(movieModels);
         recyclerView.setAdapter(moviesAdapter);
-        moviesAdapter.addList(initialDate());
         moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
+
         searchView.setOnSearchClickListener(view -> moviesAdapter.hideProgress());
+
+        presenter = new MoviePaginationPresenter(this);
+        presenter.loadMore(super.pageNumber, true);
+
     }
 
     @Override
@@ -57,19 +62,7 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
 
     @Override
     protected void loadMore() {
-        moviesAdapter.showProgress();
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            moviesAdapter.hideProgress();
-            super.isLoading = false;
-            if (searchView.isIconified()) {
-                //unused searchview
-                moviesAdapter.addList(sequentialData());
-            } else {
-                //searchview in use
-                super.pageNumber--;
-            }
-        }, 5000);
+        presenter.loadMore(super.pageNumber, false);
     }
 
     @Override
@@ -82,29 +75,32 @@ public class MoviePaginationActivity extends SearchPaginationActivity {
         return moviesAdapter.getFilter();
     }
 
-    //Generate data
-
-    private List<MovieModel> initialDate() {
-        List<MovieModel> movieModels = new ArrayList<>();
-        movieModels.add(new MovieModel(0, "Pedro", "IMAGE 1"));
-        movieModels.add(new MovieModel(1, "Juan", "IMAGE 2"));
-        movieModels.add(new MovieModel(2, "Diego", "IMAGE 3"));
-        movieModels.add(new MovieModel(3, "Ramirez", "IMAGE 4"));
-        movieModels.add(new MovieModel(4, "Pablo", "IMAGE 5"));
-        movieModels.add(new MovieModel(5, "Luis", "IMAGE 6"));
-        movieModels.add(new MovieModel(6, "Daniel", "IMAGE 7"));
-        movieModels.add(new MovieModel(7, "Fabian", "IMAGE 8"));
-        movieModels.add(new MovieModel(8, "Carlos", "IMAGE 9"));
-        movieModels.add(new MovieModel(9, "Ana", "IMAGE 10"));
-        return movieModels;
+    @Override
+    public void showProgress() {
+        moviesAdapter.showProgress();
     }
 
-    private List<MovieModel> sequentialData() {
-        List<MovieModel> movieModels = new ArrayList<>();
-        for (int i = this.movieModels.size(); i < this.movieModels.size() + 10; i++) {
-            movieModels.add(new MovieModel(i, "Movie " + i, "IMG" + i));
+    @Override
+    public void hideProgress() {
+        moviesAdapter.hideProgress();
+    }
+
+    @Override
+    public void addList(List<MovieModel> list) {
+        super.isLoading = false;
+        if (searchView.isIconified()) {
+            //unused SearchView
+            moviesAdapter.addList(list);
+        } else {
+            //SearchView in use
+            super.pageNumber--;
         }
-        return movieModels;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
 }
