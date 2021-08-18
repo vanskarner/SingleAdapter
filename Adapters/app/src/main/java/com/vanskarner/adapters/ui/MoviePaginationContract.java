@@ -11,12 +11,14 @@ public interface MoviePaginationContract {
 
         void hideProgress();
 
+        void showNecessaryViews();
+
         void addList(List<MovieModel> list);
     }
 
     interface presenter {
 
-        void loadMore(int pageNumber,boolean isInitialData);
+        void loadMore(int pageNumber);
 
         void onDestroy();
     }

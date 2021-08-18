@@ -1,7 +1,5 @@
 package com.vanskarner.adapters.ui;
 
-import android.util.Log;
-
 import com.vanskarner.adapters.MovieModel;
 
 import java.util.List;
@@ -24,8 +22,8 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
     }
 
     @Override
-    public void loadMore(int pageNumber, boolean isInitialData) {
-        if (!isInitialData) {
+    public void loadMore(int pageNumber) {
+        if (pageNumber > 1) {
             view.showProgress();
         }
         moviePaginationModel.sampleData(pageNumber)
@@ -34,11 +32,15 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
                 .subscribe(new SingleObserver<List<MovieModel>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
+                        compositeDisposable.clear();
                         compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onSuccess(@NonNull List<MovieModel> movieModels) {
+                        if (pageNumber == 1) {
+                            view.showNecessaryViews();
+                        }
                         view.hideProgress();
                         view.addList(movieModels);
                     }
@@ -46,14 +48,13 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
                     @Override
                     public void onError(@NonNull Throwable e) {
                         view.hideProgress();
-                        Log.d("Throwable->", e.getMessage());
                     }
                 });
     }
-
 
     @Override
     public void onDestroy() {
         compositeDisposable.clear();
     }
+
 }

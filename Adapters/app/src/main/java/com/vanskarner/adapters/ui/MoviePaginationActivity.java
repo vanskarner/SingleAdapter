@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.ui;
 
+import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
@@ -41,12 +42,11 @@ public class MoviePaginationActivity extends SearchPaginationActivity
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
-
         searchView.setOnSearchClickListener(view -> moviesAdapter.hideProgress());
 
+        //presenter initialization
         presenter = new MoviePaginationPresenter(this);
-        presenter.loadMore(super.pageNumber, true);
-
+        presenter.loadMore(super.pageNumber);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MoviePaginationActivity extends SearchPaginationActivity
 
     @Override
     protected void loadMore() {
-        presenter.loadMore(super.pageNumber, false);
+        presenter.loadMore(super.pageNumber);
     }
 
     @Override
@@ -86,10 +86,17 @@ public class MoviePaginationActivity extends SearchPaginationActivity
     }
 
     @Override
+    public void showNecessaryViews() {
+        recyclerView.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+    }
+
+    @Override
     public void addList(List<MovieModel> list) {
         super.isLoading = false;
         if (searchView.isIconified()) {
-            //unused SearchView
+            // the data is only adapted when the SearchView is not in use
             moviesAdapter.addList(list);
         } else {
             //SearchView in use
@@ -102,5 +109,4 @@ public class MoviePaginationActivity extends SearchPaginationActivity
         super.onDestroy();
         presenter.onDestroy();
     }
-
 }
