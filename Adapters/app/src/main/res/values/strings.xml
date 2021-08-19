@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Adapters</string>
     <string name="search">Search</string>
+
+    <string name="exception_no_items">End of results</string>
 </resources>
