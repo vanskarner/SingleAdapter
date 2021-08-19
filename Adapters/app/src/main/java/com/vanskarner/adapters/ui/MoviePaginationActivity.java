@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.adapters.MoviesNew;
@@ -102,6 +103,16 @@ public class MoviePaginationActivity extends SearchPaginationActivity
             //SearchView in use
             super.pageNumber--;
         }
+    }
+
+    @Override
+    public void showNoPages() {
+        Snackbar
+                .make(findViewById(R.id.contentPagination),
+                        getString(R.string.exception_no_items),
+                        Snackbar.LENGTH_SHORT)
+                .setAction("Action", null)
+                .show();
     }
 
     @Override

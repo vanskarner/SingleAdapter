@@ -14,6 +14,8 @@ public interface MoviePaginationContract {
         void showNecessaryViews();
 
         void addList(List<MovieModel> list);
+
+        void showNoPages();
     }
 
     interface presenter {

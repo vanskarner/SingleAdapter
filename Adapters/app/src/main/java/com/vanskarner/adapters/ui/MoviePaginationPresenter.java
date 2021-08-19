@@ -48,6 +48,9 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
                     @Override
                     public void onError(@NonNull Throwable e) {
                         view.hideProgress();
+                        if (e instanceof NoPages){
+                            view.showNoPages();
+                        }
                     }
                 });
     }
