@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui.adapters;
+package com.vanskarner.adapters.ui.search_pagination_custom.adapters;
 
 
 import android.view.View;
@@ -9,16 +9,20 @@ import androidx.annotation.NonNull;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
+import com.vanskarner.adapters.common.adapters.BasicFilterAdapter;
 
 import java.util.List;
 
-public class MoviesNew
-        extends BasicEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder> {
+public class MoviesFilter
+        extends BasicFilterAdapter<MovieModel, MoviesFilter.ItemClickViewHolder> {
 
-
-    public MoviesNew(List<MovieModel> list) {
+    public MoviesFilter(List<MovieModel> list) {
         super(list);
+    }
+
+    @Override
+    public boolean filterCondition(MovieModel item, String filterPatter) {
+        return item.getName().toLowerCase().equals(filterPatter);
     }
 
     @Override
@@ -27,18 +31,8 @@ public class MoviesNew
     }
 
     @Override
-    protected int setLoadLayout() {
-        return R.layout.item_loading;
-    }
-
-    @Override
     protected ItemClickViewHolder createViewHolder(View view) {
-        return new ItemClickViewHolder(view, onItemClickListener);
-    }
-
-    @Override
-    public boolean filterCondition(MovieModel item, String filterPattern) {
-        return item.getName().toLowerCase().contains(filterPattern);
+        return new ItemClickViewHolder(view, super.onItemClickListener);
     }
 
     @Override
@@ -58,7 +52,6 @@ public class MoviesNew
         protected void setupView(View itemView) {
             itemTitle = itemView.findViewById(R.id.tvItem);
         }
-
     }
 
 }

@@ -1,6 +1,7 @@
-package com.vanskarner.adapters.ui;
+package com.vanskarner.adapters.ui.simple_pagination;
 
 import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.ui.NoPages;
 
 import java.util.List;
 
@@ -11,14 +12,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MoviePaginationPresenter implements MoviePaginationContract.presenter {
+public class PaginationSimplePresenter implements PaginationSimpleContract.presenter{
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final MoviePaginationContract.view view;
-    private final MoviePaginationModel moviePaginationModel;
+    private final PaginationSimpleContract.view view;
+    private final PaginationSimpleModel moviePaginationModel;
 
-    public MoviePaginationPresenter(MoviePaginationContract.view view) {
+    public PaginationSimplePresenter(PaginationSimpleContract.view view) {
         this.view = view;
-        this.moviePaginationModel = new MoviePaginationModel();
+        this.moviePaginationModel = new PaginationSimpleModel();
     }
 
     @Override
@@ -59,5 +60,4 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
     public void onDestroy() {
         compositeDisposable.clear();
     }
-
 }

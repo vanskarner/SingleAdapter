@@ -1,6 +1,7 @@
-package com.vanskarner.adapters.ui;
+package com.vanskarner.adapters.ui.simple_pagination;
 
 import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.ui.NoPages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 
-public class MoviePaginationModel {
-
+public class PaginationSimpleModel {
     private static final int TOTAL_PAGES = 4;
 
     public Single<List<MovieModel>> sampleData(final int page) {
@@ -27,5 +27,4 @@ public class MoviePaginationModel {
                     return items;
                 });
     }
-
 }

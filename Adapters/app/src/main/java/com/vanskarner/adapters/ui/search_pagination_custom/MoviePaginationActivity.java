@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui;
+package com.vanskarner.adapters.ui.search_pagination_custom;
 
 import android.view.View;
 import android.widget.Filter;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.ui.adapters.MoviesNew;
+import com.vanskarner.adapters.ui.search_pagination_custom.adapters.MoviesNew;
 import com.vanskarner.adapters.common.bases.SearchPaginationActivity;
 
 import java.util.ArrayList;
