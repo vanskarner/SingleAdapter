@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaginationSimpleActivity extends PaginationActivity
-implements PaginationSimpleContract.view{
+        implements PaginationSimpleContract.view {
 
     RecyclerView recyclerView;
     MovieSimpleAdapter movieSimpleAdapter;
-    List<MovieModel> movieModels=new ArrayList<>();
+    List<MovieModel> movieModels = new ArrayList<>();
     PaginationSimpleContract.presenter presenter;
 
     @Override
@@ -47,7 +47,7 @@ implements PaginationSimpleContract.view{
     @Override
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
-        movieSimpleAdapter=new MovieSimpleAdapter(movieModels);
+        movieSimpleAdapter = new MovieSimpleAdapter(movieModels);
         recyclerView.setAdapter(movieSimpleAdapter);
         movieSimpleAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -55,7 +55,7 @@ implements PaginationSimpleContract.view{
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         //presenter initialization
-        presenter=new PaginationSimplePresenter(this);
+        presenter = new PaginationSimplePresenter(this);
         presenter.loadMore(super.pageNumber);
     }
 
@@ -78,6 +78,7 @@ implements PaginationSimpleContract.view{
     @Override
     public void addList(List<MovieModel> list) {
         super.isLoading = false;
+        super.pageNumber++;
         movieSimpleAdapter.addList(list);
     }
 

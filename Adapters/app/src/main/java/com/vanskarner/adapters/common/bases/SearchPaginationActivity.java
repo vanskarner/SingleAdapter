@@ -26,7 +26,6 @@ public abstract class SearchPaginationActivity extends PaginationActivity {
                 RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
                 if (!isLoading && setSearchView().isIconified() && manager != null &&
                         setLastVisibleItemPosition(manager) == manager.getItemCount() - 1) {
-                    pageNumber++;
                     loadMore();
                     isLoading = true;
                 }

@@ -32,7 +32,6 @@ public abstract class PaginationActivity extends BaseActivity {
                 RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
                 if (!isLoading && manager != null &&
                         setLastVisibleItemPosition(manager) == manager.getItemCount() - 1) {
-                    pageNumber++;
                     loadMore();
                     isLoading = true;
                 }

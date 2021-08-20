@@ -98,10 +98,8 @@ public class MoviePaginationActivity extends SearchPaginationActivity
         super.isLoading = false;
         if (searchView.isIconified()) {
             // the data is only adapted when the SearchView is not in use
+            super.pageNumber++;
             moviesAdapter.addList(list);
-        } else {
-            //SearchView in use
-            super.pageNumber--;
         }
     }
 
@@ -111,7 +109,6 @@ public class MoviePaginationActivity extends SearchPaginationActivity
                 .make(findViewById(R.id.contentPagination),
                         getString(R.string.exception_no_items),
                         Snackbar.LENGTH_SHORT)
-                .setAction("Action", null)
                 .show();
     }
 

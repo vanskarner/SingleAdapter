@@ -12,15 +12,15 @@
         tools:ignore="AllowBackup">
 
         <activity android:name="com.vanskarner.adapters.ui.search_pagination_custom.MoviePaginationActivity">
-
-        </activity>
-
-        <activity android:name="com.vanskarner.adapters.ui.simple_pagination.PaginationSimpleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="com.vanskarner.adapters.ui.simple_pagination.PaginationSimpleActivity">
+
         </activity>
     </application>
 
