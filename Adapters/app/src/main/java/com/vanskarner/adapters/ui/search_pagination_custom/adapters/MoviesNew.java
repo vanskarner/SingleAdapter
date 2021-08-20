@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
+import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
 
 import java.util.List;
 
 public class MoviesNew
-        extends BasicEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder> {
+        extends CustomEndlessAdapter<MovieModel, MoviesNew.ItemClickViewHolder> {
 
 
     public MoviesNew(List<MovieModel> list) {

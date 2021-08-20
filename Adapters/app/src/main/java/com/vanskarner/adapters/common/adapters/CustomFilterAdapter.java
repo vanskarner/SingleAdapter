@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BasicFilterAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+public abstract class CustomFilterAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
         extends BasicClickAdapter<T, ItemViewHolder>
         implements Filterable, BasicFilter.Filtered<T> {
 
     protected List<T> originalList;
     protected Filter filter;
 
-    public BasicFilterAdapter(List<T> list) {
+    public CustomFilterAdapter(List<T> list) {
         super(list);
         this.originalList = new ArrayList<>(list);
     }

@@ -6,14 +6,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.BasicClickAdapter;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
+import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
 import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 
 public class MovieSimpleAdapter
-        extends BasicClickAdapter<MovieModel, MovieSimpleAdapter.ItemClickViewHolder> {
+        extends BasicEndlessAdapter<MovieModel, MovieSimpleAdapter.ItemClickViewHolder> {
+
 
     public MovieSimpleAdapter(List<MovieModel> list) {
         super(list);
@@ -22,6 +23,11 @@ public class MovieSimpleAdapter
     @Override
     protected int setItemLayout() {
         return R.layout.item_movie;
+    }
+
+    @Override
+    protected int setLoadLayout() {
+        return R.layout.item_loading;
     }
 
     @Override

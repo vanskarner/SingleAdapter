@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PaginationSimplePresenter implements PaginationSimpleContract.presenter{
+public class PaginationSimplePresenter implements PaginationSimpleContract.presenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final PaginationSimpleContract.view view;
     private final PaginationSimpleModel moviePaginationModel;
@@ -39,17 +39,17 @@ public class PaginationSimplePresenter implements PaginationSimpleContract.prese
 
                     @Override
                     public void onSuccess(@NonNull List<MovieModel> movieModels) {
+                        view.hideProgress();
                         if (pageNumber == 1) {
                             view.showNecessaryViews();
                         }
-                        view.hideProgress();
                         view.addList(movieModels);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         view.hideProgress();
-                        if (e instanceof NoPages){
+                        if (e instanceof NoPages) {
                             view.showNoPages();
                         }
                     }

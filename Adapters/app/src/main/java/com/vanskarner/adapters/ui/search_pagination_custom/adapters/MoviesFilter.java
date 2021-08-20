@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.BasicFilterAdapter;
+import com.vanskarner.adapters.common.adapters.CustomFilterAdapter;
 
 import java.util.List;
 
 public class MoviesFilter
-        extends BasicFilterAdapter<MovieModel, MoviesFilter.ItemClickViewHolder> {
+        extends CustomFilterAdapter<MovieModel, MoviesFilter.ItemClickViewHolder> {
 
     public MoviesFilter(List<MovieModel> list) {
         super(list);

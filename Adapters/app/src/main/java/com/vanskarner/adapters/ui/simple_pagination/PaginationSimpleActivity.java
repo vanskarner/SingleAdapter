@@ -1,10 +1,12 @@
 package com.vanskarner.adapters.ui.simple_pagination;
 
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.PaginationActivity;
 import com.vanskarner.adapters.models.MovieModel;
@@ -19,6 +21,7 @@ implements PaginationSimpleContract.view{
     RecyclerView recyclerView;
     MovieSimpleAdapter movieSimpleAdapter;
     List<MovieModel> movieModels=new ArrayList<>();
+    PaginationSimpleContract.presenter presenter;
 
     @Override
     protected RecyclerView setRecyclerView() {
@@ -33,7 +36,7 @@ implements PaginationSimpleContract.view{
 
     @Override
     protected void loadMore() {
-
+        presenter.loadMore(super.pageNumber);
     }
 
     @Override
@@ -51,30 +54,39 @@ implements PaginationSimpleContract.view{
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
+        //presenter initialization
+        presenter=new PaginationSimplePresenter(this);
+        presenter.loadMore(super.pageNumber);
     }
 
     @Override
     public void showProgress() {
-
+        movieSimpleAdapter.showProgress();
     }
 
     @Override
     public void hideProgress() {
-
+        movieSimpleAdapter.hideProgress();
     }
 
     @Override
     public void showNecessaryViews() {
-
+        recyclerView.setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
     }
 
     @Override
     public void addList(List<MovieModel> list) {
-
+        super.isLoading = false;
+        movieSimpleAdapter.addList(list);
     }
 
     @Override
     public void showNoPages() {
-
+        Snackbar
+                .make(findViewById(R.id.contentPagination),
+                        getString(R.string.exception_no_items),
+                        Snackbar.LENGTH_SHORT)
+                .show();
     }
 }
