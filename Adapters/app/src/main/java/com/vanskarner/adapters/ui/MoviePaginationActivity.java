@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.vanskarner.adapters.MovieModel;
+import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.adapters.MoviesNew;
-import com.vanskarner.adapters.ui.bases.SearchPaginationActivity;
+import com.vanskarner.adapters.ui.adapters.MoviesNew;
+import com.vanskarner.adapters.common.bases.SearchPaginationActivity;
 
 import java.util.ArrayList;
 import java.util.List;

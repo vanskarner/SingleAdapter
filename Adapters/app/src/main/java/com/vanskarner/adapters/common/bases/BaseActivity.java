@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui.bases;
+package com.vanskarner.adapters.common.bases;
 
 import android.os.Bundle;
 

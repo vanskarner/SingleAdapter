@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.common;
+package com.vanskarner.adapters.common.adapters;
 
 import android.view.View;
 

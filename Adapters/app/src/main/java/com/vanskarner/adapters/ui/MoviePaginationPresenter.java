@@ -1,6 +1,6 @@
 package com.vanskarner.adapters.ui;
 
-import com.vanskarner.adapters.MovieModel;
+import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 

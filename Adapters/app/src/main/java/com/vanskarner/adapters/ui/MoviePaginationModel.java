@@ -1,6 +1,6 @@
 package com.vanskarner.adapters.ui;
 
-import com.vanskarner.adapters.MovieModel;
+import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class MoviePaginationModel {
                         throw new NoPages();
                     }
                     List<MovieModel> items = new ArrayList<>();
-                    for (int i = 1; i <= 10; i++) {
+                    for (int i = 0; i < 10; i++) {
                         int id = (page * 10 + i);
-                        items.add(new MovieModel(id, "Item " + id, "IMG"));
+                        items.add(new MovieModel(id, "Movie " + id));
                     }
                     return items;
                 });
