@@ -1,6 +1,7 @@
 package com.vanskarner.adapters.ui.simple_search;
 
 import android.widget.Filter;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
 
     SearchView searchView;
     RecyclerView recyclerView;
-    MovieAdapter movieAdapter;
+    SimpleSearchAdapter simpleSearchAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
     SimpleSearchContract.presenter presenter;
 
@@ -29,8 +30,13 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchViewMovies);
-        movieAdapter = new MovieAdapter(movieModels);
-        recyclerView.setAdapter(movieAdapter);
+        simpleSearchAdapter = new SimpleSearchAdapter(movieModels);
+        recyclerView.setAdapter(simpleSearchAdapter);
+        simpleSearchAdapter.setOnItemClickListener(view -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
+            Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -39,7 +45,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Filter filter = movieAdapter.getFilter();
+                Filter filter = simpleSearchAdapter.getFilter();
                 filter.filter(s);
                 return false;
             }
@@ -49,9 +55,11 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
         presenter.loadList();
     }
 
+    //Contract Methods
+
     @Override
     public void loadList(List<MovieModel> list) {
-        movieAdapter.addList(list);
+        simpleSearchAdapter.addList(list);
     }
 
 }

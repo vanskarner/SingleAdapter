@@ -8,14 +8,15 @@ import com.vanskarner.adapters.R;
 import androidx.annotation.NonNull;
 
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.CustomFilterAdapter;
+import com.vanskarner.adapters.common.adapters.BasicFilterAdapter;
 import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 
-class MovieAdapter extends CustomFilterAdapter<MovieModel, MovieAdapter.ItemViewHolder> {
+class SimpleSearchAdapter extends
+        BasicFilterAdapter<MovieModel, SimpleSearchAdapter.ItemViewHolder> {
 
-    public MovieAdapter(List<MovieModel> list) {
+    public SimpleSearchAdapter(List<MovieModel> list) {
         super(list);
     }
 

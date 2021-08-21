@@ -39,10 +39,10 @@ class SearchPaginationPresenter implements SearchPaginationContract.presenter {
 
                     @Override
                     public void onSuccess(@NonNull List<MovieModel> movieModels) {
-                        if (pageNumber == 1) {
-                            view.showNecessaryViews();
-                        }
                         view.hideProgress();
+                        if (pageNumber == 1) {
+                            view.initializeView();
+                        }
                         view.addList(movieModels);
                     }
 

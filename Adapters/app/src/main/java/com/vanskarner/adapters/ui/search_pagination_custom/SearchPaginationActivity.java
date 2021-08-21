@@ -4,23 +4,25 @@ import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.vanskarner.adapters.common.bases.PaginationActivity;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchPaginationActivity extends com.vanskarner.adapters.common.bases.SearchPaginationActivity
+public class SearchPaginationActivity extends PaginationActivity
         implements SearchPaginationContract.view {
 
     RecyclerView recyclerView;
     SearchView searchView;
-    MoviesAdapter moviesAdapter;
+    SearchPaginationAdapter searchPaginationAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
     SearchPaginationContract.presenter presenter;
 
@@ -33,15 +35,28 @@ public class SearchPaginationActivity extends com.vanskarner.adapters.common.bas
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-        moviesAdapter = new MoviesAdapter(movieModels);
-        recyclerView.setAdapter(moviesAdapter);
-        moviesAdapter.setOnItemClickListener(view -> {
+        searchPaginationAdapter = new SearchPaginationAdapter(movieModels);
+        recyclerView.setAdapter(searchPaginationAdapter);
+        searchPaginationAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
-        searchView.setOnSearchClickListener(view -> moviesAdapter.hideProgress());
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Filter filter = searchPaginationAdapter.getFilter();
+                filter.filter(newText);
+                return false;
+            }
+        });
+        searchView.setOnSearchClickListener(view -> searchPaginationAdapter.hideProgress());
 
         //presenter initialization
         presenter = new SearchPaginationPresenter(this);
@@ -65,27 +80,41 @@ public class SearchPaginationActivity extends com.vanskarner.adapters.common.bas
     }
 
     @Override
-    protected SearchView setSearchView() {
-        return searchView;
+    protected RecyclerView.OnScrollListener recyclerOnScrollListener() {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+                if (!isLoading && searchView.isIconified() && manager != null &&
+                        setLastVisibleItemPosition(manager) == manager.getItemCount() - 1) {
+                    loadMore();
+                    isLoading = true;
+                }
+            }
+        };
     }
 
     @Override
-    protected Filter setFilter() {
-        return moviesAdapter.getFilter();
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
+
+    //Contract Methods
 
     @Override
     public void showProgress() {
-        moviesAdapter.showProgress();
+        searchPaginationAdapter.showProgress();
     }
 
     @Override
     public void hideProgress() {
-        moviesAdapter.hideProgress();
+        searchPaginationAdapter.hideProgress();
     }
 
     @Override
-    public void showNecessaryViews() {
+    public void initializeView() {
         recyclerView.setVisibility(View.VISIBLE);
         searchView.setVisibility(View.VISIBLE);
         findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
@@ -97,7 +126,7 @@ public class SearchPaginationActivity extends com.vanskarner.adapters.common.bas
         if (searchView.isIconified()) {
             // the data is only adapted when the SearchView is not in use
             super.pageNumber++;
-            moviesAdapter.addList(list);
+            searchPaginationAdapter.addList(list);
         }
     }
 
@@ -110,9 +139,4 @@ public class SearchPaginationActivity extends com.vanskarner.adapters.common.bas
                 .show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
 }

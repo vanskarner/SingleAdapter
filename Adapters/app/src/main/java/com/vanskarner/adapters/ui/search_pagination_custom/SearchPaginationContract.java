@@ -11,7 +11,7 @@ interface SearchPaginationContract {
 
         void hideProgress();
 
-        void showNecessaryViews();
+        void initializeView();
 
         void addList(List<MovieModel> list);
 

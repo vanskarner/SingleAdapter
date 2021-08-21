@@ -12,10 +12,10 @@ import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
 
 import java.util.List;
 
-class MoviesAdapter
-        extends CustomEndlessAdapter<MovieModel, MoviesAdapter.ItemClickViewHolder> {
+class SearchPaginationAdapter
+        extends CustomEndlessAdapter<MovieModel, SearchPaginationAdapter.ItemClickViewHolder> {
 
-    public MoviesAdapter(List<MovieModel> list) {
+    public SearchPaginationAdapter(List<MovieModel> list) {
         super(list);
     }
 

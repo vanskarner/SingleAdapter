@@ -18,9 +18,29 @@ public class SimplePaginationActivity extends PaginationActivity
         implements SimplePaginationContract.view {
 
     RecyclerView recyclerView;
-    MoviesAdapter moviesAdapter;
+    SimplePaginationAdapter simplePaginationAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
     SimplePaginationContract.presenter presenter;
+
+    @Override
+    protected int setLayout() {
+        return R.layout.simple_pagination_activity;
+    }
+
+    @Override
+    protected void setupView() {
+        recyclerView = findViewById(R.id.recyclerMovies);
+        simplePaginationAdapter = new SimplePaginationAdapter(movieModels);
+        recyclerView.setAdapter(simplePaginationAdapter);
+        simplePaginationAdapter.setOnItemClickListener(view -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
+            Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
+        });
+        //presenter initialization
+        presenter = new SimplePaginationPresenter(this);
+        presenter.loadMore(super.pageNumber);
+    }
 
     @Override
     protected RecyclerView setRecyclerView() {
@@ -39,33 +59,21 @@ public class SimplePaginationActivity extends PaginationActivity
     }
 
     @Override
-    protected int setLayout() {
-        return R.layout.simple_pagination_activity;
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
-    @Override
-    protected void setupView() {
-        recyclerView = findViewById(R.id.recyclerMovies);
-        moviesAdapter = new MoviesAdapter(movieModels);
-        recyclerView.setAdapter(moviesAdapter);
-        moviesAdapter.setOnItemClickListener(view -> {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
-            Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
-        });
-        //presenter initialization
-        presenter = new SimplePaginationPresenter(this);
-        presenter.loadMore(super.pageNumber);
-    }
+    //Contract Methods
 
     @Override
     public void showProgress() {
-        moviesAdapter.showProgress();
+        simplePaginationAdapter.showProgress();
     }
 
     @Override
     public void hideProgress() {
-        moviesAdapter.hideProgress();
+        simplePaginationAdapter.hideProgress();
     }
 
     @Override
@@ -78,7 +86,7 @@ public class SimplePaginationActivity extends PaginationActivity
     public void addList(List<MovieModel> list) {
         super.isLoading = false;
         super.pageNumber++;
-        moviesAdapter.addList(list);
+        simplePaginationAdapter.addList(list);
     }
 
     @Override

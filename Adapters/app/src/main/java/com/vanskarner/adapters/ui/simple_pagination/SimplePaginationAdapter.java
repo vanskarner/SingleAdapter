@@ -12,11 +12,11 @@ import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 
-class MoviesAdapter
-        extends BasicEndlessAdapter<MovieModel, MoviesAdapter.ItemClickViewHolder> {
+class SimplePaginationAdapter
+        extends BasicEndlessAdapter<MovieModel, SimplePaginationAdapter.ItemClickViewHolder> {
 
 
-    public MoviesAdapter(List<MovieModel> list) {
+    public SimplePaginationAdapter(List<MovieModel> list) {
         super(list);
     }
 
