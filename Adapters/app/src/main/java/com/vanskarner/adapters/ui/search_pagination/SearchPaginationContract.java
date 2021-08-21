@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui.search_pagination_custom;
+package com.vanskarner.adapters.ui.search_pagination;
 
 import com.vanskarner.adapters.models.MovieModel;
 

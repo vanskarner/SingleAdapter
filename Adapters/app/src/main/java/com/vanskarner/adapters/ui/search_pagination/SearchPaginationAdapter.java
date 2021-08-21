@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.ui.search_pagination_custom;
+package com.vanskarner.adapters.ui.search_pagination;
 
 import android.view.View;
 import android.widget.TextView;

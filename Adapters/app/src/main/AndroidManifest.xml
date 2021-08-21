@@ -19,11 +19,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.vanskarner.adapters.ui.search_pagination_custom.SearchPaginationActivity" />
+        <activity
+            android:name="com.vanskarner.adapters.ui.search_pagination.SearchPaginationActivity"
+            android:theme="@style/Theme.Adapters.FullScreen" />
 
-        <activity android:name="com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity" />
+        <activity
+            android:name="com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity"
+            android:theme="@style/Theme.Adapters.FullScreen" />
 
-        <activity android:name="com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity" />
+        <activity
+            android:name="com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity"
+            android:theme="@style/Theme.Adapters.FullScreen" />
     </application>
 
 </manifest>
