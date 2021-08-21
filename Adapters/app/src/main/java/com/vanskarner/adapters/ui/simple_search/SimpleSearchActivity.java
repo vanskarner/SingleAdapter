@@ -1,6 +1,5 @@
 package com.vanskarner.adapters.ui.simple_search;
 
-
 import android.widget.Filter;
 
 import androidx.appcompat.widget.SearchView;

@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.bases.SearchPaginationActivity;
+import com.vanskarner.adapters.ui.search_pagination_custom.SearchPaginationActivity;
 import com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity;
 import com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity;
 

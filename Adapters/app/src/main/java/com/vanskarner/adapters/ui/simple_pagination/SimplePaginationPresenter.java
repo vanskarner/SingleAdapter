@@ -41,7 +41,7 @@ class SimplePaginationPresenter implements SimplePaginationContract.presenter {
                     public void onSuccess(@NonNull List<MovieModel> movieModels) {
                         view.hideProgress();
                         if (pageNumber == 1) {
-                            view.showNecessaryViews();
+                            view.initializeView();
                         }
                         view.addList(movieModels);
                     }

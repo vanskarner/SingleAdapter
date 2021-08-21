@@ -69,7 +69,7 @@ public class SimplePaginationActivity extends PaginationActivity
     }
 
     @Override
-    public void showNecessaryViews() {
+    public void initializeView() {
         recyclerView.setVisibility(View.VISIBLE);
         findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
     }

@@ -36,7 +36,7 @@ class MovieAdapter extends CustomFilterAdapter<MovieModel, MovieAdapter.ItemView
 
     @Override
     public boolean filterCondition(MovieModel item, String filterPattern) {
-        return item.getName().toLowerCase().equals(filterPattern);
+        return item.getName().toLowerCase().contains(filterPattern);
     }
 
     public static class ItemViewHolder extends BasicClickViewHolder {
