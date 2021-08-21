@@ -1,33 +1,33 @@
-package com.vanskarner.adapters.ui.search_pagination_custom.adapters;
-
+package com.vanskarner.adapters.ui.simple_pagination;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.CustomFilterAdapter;
+import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
+import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 
-public class MoviesFilter
-        extends CustomFilterAdapter<MovieModel, MoviesFilter.ItemClickViewHolder> {
+class MoviesAdapter
+        extends BasicEndlessAdapter<MovieModel, MoviesAdapter.ItemClickViewHolder> {
 
-    public MoviesFilter(List<MovieModel> list) {
+
+    public MoviesAdapter(List<MovieModel> list) {
         super(list);
-    }
-
-    @Override
-    public boolean filterCondition(MovieModel item, String filterPatter) {
-        return item.getName().toLowerCase().equals(filterPatter);
     }
 
     @Override
     protected int setItemLayout() {
         return R.layout.item_movie;
+    }
+
+    @Override
+    protected int setLoadLayout() {
+        return R.layout.item_loading;
     }
 
     @Override
@@ -37,11 +37,11 @@ public class MoviesFilter
 
     @Override
     protected void bindItem(ItemClickViewHolder holder, MovieModel item, int position) {
-        holder.itemTitle.setText(item.getName());
+        holder.itemName.setText(item.getName());
     }
 
     protected static class ItemClickViewHolder extends BasicClickViewHolder {
-        private TextView itemTitle;
+        private TextView itemName;
 
         protected ItemClickViewHolder(@NonNull View itemView,
                                       View.OnClickListener onItemClickListener) {
@@ -50,7 +50,7 @@ public class MoviesFilter
 
         @Override
         protected void setupView(View itemView) {
-            itemTitle = itemView.findViewById(R.id.tvItem);
+            itemName = itemView.findViewById(R.id.tvItem);
         }
     }
 

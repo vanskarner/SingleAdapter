@@ -12,14 +12,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PaginationSimplePresenter implements PaginationSimpleContract.presenter {
+class SimplePaginationPresenter implements SimplePaginationContract.presenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final PaginationSimpleContract.view view;
-    private final PaginationSimpleModel moviePaginationModel;
+    private final SimplePaginationContract.view view;
+    private final SimplePaginationModel moviePaginationModel;
 
-    public PaginationSimplePresenter(PaginationSimpleContract.view view) {
+    public SimplePaginationPresenter(SimplePaginationContract.view view) {
         this.view = view;
-        this.moviePaginationModel = new PaginationSimpleModel();
+        this.moviePaginationModel = new SimplePaginationModel();
     }
 
     @Override

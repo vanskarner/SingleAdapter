@@ -12,14 +12,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MoviePaginationPresenter implements MoviePaginationContract.presenter {
+class SearchPaginationPresenter implements SearchPaginationContract.presenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final MoviePaginationContract.view view;
-    private final MoviePaginationModel moviePaginationModel;
+    private final SearchPaginationContract.view view;
+    private final SearchPaginationModel searchPaginationModel;
 
-    public MoviePaginationPresenter(MoviePaginationContract.view view) {
+    public SearchPaginationPresenter(SearchPaginationContract.view view) {
         this.view = view;
-        this.moviePaginationModel = new MoviePaginationModel();
+        this.searchPaginationModel = new SearchPaginationModel();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class MoviePaginationPresenter implements MoviePaginationContract.present
         if (pageNumber > 1) {
             view.showProgress();
         }
-        moviePaginationModel.sampleData(pageNumber)
+        searchPaginationModel.sampleData(pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<MovieModel>>() {

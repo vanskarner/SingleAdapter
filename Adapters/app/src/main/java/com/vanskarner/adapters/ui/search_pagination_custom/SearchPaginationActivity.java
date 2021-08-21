@@ -11,31 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.ui.search_pagination_custom.adapters.MoviesNew;
-import com.vanskarner.adapters.common.bases.SearchPaginationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviePaginationActivity extends SearchPaginationActivity
-        implements MoviePaginationContract.view {
+public class SearchPaginationActivity extends com.vanskarner.adapters.common.bases.SearchPaginationActivity
+        implements SearchPaginationContract.view {
 
     RecyclerView recyclerView;
     SearchView searchView;
-    MoviesNew moviesAdapter;
+    MoviesAdapter moviesAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
-    MoviePaginationContract.presenter presenter;
+    SearchPaginationContract.presenter presenter;
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_adapter;
+        return R.layout.search_pagination_activity;
     }
 
     @Override
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-        moviesAdapter = new MoviesNew(movieModels);
+        moviesAdapter = new MoviesAdapter(movieModels);
         recyclerView.setAdapter(moviesAdapter);
         moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -46,7 +44,7 @@ public class MoviePaginationActivity extends SearchPaginationActivity
         searchView.setOnSearchClickListener(view -> moviesAdapter.hideProgress());
 
         //presenter initialization
-        presenter = new MoviePaginationPresenter(this);
+        presenter = new SearchPaginationPresenter(this);
         presenter.loadMore(super.pageNumber);
     }
 

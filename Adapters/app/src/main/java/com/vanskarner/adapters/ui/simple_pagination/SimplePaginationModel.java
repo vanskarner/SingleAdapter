@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 
-public class PaginationSimpleModel {
+class SimplePaginationModel {
     private static final int TOTAL_PAGES = 4;
 
     public Single<List<MovieModel>> sampleData(final int page) {

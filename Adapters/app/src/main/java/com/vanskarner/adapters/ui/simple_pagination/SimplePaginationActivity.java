@@ -10,18 +10,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.PaginationActivity;
 import com.vanskarner.adapters.models.MovieModel;
-import com.vanskarner.adapters.ui.simple_pagination.adapters.MovieSimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginationSimpleActivity extends PaginationActivity
-        implements PaginationSimpleContract.view {
+public class SimplePaginationActivity extends PaginationActivity
+        implements SimplePaginationContract.view {
 
     RecyclerView recyclerView;
-    MovieSimpleAdapter movieSimpleAdapter;
+    MoviesAdapter moviesAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
-    PaginationSimpleContract.presenter presenter;
+    SimplePaginationContract.presenter presenter;
 
     @Override
     protected RecyclerView setRecyclerView() {
@@ -47,26 +46,26 @@ public class PaginationSimpleActivity extends PaginationActivity
     @Override
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
-        movieSimpleAdapter = new MovieSimpleAdapter(movieModels);
-        recyclerView.setAdapter(movieSimpleAdapter);
-        movieSimpleAdapter.setOnItemClickListener(view -> {
+        moviesAdapter = new MoviesAdapter(movieModels);
+        recyclerView.setAdapter(moviesAdapter);
+        moviesAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         //presenter initialization
-        presenter = new PaginationSimplePresenter(this);
+        presenter = new SimplePaginationPresenter(this);
         presenter.loadMore(super.pageNumber);
     }
 
     @Override
     public void showProgress() {
-        movieSimpleAdapter.showProgress();
+        moviesAdapter.showProgress();
     }
 
     @Override
     public void hideProgress() {
-        movieSimpleAdapter.hideProgress();
+        moviesAdapter.hideProgress();
     }
 
     @Override
@@ -79,7 +78,7 @@ public class PaginationSimpleActivity extends PaginationActivity
     public void addList(List<MovieModel> list) {
         super.isLoading = false;
         super.pageNumber++;
-        movieSimpleAdapter.addList(list);
+        moviesAdapter.addList(list);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 
-public class MoviePaginationModel {
+class SearchPaginationModel {
 
     private static final int TOTAL_PAGES = 4;
 

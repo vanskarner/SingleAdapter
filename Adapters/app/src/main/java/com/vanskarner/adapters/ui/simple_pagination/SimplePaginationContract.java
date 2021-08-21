@@ -4,7 +4,7 @@ import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.List;
 
-public interface PaginationSimpleContract {
+interface SimplePaginationContract {
     interface view {
         void showProgress();
 

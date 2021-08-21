@@ -1,22 +1,21 @@
-package com.vanskarner.adapters.ui.simple_pagination.adapters;
+package com.vanskarner.adapters.ui.search_pagination_custom;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
-import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
 
 import java.util.List;
 
-public class MovieSimpleAdapter
-        extends BasicEndlessAdapter<MovieModel, MovieSimpleAdapter.ItemClickViewHolder> {
+class MoviesAdapter
+        extends CustomEndlessAdapter<MovieModel, MoviesAdapter.ItemClickViewHolder> {
 
-
-    public MovieSimpleAdapter(List<MovieModel> list) {
+    public MoviesAdapter(List<MovieModel> list) {
         super(list);
     }
 
@@ -32,16 +31,21 @@ public class MovieSimpleAdapter
 
     @Override
     protected ItemClickViewHolder createViewHolder(View view) {
-        return new ItemClickViewHolder(view, super.onItemClickListener);
+        return new ItemClickViewHolder(view, onItemClickListener);
+    }
+
+    @Override
+    public boolean filterCondition(MovieModel item, String filterPattern) {
+        return item.getName().toLowerCase().contains(filterPattern);
     }
 
     @Override
     protected void bindItem(ItemClickViewHolder holder, MovieModel item, int position) {
-        holder.itemName.setText(item.getName());
+        holder.itemTitle.setText(item.getName());
     }
 
     protected static class ItemClickViewHolder extends BasicClickViewHolder {
-        private TextView itemName;
+        private TextView itemTitle;
 
         protected ItemClickViewHolder(@NonNull View itemView,
                                       View.OnClickListener onItemClickListener) {
@@ -50,8 +54,9 @@ public class MovieSimpleAdapter
 
         @Override
         protected void setupView(View itemView) {
-            itemName = itemView.findViewById(R.id.tvItem);
+            itemTitle = itemView.findViewById(R.id.tvItem);
         }
+
     }
 
 }
