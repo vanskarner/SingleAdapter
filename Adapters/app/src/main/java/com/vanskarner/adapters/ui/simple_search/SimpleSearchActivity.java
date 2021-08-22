@@ -8,10 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
+import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.MovieModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SimpleSearchActivity extends BaseActivity implements SimpleSearchContract.view {
 
@@ -20,6 +27,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     SimpleSearchAdapter simpleSearchAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
     SimpleSearchContract.presenter presenter;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected int setLayout() {
@@ -37,22 +45,26 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
             MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+        Disposable disposable = RxSearchObservable.fromView(searchView)
+                .debounce(350, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Filter filter = simpleSearchAdapter.getFilter();
+                    filter.filter(s);
+                });
+        compositeDisposable.add(disposable);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                Filter filter = simpleSearchAdapter.getFilter();
-                filter.filter(s);
-                return false;
-            }
-        });
         //presenter initialization
         presenter = new SimpleSearchPresenter(this);
         presenter.loadList();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
     }
 
     //Contract Methods

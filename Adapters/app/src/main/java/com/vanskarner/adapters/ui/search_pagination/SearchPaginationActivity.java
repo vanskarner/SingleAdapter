@@ -11,11 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.common.bases.PaginationActivity;
+import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SearchPaginationActivity extends PaginationActivity
         implements SearchPaginationContract.view {
@@ -25,6 +32,7 @@ public class SearchPaginationActivity extends PaginationActivity
     SearchPaginationAdapter searchPaginationAdapter;
     List<MovieModel> movieModels = new ArrayList<>();
     SearchPaginationContract.presenter presenter;
+    CompositeDisposable compositeDisposable=new CompositeDisposable();
 
     @Override
     protected int setLayout() {
@@ -43,20 +51,17 @@ public class SearchPaginationActivity extends PaginationActivity
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Filter filter = searchPaginationAdapter.getFilter();
-                filter.filter(newText);
-                return false;
-            }
-        });
         searchView.setOnSearchClickListener(view -> searchPaginationAdapter.hideProgress());
+        Disposable disposable=RxSearchObservable.fromView(searchView)
+                .debounce(350, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Filter filter=searchPaginationAdapter.getFilter();
+                    filter.filter(s);
+                });
+        compositeDisposable.add(disposable);
 
         //presenter initialization
         presenter = new SearchPaginationPresenter(this);
@@ -98,6 +103,7 @@ public class SearchPaginationActivity extends PaginationActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        compositeDisposable.clear();
         presenter.onDestroy();
     }
 
