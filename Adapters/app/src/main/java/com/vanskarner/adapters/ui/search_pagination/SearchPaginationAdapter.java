@@ -1,13 +1,15 @@
 package com.vanskarner.adapters.ui.search_pagination;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.models.MovieModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.BasicClickViewHolder;
 import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
 
 import java.util.List;
@@ -15,13 +17,14 @@ import java.util.List;
 class SearchPaginationAdapter
         extends CustomEndlessAdapter<MovieModel, SearchPaginationAdapter.ItemClickViewHolder> {
 
+    private View.OnClickListener onItemClickListener;
+
     public SearchPaginationAdapter(List<MovieModel> list) {
         super(list);
     }
 
-    @Override
-    protected int setItemLayout() {
-        return R.layout.item_movie;
+    public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -30,7 +33,8 @@ class SearchPaginationAdapter
     }
 
     @Override
-    protected ItemClickViewHolder createViewHolder(View view) {
+    protected ItemClickViewHolder setViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        View view = inflater.inflate(R.layout.item_movie, parent, false);
         return new ItemClickViewHolder(view, onItemClickListener);
     }
 
@@ -41,20 +45,23 @@ class SearchPaginationAdapter
 
     @Override
     protected void bindItem(ItemClickViewHolder holder, MovieModel item, int position) {
-        holder.itemTitle.setText(item.getName());
+        holder.itemName.setText(item.getName());
     }
 
-    protected static class ItemClickViewHolder extends BasicClickViewHolder {
-        private TextView itemTitle;
+    protected static class ItemClickViewHolder extends RecyclerView.ViewHolder {
+        private TextView itemName;
 
         protected ItemClickViewHolder(@NonNull View itemView,
                                       View.OnClickListener onItemClickListener) {
-            super(itemView, onItemClickListener);
+            super(itemView);
+            setupView(itemView);
+            itemView.setTag(this);
+            itemView.setOnClickListener(onItemClickListener);
         }
 
-        @Override
+
         protected void setupView(View itemView) {
-            itemTitle = itemView.findViewById(R.id.tvItem);
+            itemName = itemView.findViewById(R.id.tvItem);
         }
 
     }

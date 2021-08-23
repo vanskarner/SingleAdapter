@@ -1,7 +1,6 @@
 package com.vanskarner.adapters.common.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,9 +17,8 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
         this.list = list;
     }
 
-    protected abstract int setItemLayout();
-
-    protected abstract ItemViewHolder createViewHolder(View view);
+    protected abstract ItemViewHolder setViewHolder(LayoutInflater inflater, ViewGroup parent,
+                                                    int viewType);
 
     protected abstract void bindItem(ItemViewHolder holder, T item, int position);
 
@@ -28,8 +26,7 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(setItemLayout(), parent, false);
-        return createViewHolder(view);
+        return setViewHolder(layoutInflater, parent, viewType);
     }
 
     @Override

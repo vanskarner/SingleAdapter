@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BasicFilterAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
-        extends BasicClickAdapter<T, ItemViewHolder>
+        extends BasicAdapter<T, ItemViewHolder>
         implements Filterable, BasicFilter.Filtered<T> {
 
     protected List<T> originalList;

@@ -10,23 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+        extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int VIEW_TYPE_ITEM = 0;
     public static final int VIEW_TYPE_LOADING = 1;
 
     protected List<T> list;
-    protected View.OnClickListener onItemClickListener;
 
     public BasicEndlessAdapter(List<T> list) {
         this.list = list;
     }
 
-    protected abstract int setItemLayout();
-
     protected abstract int setLoadLayout();
 
-    protected abstract ItemViewHolder createViewHolder(View view);
+    protected abstract ItemViewHolder setViewHolder(LayoutInflater inflater, ViewGroup parent);
 
     protected abstract void bindItem(ItemViewHolder holder, T item, int position);
 
@@ -35,8 +32,7 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         return (viewType == VIEW_TYPE_ITEM) ?
-                createViewHolder(layoutInflater
-                        .inflate(setItemLayout(), parent, false)) :
+                setViewHolder(layoutInflater, parent) :
                 new LoadViewHolder(layoutInflater
                         .inflate(setLoadLayout(), parent, false));
     }
@@ -66,10 +62,6 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
     }
 
     //Custom methods
-
-    public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
 
     public void updateList(List<T> newList) {
         list.clear();
