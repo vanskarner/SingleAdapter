@@ -1,6 +1,5 @@
 # AndroidUtilities
-Common utilities in the construction of an android studio project.
-Each utility has its separate project.
+Common utilities in building a project with Android Studio. Each utility has its separate project.
 
 ## Contenido :package:
-* [Adapters](https://github.com/vanskarner/CommunUtilidades/blob/master/info/README_PL.md)
+* [Adapters](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters.md)
