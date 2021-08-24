@@ -8,4 +8,5 @@
 
 ## SearchPaginationActivity
 ## SimplePaginationActivity
+![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimplePaginationActivity.gif)
 ## SimpleSearchActivity
