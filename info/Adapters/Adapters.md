@@ -7,6 +7,9 @@
 - Easy integration due to the separation of functionalities.
 
 ## SearchPaginationActivity
+- No new data is adapted if passed to the filter function.
+![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SearchPaginationActivity.gif)
 ## SimplePaginationActivity
 ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimplePaginationActivity.gif)
 ## SimpleSearchActivity
+![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimpleSearchActivity.gif)
