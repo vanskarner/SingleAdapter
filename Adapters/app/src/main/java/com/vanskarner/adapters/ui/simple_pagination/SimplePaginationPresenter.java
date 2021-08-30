@@ -1,6 +1,6 @@
 package com.vanskarner.adapters.ui.simple_pagination;
 
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.ui.NoPages;
 
 import java.util.List;
@@ -30,7 +30,7 @@ class SimplePaginationPresenter implements SimplePaginationContract.presenter {
         moviePaginationModel.sampleData(pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<MovieModel>>() {
+                .subscribe(new SingleObserver<List<PersonModel>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.clear();
@@ -38,12 +38,12 @@ class SimplePaginationPresenter implements SimplePaginationContract.presenter {
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<MovieModel> movieModels) {
+                    public void onSuccess(@NonNull List<PersonModel> personModels) {
                         view.hideProgress();
                         if (pageNumber == 1) {
                             view.initializeView();
                         }
-                        view.addList(movieModels);
+                        view.addList(personModels);
                     }
 
                     @Override

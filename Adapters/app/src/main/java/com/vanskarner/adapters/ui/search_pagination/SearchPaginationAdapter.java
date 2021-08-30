@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
 
 import java.util.List;
 
 class SearchPaginationAdapter
-        extends CustomEndlessAdapter<MovieModel, SearchPaginationAdapter.ItemClickViewHolder> {
+        extends CustomEndlessAdapter<PersonModel, SearchPaginationAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
-    public SearchPaginationAdapter(List<MovieModel> list) {
+    public SearchPaginationAdapter(List<PersonModel> list) {
         super(list);
     }
 
@@ -39,12 +39,12 @@ class SearchPaginationAdapter
     }
 
     @Override
-    public boolean filterCondition(MovieModel item, String filterPattern) {
+    public boolean filterCondition(PersonModel item, String filterPattern) {
         return item.getName().toLowerCase().contains(filterPattern);
     }
 
     @Override
-    protected void bindItem(ItemClickViewHolder holder, MovieModel item, int position) {
+    protected void bindItem(ItemClickViewHolder holder, PersonModel item, int position) {
         holder.itemName.setText(item.getName());
     }
 

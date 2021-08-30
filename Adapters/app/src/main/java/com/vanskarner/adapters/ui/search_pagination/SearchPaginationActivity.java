@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.common.bases.PaginationActivity;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class SearchPaginationActivity extends PaginationActivity
     RecyclerView recyclerView;
     SearchView searchView;
     SearchPaginationAdapter searchPaginationAdapter;
-    List<MovieModel> movieModels = new ArrayList<>();
+    List<PersonModel> personModels = new ArrayList<>();
     SearchPaginationContract.presenter presenter;
     CompositeDisposable compositeDisposable=new CompositeDisposable();
 
@@ -43,11 +43,11 @@ public class SearchPaginationActivity extends PaginationActivity
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchView);
-        searchPaginationAdapter = new SearchPaginationAdapter(movieModels);
+        searchPaginationAdapter = new SearchPaginationAdapter(personModels);
         recyclerView.setAdapter(searchPaginationAdapter);
         searchPaginationAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
+            PersonModel model = personModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
@@ -127,7 +127,7 @@ public class SearchPaginationActivity extends PaginationActivity
     }
 
     @Override
-    public void addList(List<MovieModel> list) {
+    public void addList(List<PersonModel> list) {
         super.isLoading = false;
         if (searchView.isIconified()) {
             // the data is only adapted when the SearchView is not in use

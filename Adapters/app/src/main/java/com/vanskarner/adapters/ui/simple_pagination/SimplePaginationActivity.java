@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.PaginationActivity;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class SimplePaginationActivity extends PaginationActivity
 
     RecyclerView recyclerView;
     SimplePaginationAdapter simplePaginationAdapter;
-    List<MovieModel> movieModels = new ArrayList<>();
+    List<PersonModel> personModels = new ArrayList<>();
     SimplePaginationContract.presenter presenter;
 
     @Override
@@ -30,11 +30,11 @@ public class SimplePaginationActivity extends PaginationActivity
     @Override
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
-        simplePaginationAdapter = new SimplePaginationAdapter(movieModels);
+        simplePaginationAdapter = new SimplePaginationAdapter(personModels);
         recyclerView.setAdapter(simplePaginationAdapter);
         simplePaginationAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
+            PersonModel model = personModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         //presenter initialization
@@ -83,7 +83,7 @@ public class SimplePaginationActivity extends PaginationActivity
     }
 
     @Override
-    public void addList(List<MovieModel> list) {
+    public void addList(List<PersonModel> list) {
         super.isLoading = false;
         super.pageNumber++;
         simplePaginationAdapter.addList(list);

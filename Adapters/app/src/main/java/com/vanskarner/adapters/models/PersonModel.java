@@ -2,13 +2,15 @@ package com.vanskarner.adapters.models;
 
 import androidx.annotation.NonNull;
 
-public class MovieModel {
+public class PersonModel {
     private final int id;
     private final String name;
+    private final String image;
 
-    public MovieModel(int id, String name) {
+    public PersonModel(int id, String name, String image) {
         this.id = id;
         this.name = name;
+        this.image = image;
     }
 
     public int getId() {
@@ -19,13 +21,17 @@ public class MovieModel {
         return name;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return "MovieModel{" +
+        return "PersonModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
-
 }

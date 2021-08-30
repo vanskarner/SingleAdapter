@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.common.adapters.BasicFilterAdapter;
 import com.vanskarner.adapters.databinding.ItemMovieBinding;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class SimpleSearchAdapter extends
-        BasicFilterAdapter<MovieModel, SimpleSearchAdapter.ItemViewHolder> {
+        BasicFilterAdapter<PersonModel, SimpleSearchAdapter.ItemViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
-    public SimpleSearchAdapter(List<MovieModel> list) {
+    public SimpleSearchAdapter(List<PersonModel> list) {
         super(list);
     }
 
@@ -36,12 +36,12 @@ class SimpleSearchAdapter extends
     }
 
     @Override
-    protected void bindItem(ItemViewHolder holder, MovieModel item, int position) {
+    protected void bindItem(ItemViewHolder holder, PersonModel item, int position) {
         holder.itemMovieBinding.setMovie(item);
     }
 
     @Override
-    public boolean filterCondition(MovieModel item, String filterPattern) {
+    public boolean filterCondition(PersonModel item, String filterPattern) {
         return item.getName().toLowerCase().contains(filterPattern);
     }
 

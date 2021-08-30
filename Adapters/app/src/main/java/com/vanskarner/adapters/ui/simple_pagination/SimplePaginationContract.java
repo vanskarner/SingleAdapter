@@ -1,6 +1,6 @@
 package com.vanskarner.adapters.ui.simple_pagination;
 
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ interface SimplePaginationContract {
 
         void initializeView();
 
-        void addList(List<MovieModel> list);
+        void addList(List<PersonModel> list);
 
         void showNoPages();
     }

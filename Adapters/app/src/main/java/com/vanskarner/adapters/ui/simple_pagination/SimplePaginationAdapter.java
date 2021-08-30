@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.BasicEndlessAdapter;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class SimplePaginationAdapter
-        extends BasicEndlessAdapter<MovieModel, SimplePaginationAdapter.ItemClickViewHolder> {
+        extends BasicEndlessAdapter<PersonModel, SimplePaginationAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
@@ -23,7 +23,7 @@ class SimplePaginationAdapter
         this.onItemClickListener = onItemClickListener;
     }
 
-    public SimplePaginationAdapter(List<MovieModel> list) {
+    public SimplePaginationAdapter(List<PersonModel> list) {
         super(list);
     }
 
@@ -39,7 +39,7 @@ class SimplePaginationAdapter
     }
 
     @Override
-    protected void bindItem(ItemClickViewHolder holder, MovieModel item, int position) {
+    protected void bindItem(ItemClickViewHolder holder, PersonModel item, int position) {
         holder.itemName.setText(item.getName());
     }
 

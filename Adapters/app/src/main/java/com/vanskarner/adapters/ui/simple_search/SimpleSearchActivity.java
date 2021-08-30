@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
-import com.vanskarner.adapters.models.MovieModel;
+import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     SearchView searchView;
     RecyclerView recyclerView;
     SimpleSearchAdapter simpleSearchAdapter;
-    List<MovieModel> movieModels = new ArrayList<>();
+    List<PersonModel> personModels = new ArrayList<>();
     SimpleSearchContract.presenter presenter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -38,11 +38,11 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerMovies);
         searchView = findViewById(R.id.searchViewMovies);
-        simpleSearchAdapter = new SimpleSearchAdapter(movieModels);
+        simpleSearchAdapter = new SimpleSearchAdapter(personModels);
         recyclerView.setAdapter(simpleSearchAdapter);
         simpleSearchAdapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            MovieModel model = movieModels.get(viewHolder.getAdapterPosition());
+            PersonModel model = personModels.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         Disposable disposable = RxSearchObservable.fromView(searchView)
@@ -70,7 +70,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     //Contract Methods
 
     @Override
-    public void loadList(List<MovieModel> list) {
+    public void loadList(List<PersonModel> list) {
         simpleSearchAdapter.addList(list);
     }
 
