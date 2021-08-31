@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.ui.simple_search;
 
+import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
@@ -10,21 +11,21 @@ class SimpleSearchModel {
 
     public List<PersonModel> sampleData() {
         List<PersonModel> items = new ArrayList<>();
-        items.add(new PersonModel(1, "The Night Comes for Us", "IMG"));
-        items.add(new PersonModel(2, "Hero", "IMG"));
-        items.add(new PersonModel(3, "Fast & Furious 7", "IMG"));
-        items.add(new PersonModel(4, "Matrix", "IMG"));
-        items.add(new PersonModel(5, "Kung Fu Sion", "IMG"));
-        items.add(new PersonModel(6, "Deadpool", "IMG"));
-        items.add(new PersonModel(7, "Minority Report", "IMG"));
-        items.add(new PersonModel(8, "Kill Bill", "IMG"));
-        items.add(new PersonModel(9, "Operation Mekong", "IMG"));
-        items.add(new PersonModel(10, "Bad Boys", "IMG"));
-        items.add(new PersonModel(11, "The Tomorrow War", "IMG"));
-        items.add(new PersonModel(12, "Black Widow", "IMG"));
-        items.add(new PersonModel(13, "Tenet", "IMG"));
-        items.add(new PersonModel(14, "Venom", "IMG"));
-        items.add(new PersonModel(15, "Lucy", "IMG"));
+        items.add(new PersonModel( "Sophia", R.drawable.img_1));
+        items.add(new PersonModel( "Emma", R.drawable.img_2));
+        items.add(new PersonModel("Isabella", R.drawable.img_3));
+        items.add(new PersonModel( "Olivia", R.drawable.img_4));
+        items.add(new PersonModel( "Ava", R.drawable.img_5));
+        items.add(new PersonModel( "Emily", R.drawable.img_6));
+        items.add(new PersonModel( "Abigail", R.drawable.img_7));
+        items.add(new PersonModel( "Mia", R.drawable.img_8));
+        items.add(new PersonModel("Madison", R.drawable.img_9));
+        items.add(new PersonModel( "Elizabeth", R.drawable.img_10));
+        items.add(new PersonModel( "Lindsay", R.drawable.img_11));
+        items.add(new PersonModel( "Valerie", R.drawable.img_12));
+        items.add(new PersonModel("Amara", R.drawable.img_13));
+        items.add(new PersonModel( "Leanne", R.drawable.img_14));
+        items.add(new PersonModel( "Charlotte", R.drawable.img_15));
         return items;
     }
 }

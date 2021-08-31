@@ -7,23 +7,23 @@
 
     <Button
         android:id="@+id/btnSimplePagination"
-        android:layout_margin="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="@string/simple_pagination" />
 
     <Button
         android:id="@+id/btnSimpleSearch"
-        android:layout_margin="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="@string/simple_search" />
 
     <Button
         android:id="@+id/btnSearchPagination"
-        android:layout_margin="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:text="@string/search_pagination" />
 
 </LinearLayout>

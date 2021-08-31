@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.ui.simple_pagination;
 
+import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.ui.NoPages;
 
@@ -20,10 +21,21 @@ class SimplePaginationModel {
                         throw new NoPages();
                     }
                     List<PersonModel> items = new ArrayList<>();
-                    for (int i = 0; i < 10; i++) {
-                        int id = (page * 10 + i);
-                        items.add(new PersonModel(id, "Movie " + id,"IMG " + id));
-                    }
+                    items.add(new PersonModel("Sophia " + page, R.drawable.img_1));
+                    items.add(new PersonModel("Emma " + page, R.drawable.img_2));
+                    items.add(new PersonModel("Isabella " + page, R.drawable.img_3));
+                    items.add(new PersonModel("Olivia " + page, R.drawable.img_4));
+                    items.add(new PersonModel("Ava " + page, R.drawable.img_5));
+                    items.add(new PersonModel("Emily " + page, R.drawable.img_6));
+                    items.add(new PersonModel("Abigail " + page, R.drawable.img_7));
+                    items.add(new PersonModel("Mia " + page, R.drawable.img_8));
+                    items.add(new PersonModel("Madison " + page, R.drawable.img_9));
+                    items.add(new PersonModel("Elizabeth " + page, R.drawable.img_10));
+                    items.add(new PersonModel("Lindsay " + page, R.drawable.img_11));
+                    items.add(new PersonModel("Valerie " + page, R.drawable.img_12));
+                    items.add(new PersonModel("Amara " + page, R.drawable.img_13));
+                    items.add(new PersonModel("Leanne " + page, R.drawable.img_14));
+                    items.add(new PersonModel("Charlotte " + page, R.drawable.img_15));
                     return items;
                 });
     }
