@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.common.adapters;
 
+import android.annotation.SuppressLint;
 import android.widget.Filter;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         return filterResults;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @SuppressWarnings("unchecked")
     @Override
     public void publishResults(CharSequence charSequence, FilterResults results) {

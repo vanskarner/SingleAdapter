@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_image_height">50dp</dimen>
+    <dimen name="item_image_width">50dp</dimen>
+    <dimen name="item_grid_height">200dp</dimen>
+
+    <dimen name="large_spacing">12dp</dimen>
+    <dimen name="medium_spacing">8dp</dimen>
+    <dimen name="small_spacing">4dp</dimen>
+    <dimen name="extra_small_spacing">2dp</dimen>
+
+    <dimen name="large_text_size">22sp</dimen>
+    <dimen name="medium_text_size">18sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+</resources>

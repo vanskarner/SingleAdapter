@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.common.adapters;
 
+import android.annotation.SuppressLint;
 import android.widget.Filter;
 import android.widget.Filterable;
 
@@ -8,24 +9,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CustomEndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
-        extends BasicEndlessAdapter<T, ItemViewHolder>
+public abstract class FilterAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+        extends BasicAdapter<T, ItemViewHolder>
         implements Filterable, BasicFilter.Filtered<T> {
 
     protected List<T> originalList;
     protected Filter filter;
 
-    public CustomEndlessAdapter(List<T> list) {
+    public FilterAdapter(List<T> list) {
         super(list);
         this.originalList = new ArrayList<>(list);
     }
 
+
     protected Filter createFilter() {
-        return new BasicFilter<>(list, originalList, this, this);
+        return new BasicFilter<>(super.list, originalList,
+                this, this);
     }
 
     //Custom methods
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void updateList(List<T> newList) {
         super.list.clear();

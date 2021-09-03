@@ -24,8 +24,8 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
 
     SearchView searchView;
     RecyclerView recyclerView;
-    SimpleSearchAdapter simpleSearchAdapter;
-    List<PersonModel> personModels = new ArrayList<>();
+    SimpleSearchAdapter adapter;
+    List<PersonModel> list = new ArrayList<>();
     SimpleSearchContract.presenter presenter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -36,13 +36,13 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
 
     @Override
     protected void setupView() {
-        recyclerView = findViewById(R.id.recyclerMovies);
-        searchView = findViewById(R.id.searchViewMovies);
-        simpleSearchAdapter = new SimpleSearchAdapter(personModels);
-        recyclerView.setAdapter(simpleSearchAdapter);
-        simpleSearchAdapter.setOnItemClickListener(view -> {
+        recyclerView = findViewById(R.id.recyclerPersons);
+        searchView = findViewById(R.id.searchViewPersons);
+        adapter = new SimpleSearchAdapter(list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            PersonModel model = personModels.get(viewHolder.getAdapterPosition());
+            PersonModel model = list.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         Disposable disposable = RxSearchObservable.fromView(searchView)
@@ -51,7 +51,7 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    Filter filter = simpleSearchAdapter.getFilter();
+                    Filter filter = adapter.getFilter();
                     filter.filter(s);
                 });
         compositeDisposable.add(disposable);
@@ -70,8 +70,8 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     //Contract Methods
 
     @Override
-    public void loadList(List<PersonModel> list) {
-        simpleSearchAdapter.addList(list);
+    public void addList(List<PersonModel> list) {
+        adapter.addList(list);
     }
 
 }

@@ -4,13 +4,12 @@ import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.vanskarner.adapters.common.bases.PaginationActivity;
+import com.vanskarner.adapters.common.bases.BaseActivity;
+import com.vanskarner.adapters.common.listener.PaginationListener;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
@@ -24,15 +23,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SearchPaginationActivity extends PaginationActivity
+public class SearchPaginationActivity extends BaseActivity
         implements SearchPaginationContract.view {
 
     RecyclerView recyclerView;
     SearchView searchView;
-    SearchPaginationAdapter searchPaginationAdapter;
-    List<PersonModel> personModels = new ArrayList<>();
+    SearchPaginationFilterAdapter adapter;
+    List<PersonModel> list = new ArrayList<>();
+    PaginationListener paginationListener;
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     SearchPaginationContract.presenter presenter;
-    CompositeDisposable compositeDisposable=new CompositeDisposable();
 
     @Override
     protected int setLayout() {
@@ -41,63 +41,45 @@ public class SearchPaginationActivity extends PaginationActivity
 
     @Override
     protected void setupView() {
-        recyclerView = findViewById(R.id.recyclerMovies);
+        recyclerView = findViewById(R.id.recyclerPersons);
         searchView = findViewById(R.id.searchView);
-        searchPaginationAdapter = new SearchPaginationAdapter(personModels);
-        recyclerView.setAdapter(searchPaginationAdapter);
-        searchPaginationAdapter.setOnItemClickListener(view -> {
+        adapter = new SearchPaginationFilterAdapter(list);
+        recyclerView.setAdapter(adapter);
+        paginationListener = new PaginationListener() {
+            @Override
+            protected void loadMore() {
+                if (searchView.isIconified()) {
+                    // The data will be requested when the SearchView is not in use
+                    adapter.showProgress();
+                    presenter.loadMore(paginationListener.pageNumber);
+                } else {
+                    paginationListener.pageNumber--;
+                    paginationListener.isLoading = false;
+                }
+            }
+        };
+        recyclerView.addOnScrollListener(paginationListener);
+        adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            PersonModel model = personModels.get(viewHolder.getAdapterPosition());
+            PersonModel model = list.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
         searchView.setQueryHint(getString(R.string.search));
-        searchView.setOnSearchClickListener(view -> searchPaginationAdapter.hideProgress());
-        Disposable disposable=RxSearchObservable.fromView(searchView)
+        searchView.setOnSearchClickListener(view -> adapter.hideProgress());
+        Disposable disposable = RxSearchObservable.fromView(searchView)
                 .debounce(350, TimeUnit.MILLISECONDS)
                 .distinctUntilChanged()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    Filter filter=searchPaginationAdapter.getFilter();
+                    Filter filter = adapter.getFilter();
                     filter.filter(s);
                 });
         compositeDisposable.add(disposable);
 
         //presenter initialization
         presenter = new SearchPaginationPresenter(this);
-        presenter.loadMore(super.pageNumber);
-    }
-
-    @Override
-    protected RecyclerView setRecyclerView() {
-        return recyclerView;
-    }
-
-    @Override
-    protected int setLastVisibleItemPosition(RecyclerView.LayoutManager layoutManager) {
-        LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
-        return manager.findLastCompletelyVisibleItemPosition();
-    }
-
-    @Override
-    protected void loadMore() {
-        presenter.loadMore(super.pageNumber);
-    }
-
-    @Override
-    protected RecyclerView.OnScrollListener recyclerOnScrollListener() {
-        return new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-                if (!isLoading && searchView.isIconified() && manager != null &&
-                        setLastVisibleItemPosition(manager) == manager.getItemCount() - 1) {
-                    loadMore();
-                    isLoading = true;
-                }
-            }
-        };
+        presenter.loadMore(paginationListener.pageNumber);
     }
 
     @Override
@@ -107,41 +89,38 @@ public class SearchPaginationActivity extends PaginationActivity
         presenter.onDestroy();
     }
 
+    private void initializeViews() {
+        if (paginationListener.pageNumber == 1) {
+            recyclerView.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.VISIBLE);
+            findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+        }
+    }
+
     //Contract Methods
 
     @Override
-    public void showProgress() {
-        searchPaginationAdapter.showProgress();
-    }
-
-    @Override
     public void hideProgress() {
-        searchPaginationAdapter.hideProgress();
-    }
-
-    @Override
-    public void initializeView() {
-        recyclerView.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+        adapter.hideProgress();
     }
 
     @Override
     public void addList(List<PersonModel> list) {
-        super.isLoading = false;
+        initializeViews();
+        paginationListener.isLoading = false;
         if (searchView.isIconified()) {
             // the data is only adapted when the SearchView is not in use
-            super.pageNumber++;
-            searchPaginationAdapter.addList(list);
+            adapter.addList(list);
+        } else {
+            paginationListener.pageNumber--;
         }
     }
 
     @Override
     public void showNoPages() {
-        Snackbar
-                .make(findViewById(R.id.contentPagination),
-                        getString(R.string.exception_no_items),
-                        Snackbar.LENGTH_SHORT)
+        Snackbar.make(findViewById(R.id.contentPagination),
+                getString(R.string.exception_no_items),
+                Snackbar.LENGTH_SHORT)
                 .show();
     }
 

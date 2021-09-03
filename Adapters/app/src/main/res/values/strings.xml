@@ -4,6 +4,8 @@
 
     <string name="search_pagination">Search Pagination</string>
     <string name="simple_pagination">Simple Pagination</string>
+    <string name="grid_pagination">Grid Pagination</string>
+    <string name="staggered_pagination">Staggered Pagination</string>
     <string name="simple_search">Simple Search</string>
 
     <string name="exception_no_items">End of results</string>

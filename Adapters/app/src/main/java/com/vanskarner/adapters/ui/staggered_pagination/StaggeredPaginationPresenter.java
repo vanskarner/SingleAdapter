@@ -1,4 +1,6 @@
-package com.vanskarner.adapters.ui.simple_pagination;
+package com.vanskarner.adapters.ui.staggered_pagination;
+
+import androidx.annotation.NonNull;
 
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.ui.NoPages;
@@ -7,19 +9,19 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-class SimplePaginationPresenter implements SimplePaginationContract.presenter {
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final SimplePaginationContract.view view;
-    private final SimplePaginationModel model;
+class StaggeredPaginationPresenter implements StaggeredPaginationContract.presenter {
 
-    public SimplePaginationPresenter(SimplePaginationContract.view view) {
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final StaggeredPaginationContract.view view;
+    private final StaggeredPaginationModel model;
+
+    public StaggeredPaginationPresenter(StaggeredPaginationContract.view view) {
         this.view = view;
-        this.model = new SimplePaginationModel();
+        this.model = new StaggeredPaginationModel();
     }
 
     @Override
@@ -54,4 +56,5 @@ class SimplePaginationPresenter implements SimplePaginationContract.presenter {
     public void onDestroy() {
         compositeDisposable.clear();
     }
+
 }

@@ -6,7 +6,6 @@ import com.vanskarner.adapters.models.PersonModel;
 import java.util.ArrayList;
 import java.util.List;
 
-
 class SimpleSearchModel {
 
     public List<PersonModel> sampleData() {

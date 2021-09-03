@@ -12,16 +12,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.CustomEndlessAdapter;
+import com.vanskarner.adapters.common.adapters.EndlessFilterAdapter;
 
 import java.util.List;
 
-class SearchPaginationAdapter
-        extends CustomEndlessAdapter<PersonModel, SearchPaginationAdapter.ItemClickViewHolder> {
+class SearchPaginationFilterAdapter
+        extends EndlessFilterAdapter<PersonModel, SearchPaginationFilterAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
-    public SearchPaginationAdapter(List<PersonModel> list) {
+    public SearchPaginationFilterAdapter(List<PersonModel> list) {
         super(list);
     }
 
@@ -36,7 +36,7 @@ class SearchPaginationAdapter
 
     @Override
     protected ItemClickViewHolder setViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.item_movie, parent, false);
+        View view = inflater.inflate(R.layout.item_simple, parent, false);
         return new ItemClickViewHolder(view, onItemClickListener);
     }
 
@@ -48,12 +48,12 @@ class SearchPaginationAdapter
     @Override
     protected void bindItem(ItemClickViewHolder holder, PersonModel item, int position) {
         holder.itemName.setText(item.getName());
-        Glide.with(holder.shapeableImageView).load(item.getImage()).into(holder.shapeableImageView);
+        Glide.with(holder.itemImage).load(item.getImage()).into(holder.itemImage);
     }
 
     protected static class ItemClickViewHolder extends RecyclerView.ViewHolder {
         private TextView itemName;
-        private ShapeableImageView shapeableImageView;
+        private ShapeableImageView itemImage;
 
         protected ItemClickViewHolder(@NonNull View itemView,
                                       View.OnClickListener onItemClickListener) {
@@ -66,7 +66,7 @@ class SearchPaginationAdapter
 
         protected void setupView(View itemView) {
             itemName = itemView.findViewById(R.id.namePerson);
-            shapeableImageView = itemView.findViewById(R.id.imagePerson);
+            itemImage = itemView.findViewById(R.id.imagePerson);
         }
 
     }

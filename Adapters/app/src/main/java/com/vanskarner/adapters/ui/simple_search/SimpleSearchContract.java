@@ -7,7 +7,7 @@ import java.util.List;
 interface SimpleSearchContract {
 
     interface view {
-        void loadList(List<PersonModel> list);
+        void addList(List<PersonModel> list);
     }
 
     interface presenter {

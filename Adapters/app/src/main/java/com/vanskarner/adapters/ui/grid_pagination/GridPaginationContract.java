@@ -1,10 +1,10 @@
-package com.vanskarner.adapters.ui.simple_pagination;
+package com.vanskarner.adapters.ui.grid_pagination;
 
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
-interface SimplePaginationContract {
+interface GridPaginationContract {
     interface view {
         void hideProgress();
 

@@ -15,19 +15,16 @@ import io.reactivex.schedulers.Schedulers;
 class SearchPaginationPresenter implements SearchPaginationContract.presenter {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final SearchPaginationContract.view view;
-    private final SearchPaginationModel searchPaginationModel;
+    private final SearchPaginationModel model;
 
     public SearchPaginationPresenter(SearchPaginationContract.view view) {
         this.view = view;
-        this.searchPaginationModel = new SearchPaginationModel();
+        this.model = new SearchPaginationModel();
     }
 
     @Override
     public void loadMore(int pageNumber) {
-        if (pageNumber > 1) {
-            view.showProgress();
-        }
-        searchPaginationModel.sampleData(pageNumber)
+        model.sampleData(pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<PersonModel>>() {
@@ -40,9 +37,6 @@ class SearchPaginationPresenter implements SearchPaginationContract.presenter {
                     @Override
                     public void onSuccess(@NonNull List<PersonModel> personModels) {
                         view.hideProgress();
-                        if (pageNumber == 1) {
-                            view.initializeView();
-                        }
                         view.addList(personModels);
                     }
 

@@ -9,14 +9,14 @@ import com.vanskarner.adapters.R;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vanskarner.adapters.common.adapters.BasicFilterAdapter;
-import com.vanskarner.adapters.databinding.ItemMovieBinding;
+import com.vanskarner.adapters.common.adapters.FilterAdapter;
+import com.vanskarner.adapters.databinding.ItemSimpleBinding;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class SimpleSearchAdapter extends
-        BasicFilterAdapter<PersonModel, SimpleSearchAdapter.ItemViewHolder> {
+        FilterAdapter<PersonModel, SimpleSearchAdapter.ItemViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
@@ -30,14 +30,14 @@ class SimpleSearchAdapter extends
 
     @Override
     protected ItemViewHolder setViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType) {
-        ItemMovieBinding itemMovieBinding = DataBindingUtil
-                .inflate(inflater, R.layout.item_movie, parent, false);
-        return new ItemViewHolder(itemMovieBinding, onItemClickListener);
+        ItemSimpleBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.item_simple, parent, false);
+        return new ItemViewHolder(binding, onItemClickListener);
     }
 
     @Override
     protected void bindItem(ItemViewHolder holder, PersonModel item, int position) {
-        holder.itemMovieBinding.setMovie(item);
+        holder.binding.setPerson(item);
     }
 
     @Override
@@ -46,12 +46,12 @@ class SimpleSearchAdapter extends
     }
 
     protected static class ItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemMovieBinding itemMovieBinding;
+        private final ItemSimpleBinding binding;
 
-        public ItemViewHolder(ItemMovieBinding itemMovieBinding,
+        public ItemViewHolder(ItemSimpleBinding binding,
                               View.OnClickListener onItemClickListener) {
-            super(itemMovieBinding.getRoot());
-            this.itemMovieBinding = itemMovieBinding;
+            super(binding.getRoot());
+            this.binding = binding;
             super.itemView.setTag(this);
             super.itemView.setOnClickListener(onItemClickListener);
         }

@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.common.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -41,6 +42,7 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
 
     //Custom methods
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<T> newList) {
         list.clear();
         list.addAll(newList);

@@ -1,5 +1,7 @@
 package com.vanskarner.adapters.models;
 
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 
@@ -25,6 +27,11 @@ public class PersonModel {
 
     @BindingAdapter("imageLoader")
     public static void setImage(ShapeableImageView imageView, int resource) {
+        Glide.with(imageView).load(resource).into(imageView);
+    }
+
+    @BindingAdapter("imageLoaderGrid")
+    public static void setImageGrid(ImageView imageView, int resource) {
         Glide.with(imageView).load(resource).into(imageView);
     }
 

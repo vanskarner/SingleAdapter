@@ -12,6 +12,7 @@ class SimpleSearchPresenter implements SimpleSearchContract.presenter {
 
     @Override
     public void loadList() {
-        view.loadList(model.sampleData());
+        view.addList(model.sampleData());
     }
+
 }

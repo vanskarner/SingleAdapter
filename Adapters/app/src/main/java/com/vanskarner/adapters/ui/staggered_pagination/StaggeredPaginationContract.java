@@ -1,10 +1,10 @@
-package com.vanskarner.adapters.ui.simple_pagination;
+package com.vanskarner.adapters.ui.staggered_pagination;
 
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
-interface SimplePaginationContract {
+interface StaggeredPaginationContract {
     interface view {
         void hideProgress();
 

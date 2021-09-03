@@ -9,21 +9,35 @@
         android:id="@+id/btnSimplePagination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/small_spacing"
         android:text="@string/simple_pagination" />
+
+    <Button
+        android:id="@+id/btnGridPagination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_spacing"
+        android:text="@string/grid_pagination" />
+
+    <Button
+        android:id="@+id/btnStaggeredPagination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_spacing"
+        android:text="@string/staggered_pagination" />
 
     <Button
         android:id="@+id/btnSimpleSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/small_spacing"
         android:text="@string/simple_search" />
 
     <Button
         android:id="@+id/btnSearchPagination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/small_spacing"
         android:text="@string/search_pagination" />
 
 </LinearLayout>

@@ -16,8 +16,8 @@ public abstract class PaginationListener extends RecyclerView.OnScrollListener {
         if (!isLoading && manager != null &&
                 itemPositionForLoading(manager) == manager.getItemCount() - 1) {
             pageNumber++;
-            loadMore(pageNumber);
             isLoading = true;
+            loadMore();
         }
     }
 
@@ -51,6 +51,6 @@ public abstract class PaginationListener extends RecyclerView.OnScrollListener {
         return linearLayoutManager.findLastCompletelyVisibleItemPosition();
     }
 
-    protected abstract void loadMore(int pageNumber);
+    protected abstract void loadMore();
 
 }

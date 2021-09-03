@@ -1,5 +1,6 @@
 package com.vanskarner.adapters.common.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+public abstract class EndlessAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int VIEW_TYPE_ITEM = 0;
@@ -17,7 +18,7 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
 
     protected List<T> list;
 
-    public BasicEndlessAdapter(List<T> list) {
+    public EndlessAdapter(List<T> list) {
         this.list = list;
     }
 
@@ -63,6 +64,7 @@ public abstract class BasicEndlessAdapter<T, ItemViewHolder extends RecyclerView
 
     //Custom methods
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateList(List<T> newList) {
         list.clear();
         list.addAll(newList);

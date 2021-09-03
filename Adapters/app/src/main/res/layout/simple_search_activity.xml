@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewMovies"
+        android:id="@+id/searchViewPersons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -14,14 +14,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerMovies"
+        android:id="@+id/recyclerPersons"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewMovies"
-        tools:listitem="@layout/item_movie" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewPersons"
+        tools:listitem="@layout/item_simple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,11 +7,8 @@ import java.util.List;
 interface SearchPaginationContract {
 
     interface view {
-        void showProgress();
 
         void hideProgress();
-
-        void initializeView();
 
         void addList(List<PersonModel> list);
 
