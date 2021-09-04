@@ -6,10 +6,14 @@
 - Using Rxjava.
 - Easy integration due to the separation of functionalities.
 
-## SearchPaginationActivity
-- No new data is adapted if passed to the filter function.
-![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SearchPaginationActivity.gif)
-## SimplePaginationActivity
-![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimplePaginationActivity.gif)
-## SimpleSearchActivity
-![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimpleSearchActivity.gif)
+| SimplePagination | GridPagination | StaggeredPagination |
+| ------------- | ------------- | ------------- |
+| ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimplePagination.gif)  | ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/GridPagination.gif)  | ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/StaggeredPagination.gif)  |
+
+| SimpleSearch | SearchPagination |
+| ------------- | ------------- |
+| ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SimpleSearch.gif)  | ![Alt Text](https://github.com/vanskarner/AndroidUtilities/blob/master/info/Adapters/SearchPagination.gif)  |
+
+### Note:
+- SearchPagination
+   - No new data is adapted if passed to the filter function
