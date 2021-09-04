@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public abstract class EndlessFilterAdapter<T, ItemViewHolder extends RecyclerVie
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void updateList(List<T> newList) {
+    public void changeList(@NonNull List<T> newList) {
         super.list.clear();
         super.list.addAll(newList);
         originalList.clear();
@@ -38,7 +39,7 @@ public abstract class EndlessFilterAdapter<T, ItemViewHolder extends RecyclerVie
     }
 
     @Override
-    public void addList(List<T> listAdd) {
+    public void addList(@NonNull List<T> listAdd) {
         if (listAdd.size() > 0) {
             int lastPositionBefore = getItemCount() - 1;
             super.list.addAll(listAdd);

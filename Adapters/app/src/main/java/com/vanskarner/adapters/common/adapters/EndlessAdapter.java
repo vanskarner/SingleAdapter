@@ -65,13 +65,13 @@ public abstract class EndlessAdapter<T, ItemViewHolder extends RecyclerView.View
     //Custom methods
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateList(List<T> newList) {
+    public void changeList(@NonNull List<T> newList) {
         list.clear();
         list.addAll(newList);
         notifyDataSetChanged();
     }
 
-    public void addList(List<T> listAdd) {
+    public void addList(@NonNull List<T> listAdd) {
         if (listAdd.size() > 0) {
             int lastPositionBefore = getItemCount() - 1;
             list.addAll(listAdd);
