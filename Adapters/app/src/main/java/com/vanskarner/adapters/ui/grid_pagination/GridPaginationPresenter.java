@@ -53,8 +53,7 @@ class GridPaginationPresenter implements GridPaginationContract.presenter {
     }
 
     @Override
-    public void onDestroy() {
+    public void unsubscribe() {
         compositeDisposable.clear();
     }
-
 }

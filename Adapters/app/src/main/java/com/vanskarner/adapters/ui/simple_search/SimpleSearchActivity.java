@@ -1,8 +1,10 @@
 package com.vanskarner.adapters.ui.simple_search;
 
+import android.os.Bundle;
 import android.widget.Filter;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,21 +26,26 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
 
     SearchView searchView;
     RecyclerView recyclerView;
-    SimpleSearchAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
+    SimpleSearchAdapter adapter = new SimpleSearchAdapter(list);
     SimpleSearchContract.presenter presenter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
-    protected int setLayout() {
-        return R.layout.simple_search_activity;
+    protected void injectPresenter() {
+        presenter = new SimpleSearchPresenter(this);
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.simple_search_activity);
+        setupView();
+    }
+
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerPersons);
         searchView = findViewById(R.id.searchViewPersons);
-        adapter = new SimpleSearchAdapter(list);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -55,9 +62,11 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
                     filter.filter(s);
                 });
         compositeDisposable.add(disposable);
+    }
 
-        //presenter initialization
-        presenter = new SimpleSearchPresenter(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
         presenter.loadList();
     }
 
@@ -73,5 +82,6 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     public void addList(List<PersonModel> list) {
         adapter.addList(list);
     }
+
 
 }

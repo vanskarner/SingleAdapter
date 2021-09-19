@@ -1,8 +1,10 @@
 package com.vanskarner.adapters.ui.grid_pagination;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -18,42 +20,49 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
         Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
-    GridPaginationAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
-    Pagination paginationListener = Pagination
+    GridPaginationAdapter adapter = new GridPaginationAdapter(list);
+    Pagination pagination = Pagination
             .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
     GridPaginationContract.presenter presenter;
 
     @Override
-    protected int setLayout() {
-        return R.layout.grid_pagination_activity;
+    protected void injectPresenter() {
+        presenter = new GridPaginationPresenter(this);
     }
 
     @Override
-    protected void setupView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.grid_pagination_activity);
+        setupView();
+    }
+
+    private void setupView() {
         recyclerView = findViewById(R.id.recyclerPersons);
-        adapter = new GridPaginationAdapter(list);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(paginationListener);
+        recyclerView.addOnScrollListener(pagination);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             PersonModel model = list.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
+    }
 
-        //presenter initialization
-        presenter = new GridPaginationPresenter(this);
-        presenter.loadMore(paginationListener.pageNumber);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadMore(pagination.pageNumber);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        presenter.unsubscribe();
     }
 
     private void initializeView() {
-        if (paginationListener.pageNumber == 1) {
+        if (pagination.pageNumber == 1) {
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
         }
@@ -69,7 +78,7 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     @Override
     public void addList(List<PersonModel> list) {
         initializeView();
-        paginationListener.isLoading = false;
+        pagination.isLoading = false;
         adapter.addList(list);
     }
 
@@ -83,7 +92,8 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     @Override
     public void loadMore() {
         adapter.showProgress();
-        presenter.loadMore(paginationListener.pageNumber);
+        presenter.loadMore(pagination.pageNumber);
     }
+
 
 }

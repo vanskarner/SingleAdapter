@@ -1,8 +1,10 @@
 package com.vanskarner.adapters.ui.staggered_pagination;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -18,42 +20,49 @@ public class StaggeredPaginationActivity extends BaseActivity
         implements StaggeredPaginationContract.view, Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
-    StaggeredPaginationAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
-    Pagination paginationListener = Pagination
+    StaggeredPaginationAdapter adapter = new StaggeredPaginationAdapter(list);
+    Pagination pagination = Pagination
             .createWithStaggered(this, Pagination.LAST_POSITION_COMPLETE);
     StaggeredPaginationContract.presenter presenter;
 
     @Override
-    protected int setLayout() {
-        return R.layout.staggered_pagination_activity;
+    protected void injectPresenter() {
+        presenter = new StaggeredPaginationPresenter(this);
     }
 
     @Override
-    protected void setupView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.staggered_pagination_activity);
+        setupView();
+    }
+
+    private void setupView() {
         recyclerView = findViewById(R.id.recyclerPersons);
-        adapter = new StaggeredPaginationAdapter(list);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(paginationListener);
+        recyclerView.addOnScrollListener(pagination);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             PersonModel model = list.get(viewHolder.getAdapterPosition());
             Toast.makeText(this, model.toString(), Toast.LENGTH_SHORT).show();
         });
+    }
 
-        //presenter initialization
-        presenter = new StaggeredPaginationPresenter(this);
-        presenter.loadMore(paginationListener.pageNumber);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadMore(pagination.pageNumber);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        presenter.unsubscribe();
     }
 
     private void initializeView() {
-        if (paginationListener.pageNumber == 1) {
+        if (pagination.pageNumber == 1) {
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
         }
@@ -69,7 +78,7 @@ public class StaggeredPaginationActivity extends BaseActivity
     @Override
     public void addList(List<PersonModel> list) {
         initializeView();
-        paginationListener.isLoading = false;
+        pagination.isLoading = false;
         adapter.addList(list);
     }
 
@@ -83,6 +92,8 @@ public class StaggeredPaginationActivity extends BaseActivity
     @Override
     public void loadMore() {
         adapter.showProgress();
-        presenter.loadMore(paginationListener.pageNumber);
+        presenter.loadMore(pagination.pageNumber);
     }
+
+
 }

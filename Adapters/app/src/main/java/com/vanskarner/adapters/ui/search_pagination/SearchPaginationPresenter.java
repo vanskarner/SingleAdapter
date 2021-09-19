@@ -51,8 +51,7 @@ class SearchPaginationPresenter implements SearchPaginationContract.presenter {
     }
 
     @Override
-    public void onDestroy() {
+    public void unsubscribe() {
         compositeDisposable.clear();
     }
-
 }

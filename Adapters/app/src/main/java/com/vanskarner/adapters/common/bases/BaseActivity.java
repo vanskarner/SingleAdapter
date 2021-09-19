@@ -7,15 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected abstract int setLayout();
-
-    protected abstract void setupView();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        injectPresenter();
         super.onCreate(savedInstanceState);
-        setContentView(setLayout());
-        setupView();
     }
+
+    protected abstract void injectPresenter();
 
 }

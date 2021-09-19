@@ -53,8 +53,7 @@ class StaggeredPaginationPresenter implements StaggeredPaginationContract.presen
     }
 
     @Override
-    public void onDestroy() {
+    public void unsubscribe() {
         compositeDisposable.clear();
     }
-
 }

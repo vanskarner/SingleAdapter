@@ -1,9 +1,11 @@
 package com.vanskarner.adapters.ui.search_pagination;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Filter;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,25 +30,31 @@ public class SearchPaginationActivity extends BaseActivity
 
     RecyclerView recyclerView;
     SearchView searchView;
-    SearchPaginationFilterAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
-    Pagination paginationListener = Pagination
+    SearchPaginationFilterAdapter adapter = new SearchPaginationFilterAdapter(list);
+    Pagination pagination = Pagination
             .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     SearchPaginationContract.presenter presenter;
 
+
     @Override
-    protected int setLayout() {
-        return R.layout.search_pagination_activity;
+    protected void injectPresenter() {
+        presenter = new SearchPaginationPresenter(this);
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_pagination_activity);
+        setupView();
+    }
+
     protected void setupView() {
         recyclerView = findViewById(R.id.recyclerPersons);
         searchView = findViewById(R.id.searchView);
-        adapter = new SearchPaginationFilterAdapter(list);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(paginationListener);
+        recyclerView.addOnScrollListener(pagination);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             PersonModel model = list.get(viewHolder.getAdapterPosition());
@@ -64,21 +72,23 @@ public class SearchPaginationActivity extends BaseActivity
                     filter.filter(s);
                 });
         compositeDisposable.add(disposable);
+    }
 
-        //presenter initialization
-        presenter = new SearchPaginationPresenter(this);
-        presenter.loadMore(paginationListener.pageNumber);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadMore(pagination.pageNumber);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         compositeDisposable.clear();
-        presenter.onDestroy();
+        presenter.unsubscribe();
     }
 
     private void initializeViews() {
-        if (paginationListener.pageNumber == 1) {
+        if (pagination.pageNumber == 1) {
             recyclerView.setVisibility(View.VISIBLE);
             searchView.setVisibility(View.VISIBLE);
             findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
@@ -95,12 +105,12 @@ public class SearchPaginationActivity extends BaseActivity
     @Override
     public void addList(List<PersonModel> list) {
         initializeViews();
-        paginationListener.isLoading = false;
+        pagination.isLoading = false;
         if (searchView.isIconified()) {
             // the data is only adapted when the SearchView is not in use
             adapter.addList(list);
         } else {
-            paginationListener.pageNumber--;
+            pagination.pageNumber--;
         }
     }
 
@@ -117,10 +127,11 @@ public class SearchPaginationActivity extends BaseActivity
         if (searchView.isIconified()) {
             // The data will be requested when the SearchView is not in use
             adapter.showProgress();
-            presenter.loadMore(paginationListener.pageNumber);
+            presenter.loadMore(pagination.pageNumber);
         } else {
-            paginationListener.pageNumber--;
-            paginationListener.isLoading = false;
+            pagination.pageNumber--;
+            pagination.isLoading = false;
         }
     }
+
 }

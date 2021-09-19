@@ -1,24 +1,24 @@
 package com.vanskarner.adapters.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.bases.BaseActivity;
 import com.vanskarner.adapters.ui.grid_pagination.GridPaginationActivity;
 import com.vanskarner.adapters.ui.search_pagination.SearchPaginationActivity;
 import com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity;
 import com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity;
 import com.vanskarner.adapters.ui.staggered_pagination.StaggeredPaginationActivity;
 
-public class MenuActivity extends BaseActivity {
+public class MenuActivity extends AppCompatActivity {
 
     @Override
-    protected int setLayout() {
-        return R.layout.menu_activity;
-    }
-
-    @Override
-    protected void setupView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.menu_activity);
         findViewById(R.id.btnSimplePagination)
                 .setOnClickListener(view -> {
                     Intent intent = new Intent(this, SimplePaginationActivity.class);

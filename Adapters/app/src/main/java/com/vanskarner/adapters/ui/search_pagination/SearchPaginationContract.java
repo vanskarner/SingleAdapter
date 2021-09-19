@@ -1,6 +1,7 @@
 package com.vanskarner.adapters.ui.search_pagination;
 
 import com.vanskarner.adapters.models.PersonModel;
+import com.vanskarner.adapters.ui.BasePresenter;
 
 import java.util.List;
 
@@ -15,11 +16,10 @@ interface SearchPaginationContract {
         void showNoPages();
     }
 
-    interface presenter {
+    interface presenter extends BasePresenter {
 
         void loadMore(int pageNumber);
 
-        void onDestroy();
     }
 
 }

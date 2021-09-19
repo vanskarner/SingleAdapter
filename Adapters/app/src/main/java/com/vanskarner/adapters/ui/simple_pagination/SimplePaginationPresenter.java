@@ -51,7 +51,7 @@ class SimplePaginationPresenter implements SimplePaginationContract.presenter {
     }
 
     @Override
-    public void onDestroy() {
+    public void unsubscribe() {
         compositeDisposable.clear();
     }
 }
