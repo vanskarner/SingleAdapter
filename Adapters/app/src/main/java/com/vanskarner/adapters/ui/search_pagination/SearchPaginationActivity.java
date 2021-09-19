@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.PaginationListener;
+import com.vanskarner.adapters.common.listener.Pagination;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
@@ -24,13 +24,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchPaginationActivity extends BaseActivity
-        implements SearchPaginationContract.view {
+        implements SearchPaginationContract.view, Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     SearchView searchView;
     SearchPaginationFilterAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
-    PaginationListener paginationListener;
+    Pagination paginationListener = Pagination
+            .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     SearchPaginationContract.presenter presenter;
 
@@ -45,19 +46,6 @@ public class SearchPaginationActivity extends BaseActivity
         searchView = findViewById(R.id.searchView);
         adapter = new SearchPaginationFilterAdapter(list);
         recyclerView.setAdapter(adapter);
-        paginationListener = new PaginationListener() {
-            @Override
-            protected void loadMore() {
-                if (searchView.isIconified()) {
-                    // The data will be requested when the SearchView is not in use
-                    adapter.showProgress();
-                    presenter.loadMore(paginationListener.pageNumber);
-                } else {
-                    paginationListener.pageNumber--;
-                    paginationListener.isLoading = false;
-                }
-            }
-        };
         recyclerView.addOnScrollListener(paginationListener);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -124,4 +112,15 @@ public class SearchPaginationActivity extends BaseActivity
                 .show();
     }
 
+    @Override
+    public void loadMore() {
+        if (searchView.isIconified()) {
+            // The data will be requested when the SearchView is not in use
+            adapter.showProgress();
+            presenter.loadMore(paginationListener.pageNumber);
+        } else {
+            paginationListener.pageNumber--;
+            paginationListener.isLoading = false;
+        }
+    }
 }

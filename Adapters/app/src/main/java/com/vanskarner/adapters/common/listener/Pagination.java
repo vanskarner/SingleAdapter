@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-public class PaginationListener2 extends RecyclerView.OnScrollListener {
+public class Pagination extends RecyclerView.OnScrollListener {
     private static final int LINEAR = 1;
     private static final int STAGGERED = 2;
     public static final int LAST_POSITION = 1;
@@ -13,12 +13,13 @@ public class PaginationListener2 extends RecyclerView.OnScrollListener {
 
     public int pageNumber = 1;
     public boolean isLoading = false;
-    private final Scrolled scrolled;
+    private final OnLoadMoreListener onLoadMoreListener;
     private final int layoutManagerType;
     private final int positionType;
 
-    private PaginationListener2(Scrolled scrolled, int layoutManagerType, int positionType) {
-        this.scrolled = scrolled;
+    private Pagination(OnLoadMoreListener onLoadMoreListener, int layoutManagerType,
+                       int positionType) {
+        this.onLoadMoreListener = onLoadMoreListener;
         this.layoutManagerType = layoutManagerType;
         this.positionType = filterPositionType(positionType);
     }
@@ -63,19 +64,21 @@ public class PaginationListener2 extends RecyclerView.OnScrollListener {
         if (conditionForScrolled(manager)) {
             pageNumber++;
             isLoading = true;
-            scrolled.loadMore();
+            onLoadMoreListener.loadMore();
         }
     }
 
-    public static PaginationListener2 createWithLinear(Scrolled scrolled, int positionType) {
-        return new PaginationListener2(scrolled, LINEAR, positionType);
+    public static Pagination createWithLinear(OnLoadMoreListener onLoadMoreListener,
+                                              int positionType) {
+        return new Pagination(onLoadMoreListener, LINEAR, positionType);
     }
 
-    public static PaginationListener2 createWithStaggered(Scrolled scrolled, int positionType) {
-        return new PaginationListener2(scrolled, STAGGERED, positionType);
+    public static Pagination createWithStaggered(OnLoadMoreListener onLoadMoreListener,
+                                                 int positionType) {
+        return new Pagination(onLoadMoreListener, STAGGERED, positionType);
     }
 
-    public interface Scrolled {
+    public interface OnLoadMoreListener {
         void loadMore();
     }
 

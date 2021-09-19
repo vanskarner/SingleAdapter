@@ -8,18 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.PaginationListener;
+import com.vanskarner.adapters.common.listener.Pagination;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridPaginationActivity extends BaseActivity implements GridPaginationContract.view {
+public class GridPaginationActivity extends BaseActivity implements GridPaginationContract.view,
+        Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     GridPaginationAdapter adapter;
     List<PersonModel> list = new ArrayList<>();
-    PaginationListener paginationListener;
+    Pagination paginationListener = Pagination
+            .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
     GridPaginationContract.presenter presenter;
 
     @Override
@@ -32,13 +34,6 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
         recyclerView = findViewById(R.id.recyclerPersons);
         adapter = new GridPaginationAdapter(list);
         recyclerView.setAdapter(adapter);
-        paginationListener = new PaginationListener() {
-            @Override
-            protected void loadMore() {
-                adapter.showProgress();
-                presenter.loadMore(paginationListener.pageNumber);
-            }
-        };
         recyclerView.addOnScrollListener(paginationListener);
         adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
@@ -84,4 +79,11 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
                 getString(R.string.exception_no_items), Snackbar.LENGTH_SHORT)
                 .show();
     }
+
+    @Override
+    public void loadMore() {
+        adapter.showProgress();
+        presenter.loadMore(paginationListener.pageNumber);
+    }
+
 }
