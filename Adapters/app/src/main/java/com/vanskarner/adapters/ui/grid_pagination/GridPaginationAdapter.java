@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.EndlessAdapter;
+import com.vanskarner.adapters.common.adapterv2.EndlessRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemGridBinding;
 import com.vanskarner.adapters.models.PersonModel;
 
@@ -18,16 +18,16 @@ import java.util.List;
 import java.util.Objects;
 
 class GridPaginationAdapter
-        extends EndlessAdapter<PersonModel, GridPaginationAdapter.ItemClickViewHolder> {
+        extends EndlessRecyclerAdapter<PersonModel, GridPaginationAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
-    public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public GridPaginationAdapter(@NonNull List<PersonModel> list) {
+        super(list);
     }
 
-    public GridPaginationAdapter(List<PersonModel> list) {
-        super(list);
+    public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -56,7 +56,7 @@ class GridPaginationAdapter
                     @Override
                     public int getSpanSize(int position) {
                         int currentViewType = getItemViewType(position);
-                        return (currentViewType == VIEW_TYPE_LOADING) ? 2 : 1;
+                        return (currentViewType == VIEW_PROGRESS) ? 2 : 1;
                     }
                 });
     }
