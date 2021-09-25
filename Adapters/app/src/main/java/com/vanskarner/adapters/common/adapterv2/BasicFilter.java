@@ -37,7 +37,7 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         } else {
             String filterPatter = constraint.toString().toLowerCase().trim();
             for (T item : originalList) {
-                if (filtered.filterCondition(item, filterPatter)) {
+                if (filtered.onFilterCondition(item, filterPatter)) {
                     filteredList.add(item);
                 }
             }
@@ -58,7 +58,7 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
 
     public interface Filtered<T> extends Filterable {
 
-        boolean filterCondition(T item, String filterPattern);
+        boolean onFilterCondition(T item, String filterPattern);
 
     }
 

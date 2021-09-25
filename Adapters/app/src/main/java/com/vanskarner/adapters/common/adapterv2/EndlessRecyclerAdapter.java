@@ -14,9 +14,9 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements AdapterOperations.Endless, AdapterOperations.Add<T>,AdapterOperations.Change<T> {
 
-    public static final int VIEW_ITEM = 0;
-    public static final int VIEW_PROGRESS = 1;
-    private boolean visibleProgress = false;
+    public static final int ITEM_VIEW = 0;
+    public static final int PROGRESS_VIEW = 1;
+    private boolean progressVisibility = false;
     protected List<T> list;
 
     public EndlessRecyclerAdapter(@NonNull List<T> list) {
@@ -33,7 +33,7 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return (viewType == VIEW_ITEM) ?
+        return (viewType == ITEM_VIEW) ?
                 setViewHolder(layoutInflater, parent) :
                 new LoadViewHolder(layoutInflater
                         .inflate(setLoadLayout(), parent, false));
@@ -49,12 +49,12 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
 
     @Override
     public int getItemCount() {
-        return list.size() + (visibleProgress ? 1 : 0);
+        return list.size() + (progressVisibility ? 1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position == list.size() ? VIEW_PROGRESS : VIEW_ITEM;
+        return position == list.size() ? PROGRESS_VIEW : ITEM_VIEW;
     }
 
     private static class LoadViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +68,6 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
     @Override
     public void addList(@NonNull List<T> listAdd) {
         if (listAdd.size() > 0) {
-            hideProgress();
             int lastPositionBefore = getItemCount() - 1;
             list.addAll(listAdd);
             notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
@@ -78,7 +77,6 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void changeList(@NonNull List<T> newList) {
-        hideProgress();
         list.clear();
         list.addAll(newList);
         notifyDataSetChanged();
@@ -86,14 +84,14 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
 
     @Override
     public void showProgress() {
-        visibleProgress = true;
+        progressVisibility = true;
         notifyItemRangeChanged(list.size(), 1);
     }
 
     @Override
     public void hideProgress() {
-        if (visibleProgress) {
-            visibleProgress = false;
+        if (progressVisibility) {
+            progressVisibility = false;
             notifyItemRangeChanged(list.size(), 1);
         }
     }

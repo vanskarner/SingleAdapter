@@ -56,7 +56,7 @@ class GridPaginationAdapter
                     @Override
                     public int getSpanSize(int position) {
                         int currentViewType = getItemViewType(position);
-                        return (currentViewType == VIEW_PROGRESS) ? 2 : 1;
+                        return (currentViewType == PROGRESS_VIEW) ? 2 : 1;
                     }
                 });
     }
