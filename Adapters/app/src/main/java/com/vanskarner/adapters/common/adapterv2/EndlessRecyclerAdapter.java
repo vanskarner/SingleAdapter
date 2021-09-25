@@ -12,11 +12,11 @@ import java.util.List;
 
 public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-        implements AdapterOperations.Endless, AdapterOperations.Add<T>,AdapterOperations.Change<T> {
+        implements AdapterOperations.Endless, AdapterOperations.Add<T>, AdapterOperations.Change<T> {
 
     public static final int ITEM_VIEW = 0;
     public static final int PROGRESS_VIEW = 1;
-    private boolean progressVisibility = false;
+    public boolean progressVisibility = false;
     protected List<T> list;
 
     public EndlessRecyclerAdapter(@NonNull List<T> list) {

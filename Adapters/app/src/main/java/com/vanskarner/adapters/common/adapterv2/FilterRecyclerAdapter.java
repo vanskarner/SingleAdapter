@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class EndlessFilterRecyclerAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
-        extends EndlessRecyclerAdapter<T, ItemViewHolder>
+public abstract class FilterRecyclerAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+        extends BasicRecyclerAdapter<T, ItemViewHolder>
         implements BasicFilter.Filtered<T> {
 
     protected List<T> originalList;
     protected Filter filter;
 
-    public EndlessFilterRecyclerAdapter(@NonNull List<T> list) {
+    public FilterRecyclerAdapter(@NonNull List<T> list) {
         super(list);
         this.originalList = new ArrayList<>(list);
         this.filter = new BasicFilter<>(list, originalList, this, this);
@@ -48,5 +48,4 @@ public abstract class EndlessFilterRecyclerAdapter<T, ItemViewHolder extends Rec
         originalList.addAll(newList);
         notifyDataSetChanged();
     }
-
 }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BasicFilter<T, S extends ViewHolder> extends Filter {
 
     private final List<T> list;
