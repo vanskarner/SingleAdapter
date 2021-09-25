@@ -9,14 +9,15 @@ import com.vanskarner.adapters.R;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vanskarner.adapters.common.adapters.FilterAdapter;
+
+import com.vanskarner.adapters.common.adapterv2.FilterRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemSimpleBinding;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class SimpleSearchAdapter extends
-        FilterAdapter<PersonModel, SimpleSearchAdapter.ItemViewHolder> {
+        FilterRecyclerAdapter<PersonModel, SimpleSearchAdapter.ItemViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
@@ -41,7 +42,7 @@ class SimpleSearchAdapter extends
     }
 
     @Override
-    public boolean filterCondition(PersonModel item, String filterPattern) {
+    public boolean onFilterCondition(PersonModel item, String filterPattern) {
         return item.getName().toLowerCase().contains(filterPattern);
     }
 

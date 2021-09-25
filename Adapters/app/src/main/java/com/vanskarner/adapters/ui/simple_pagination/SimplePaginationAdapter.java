@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.EndlessAdapter;
+import com.vanskarner.adapters.common.adapterv2.EndlessRecyclerAdapter;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class SimplePaginationAdapter
-        extends EndlessAdapter<PersonModel, SimplePaginationAdapter.ItemClickViewHolder> {
+        extends EndlessRecyclerAdapter<PersonModel, SimplePaginationAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 

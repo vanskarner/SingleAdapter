@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.vanskarner.adapters.common.adapterv2.EndlessFilterRecyclerAdapter;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.EndlessFilterAdapter;
 
 import java.util.List;
 
 class SearchPaginationFilterAdapter
-        extends EndlessFilterAdapter<PersonModel, SearchPaginationFilterAdapter.ItemClickViewHolder> {
+        extends EndlessFilterRecyclerAdapter<PersonModel, SearchPaginationFilterAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
@@ -41,7 +41,7 @@ class SearchPaginationFilterAdapter
     }
 
     @Override
-    public boolean filterCondition(PersonModel item, String filterPattern) {
+    public boolean onFilterCondition(PersonModel item, String filterPattern) {
         return item.getName().toLowerCase().contains(filterPattern);
     }
 

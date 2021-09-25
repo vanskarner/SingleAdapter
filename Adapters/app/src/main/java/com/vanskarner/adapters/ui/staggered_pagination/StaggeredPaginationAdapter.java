@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapters.EndlessAdapter;
+
+import com.vanskarner.adapters.common.adapterv2.EndlessRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemStaggeredBinding;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.List;
 
 class StaggeredPaginationAdapter
-        extends EndlessAdapter<PersonModel, StaggeredPaginationAdapter.ItemClickViewHolder> {
+        extends EndlessRecyclerAdapter<PersonModel, StaggeredPaginationAdapter.ItemClickViewHolder> {
 
     private View.OnClickListener onItemClickListener;
 
@@ -49,7 +50,7 @@ class StaggeredPaginationAdapter
     @Override
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        if (holder.getItemViewType() == VIEW_TYPE_LOADING) {
+        if (holder.getItemViewType() == PROGRESS_VIEW) {
             StaggeredGridLayoutManager.LayoutParams layoutParams =
                     (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
             layoutParams.setFullSpan(true);
