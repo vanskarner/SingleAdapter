@@ -8,6 +8,8 @@ public interface AdapterOperations {
 
     interface Endless {
 
+        boolean isVisibleProgress();
+
         void showProgress();
 
         void hideProgress();

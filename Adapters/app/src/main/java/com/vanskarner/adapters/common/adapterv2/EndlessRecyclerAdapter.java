@@ -16,7 +16,7 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
 
     public static final int ITEM_VIEW = 0;
     public static final int PROGRESS_VIEW = 1;
-    public boolean progressVisibility = false;
+    private boolean visibleProgress = false;
     protected List<T> list;
 
     public EndlessRecyclerAdapter(@NonNull List<T> list) {
@@ -49,7 +49,7 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
 
     @Override
     public int getItemCount() {
-        return list.size() + (progressVisibility ? 1 : 0);
+        return list.size() + (visibleProgress ? 1 : 0);
     }
 
     @Override
@@ -83,15 +83,20 @@ public abstract class EndlessRecyclerAdapter<T, ItemViewHolder extends RecyclerV
     }
 
     @Override
+    public boolean isVisibleProgress() {
+        return visibleProgress;
+    }
+
+    @Override
     public void showProgress() {
-        progressVisibility = true;
+        visibleProgress = true;
         notifyItemRangeChanged(list.size(), 1);
     }
 
     @Override
     public void hideProgress() {
-        if (progressVisibility) {
-            progressVisibility = false;
+        if (visibleProgress) {
+            visibleProgress = false;
             notifyItemRangeChanged(list.size(), 1);
         }
     }
