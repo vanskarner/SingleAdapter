@@ -25,7 +25,7 @@ public class Paginationv2 extends RecyclerView.OnScrollListener {
                 LAST_POSITION_COMPLETE : positionType;
     }
 
-    private int lastPositionStaggered(StaggeredGridLayoutManager manager) {
+    private int lastPositionStaggered(@NonNull StaggeredGridLayoutManager manager) {
         int[] lastPositions = (positionType == LAST_POSITION) ?
                 manager.findLastVisibleItemPositions(null) :
                 manager.findLastCompletelyVisibleItemPositions(null);
@@ -39,19 +39,19 @@ public class Paginationv2 extends RecyclerView.OnScrollListener {
         return max;
     }
 
-    private int lastPositionLinear(LinearLayoutManager manager) {
+    private int lastPositionLinear(@NonNull LinearLayoutManager manager) {
         return (positionType == LAST_POSITION) ?
                 manager.findLastVisibleItemPosition() :
                 manager.findLastCompletelyVisibleItemPosition();
     }
 
-    private int lastPositionGrid(GridLayoutManager manager) {
+    private int lastPositionGrid(@NonNull GridLayoutManager manager) {
         return (positionType == LAST_POSITION) ?
                 manager.findLastVisibleItemPosition() :
                 manager.findLastCompletelyVisibleItemPosition();
     }
 
-    private int getLastPosition(RecyclerView.LayoutManager layoutManager) {
+    private int getLastPosition(@NonNull RecyclerView.LayoutManager layoutManager) {
         if (layoutManager instanceof LinearLayoutManager) {
             if (layoutManager instanceof GridLayoutManager) {
                 return lastPositionGrid((GridLayoutManager) layoutManager);
@@ -63,26 +63,31 @@ public class Paginationv2 extends RecyclerView.OnScrollListener {
         return 0;
     }
 
-    private boolean conditionForScrolled(RecyclerView.LayoutManager manager) {
+    private boolean conditionForScrolled(@NonNull RecyclerView.LayoutManager manager) {
         int lastPosition = getLastPosition(manager);
-        return (!isLoading && manager != null && lastPosition == manager.getItemCount() - 1);
+        return (!isLoading && lastPosition == manager.getItemCount() - 1);
     }
 
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (conditionForScrolled(manager)) {
+        if (manager != null && conditionForScrolled(manager)) {
             isLoading = true;
             onLoadMoreListener.onLoadMore(pageNumber);
             pageNumber++;
         }
     }
 
-    public void onLoadMore(){
+    public void onLoadMore() {
         isLoading = true;
         onLoadMoreListener.onLoadMore(pageNumber);
         pageNumber++;
+    }
+
+    public void reset() {
+        pageNumber = 1;
+        isLoading = false;
     }
 
     public interface OnLoadMoreListener {

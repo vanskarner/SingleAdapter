@@ -10,20 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.Pagination;
+import com.vanskarner.adapters.common.listener.Paginationv2;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GridPaginationActivity extends BaseActivity implements GridPaginationContract.view,
-        Pagination.OnLoadMoreListener {
+        Paginationv2.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     List<PersonModel> list = new ArrayList<>();
     GridPaginationAdapter adapter = new GridPaginationAdapter(list);
-    Pagination pagination = Pagination
-            .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
+    Paginationv2 pagination = new Paginationv2(this,Paginationv2.LAST_POSITION_COMPLETE);
     GridPaginationContract.presenter presenter;
 
     @Override
@@ -90,10 +89,9 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     }
 
     @Override
-    public void loadMore() {
+    public void onLoadMore(int page) {
         adapter.showProgress();
         presenter.loadMore(pagination.pageNumber);
     }
-
 
 }
