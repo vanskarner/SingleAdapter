@@ -22,7 +22,8 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     RecyclerView recyclerView;
     List<PersonModel> list = new ArrayList<>();
     GridPaginationAdapter adapter = new GridPaginationAdapter(list);
-    Paginationv2 pagination = new Paginationv2(this,Paginationv2.LAST_POSITION_COMPLETE);
+    Paginationv2 pagination = new Paginationv2(this,
+            Paginationv2.LAST_POSITION_COMPLETE);
     GridPaginationContract.presenter presenter;
 
     @Override
@@ -51,7 +52,10 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadMore(pagination.pageNumber);
+        if (pagination.pageNumber == 1) {
+            findViewById(R.id.progressBarPagination).setVisibility(View.VISIBLE);
+            pagination.onLoadMore();
+        }
     }
 
     @Override
@@ -60,23 +64,16 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
         presenter.unsubscribe();
     }
 
-    private void initializeView() {
-        if (pagination.pageNumber == 1) {
-            recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
-        }
-    }
-
     //Contract Methods
 
     @Override
     public void hideProgress() {
+        findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
         adapter.hideProgress();
     }
 
     @Override
     public void addList(List<PersonModel> list) {
-        initializeView();
         pagination.isLoading = false;
         adapter.addList(list);
     }
@@ -90,8 +87,10 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
 
     @Override
     public void onLoadMore(int page) {
-        adapter.showProgress();
-        presenter.loadMore(pagination.pageNumber);
+        if (page != 1) {
+            adapter.showProgress();
+        }
+        presenter.loadMore(page);
     }
 
 }

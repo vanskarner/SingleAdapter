@@ -65,14 +65,14 @@ public class Paginationv2 extends RecyclerView.OnScrollListener {
 
     private boolean conditionForScrolled(@NonNull RecyclerView.LayoutManager manager) {
         int lastPosition = getLastPosition(manager);
-        return (!isLoading && lastPosition == manager.getItemCount() - 1);
+        return (lastPosition == manager.getItemCount() - 1);
     }
 
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (manager != null && conditionForScrolled(manager)) {
+        if (!isLoading && manager != null && conditionForScrolled(manager)) {
             isLoading = true;
             onLoadMoreListener.onLoadMore(pageNumber);
             pageNumber++;
