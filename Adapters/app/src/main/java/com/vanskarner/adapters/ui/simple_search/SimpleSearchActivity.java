@@ -67,7 +67,9 @@ public class SimpleSearchActivity extends BaseActivity implements SimpleSearchCo
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadList();
+        if (list.isEmpty()) {
+            presenter.loadList();
+        }
     }
 
     @Override
