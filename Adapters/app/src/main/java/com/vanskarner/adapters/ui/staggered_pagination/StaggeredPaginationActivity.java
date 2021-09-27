@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.Pagination;
+import com.vanskarner.adapters.common.listener.Paginationv2;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StaggeredPaginationActivity extends BaseActivity
-        implements StaggeredPaginationContract.view, Pagination.OnLoadMoreListener {
+        implements StaggeredPaginationContract.view, Paginationv2.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     List<PersonModel> list = new ArrayList<>();
     StaggeredPaginationAdapter adapter = new StaggeredPaginationAdapter(list);
-    Pagination pagination = Pagination
-            .createWithStaggered(this, Pagination.LAST_POSITION_COMPLETE);
+    Paginationv2 pagination = new Paginationv2(this,
+            Paginationv2.LAST_POSITION_COMPLETE);
     StaggeredPaginationContract.presenter presenter;
 
     @Override
@@ -52,7 +52,19 @@ public class StaggeredPaginationActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadMore(pagination.pageNumber);
+        if (pagination.pageNumber == 1) {
+            findViewById(R.id.progressBarCentral).setVisibility(View.VISIBLE);
+            pagination.onLoadMore();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pagination.isLoading) {
+            pagination.isLoading = false;
+            pagination.pageNumber--;
+        }
     }
 
     @Override
@@ -61,23 +73,16 @@ public class StaggeredPaginationActivity extends BaseActivity
         presenter.unsubscribe();
     }
 
-    private void initializeView() {
-        if (pagination.pageNumber == 1) {
-            recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
-        }
-    }
-
     //Contract Methods
 
     @Override
     public void hideProgress() {
+        findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
         adapter.hideProgress();
     }
 
     @Override
     public void addList(List<PersonModel> list) {
-        initializeView();
         pagination.isLoading = false;
         adapter.addList(list);
     }
@@ -90,10 +95,11 @@ public class StaggeredPaginationActivity extends BaseActivity
     }
 
     @Override
-    public void loadMore() {
-        adapter.showProgress();
-        presenter.loadMore(pagination.pageNumber);
+    public void onLoadMore(int page) {
+        if (page != 1) {
+            adapter.showProgress();
+        }
+        presenter.loadMore(page);
     }
-
 
 }
