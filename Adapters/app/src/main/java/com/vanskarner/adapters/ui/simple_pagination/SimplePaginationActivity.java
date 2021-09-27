@@ -10,20 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.Pagination;
+
+import com.vanskarner.adapters.common.listener.Paginationv2;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimplePaginationActivity extends BaseActivity
-        implements SimplePaginationContract.view, Pagination.OnLoadMoreListener {
+        implements SimplePaginationContract.view, Paginationv2.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     List<PersonModel> list = new ArrayList<>();
     SimplePaginationAdapter adapter = new SimplePaginationAdapter(list);
-    Pagination pagination = Pagination
-            .createWithLinear(this, Pagination.LAST_POSITION_COMPLETE);
+    Paginationv2 pagination = new Paginationv2(this,
+            Paginationv2.LAST_POSITION_COMPLETE);
     SimplePaginationContract.presenter presenter;
 
     @Override
@@ -52,7 +53,19 @@ public class SimplePaginationActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadMore(pagination.pageNumber);
+        if (pagination.pageNumber == 1) {
+            findViewById(R.id.progressBarCentral).setVisibility(View.VISIBLE);
+            pagination.onLoadMore();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pagination.isLoading) {
+            pagination.isLoading = false;
+            pagination.pageNumber--;
+        }
     }
 
     @Override
@@ -65,19 +78,12 @@ public class SimplePaginationActivity extends BaseActivity
 
     @Override
     public void hideProgress() {
+        findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
         adapter.hideProgress();
-    }
-
-    private void initializeView() {
-        if (pagination.pageNumber == 1) {
-            recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
-        }
     }
 
     @Override
     public void addList(List<PersonModel> list) {
-        initializeView();
         pagination.isLoading = false;
         adapter.addList(list);
     }
@@ -89,10 +95,11 @@ public class SimplePaginationActivity extends BaseActivity
     }
 
     @Override
-    public void loadMore() {
-        adapter.showProgress();
+    public void onLoadMore(int page) {
+        if (page != 1) {
+            adapter.showProgress();
+        }
         presenter.loadMore(pagination.pageNumber);
     }
-
 
 }
