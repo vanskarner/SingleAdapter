@@ -39,8 +39,7 @@ public class PersonModel {
     @Override
     public String toString() {
         return "PersonModel{" +
-                "name='" + name + '\'' +
-                ", image=" + image +
+                "name='" + name +
                 '}';
     }
 }

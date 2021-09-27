@@ -53,8 +53,17 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
     protected void onResume() {
         super.onResume();
         if (pagination.pageNumber == 1) {
-            findViewById(R.id.progressBarPagination).setVisibility(View.VISIBLE);
+            findViewById(R.id.progressBarCentral).setVisibility(View.VISIBLE);
             pagination.onLoadMore();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (pagination.isLoading) {
+            pagination.isLoading = false;
+            pagination.pageNumber--;
         }
     }
 
@@ -68,7 +77,7 @@ public class GridPaginationActivity extends BaseActivity implements GridPaginati
 
     @Override
     public void hideProgress() {
-        findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+        findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
         adapter.hideProgress();
     }
 

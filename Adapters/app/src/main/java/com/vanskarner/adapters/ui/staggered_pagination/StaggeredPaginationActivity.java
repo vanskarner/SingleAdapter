@@ -64,7 +64,7 @@ public class StaggeredPaginationActivity extends BaseActivity
     private void initializeView() {
         if (pagination.pageNumber == 1) {
             recyclerView.setVisibility(View.VISIBLE);
-            findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+            findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
         }
     }
 

@@ -91,7 +91,7 @@ public class SearchPaginationActivity extends BaseActivity
         if (pagination.pageNumber == 1) {
             recyclerView.setVisibility(View.VISIBLE);
             searchView.setVisibility(View.VISIBLE);
-            findViewById(R.id.progressBarPagination).setVisibility(View.GONE);
+            findViewById(R.id.progressBarCentral).setVisibility(View.GONE);
         }
     }
 
