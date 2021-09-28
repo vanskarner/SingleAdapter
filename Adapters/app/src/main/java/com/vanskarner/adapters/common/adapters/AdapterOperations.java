@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.common.adapterv2;
+package com.vanskarner.adapters.common.adapters;
 
 import androidx.annotation.NonNull;
 

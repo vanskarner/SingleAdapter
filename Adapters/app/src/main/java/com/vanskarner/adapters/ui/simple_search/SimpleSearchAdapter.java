@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.vanskarner.adapters.common.adapterv2.FilterRecyclerAdapter;
+import com.vanskarner.adapters.common.adapters.FilterRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemSimpleBinding;
 import com.vanskarner.adapters.models.PersonModel;
 

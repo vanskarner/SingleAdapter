@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adapterv2.EndlessRecyclerAdapter;
+import com.vanskarner.adapters.common.adapters.EndlessRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemGridBinding;
 import com.vanskarner.adapters.models.PersonModel;
 

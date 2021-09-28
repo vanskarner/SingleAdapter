@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.bases.BaseActivity;
+import com.vanskarner.adapters.ui.BaseActivity;
 
-import com.vanskarner.adapters.common.listener.Paginationv2;
+import com.vanskarner.adapters.common.adapters.Pagination;
 import com.vanskarner.adapters.models.PersonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimplePaginationActivity extends BaseActivity
-        implements SimplePaginationContract.view, Paginationv2.OnLoadMoreListener {
+        implements SimplePaginationContract.view, Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     List<PersonModel> list = new ArrayList<>();
     SimplePaginationAdapter adapter = new SimplePaginationAdapter(list);
-    Paginationv2 pagination = new Paginationv2(this,
-            Paginationv2.LAST_POSITION_COMPLETE);
+    Pagination pagination = new Pagination(this,
+            Pagination.LAST_POSITION_COMPLETE);
     SimplePaginationContract.presenter presenter;
 
     @Override

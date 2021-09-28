@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<ItemViewHolder> {
+public abstract class BasicRecyclerAdapter<T, ItemViewHolder extends RecyclerView.ViewHolder>
+        extends RecyclerView.Adapter<ItemViewHolder>
+        implements AdapterOperations.Add<T>, AdapterOperations.Change<T> {
 
     protected List<T> list;
 
-    public BasicAdapter(List<T> list) {
+    public BasicRecyclerAdapter(@NonNull List<T> list) {
         this.list = list;
     }
 
@@ -37,24 +38,26 @@ public abstract class BasicAdapter<T, ItemViewHolder extends RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return list.size();
     }
 
-    //Custom methods
+    //AdapterOperations methods
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void changeList(@NonNull List<T> newList) {
-        list.clear();
-        list.addAll(newList);
-        notifyDataSetChanged();
-    }
-
+    @Override
     public void addList(@NonNull List<T> listAdd) {
         if (listAdd.size() > 0) {
             int lastPositionBefore = getItemCount() - 1;
             list.addAll(listAdd);
             notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void changeList(@NonNull List<T> newList) {
+        list.clear();
+        list.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

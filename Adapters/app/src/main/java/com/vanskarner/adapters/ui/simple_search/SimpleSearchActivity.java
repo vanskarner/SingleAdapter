@@ -9,7 +9,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.bases.BaseActivity;
+import com.vanskarner.adapters.ui.BaseActivity;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.PersonModel;
 

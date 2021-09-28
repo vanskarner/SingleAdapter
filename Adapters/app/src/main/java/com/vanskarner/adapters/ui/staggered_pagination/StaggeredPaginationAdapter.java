@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.vanskarner.adapters.R;
 
-import com.vanskarner.adapters.common.adapterv2.EndlessRecyclerAdapter;
+import com.vanskarner.adapters.common.adapters.EndlessRecyclerAdapter;
 import com.vanskarner.adapters.databinding.ItemStaggeredBinding;
 import com.vanskarner.adapters.models.PersonModel;
 

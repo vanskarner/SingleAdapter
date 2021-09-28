@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.common.adapterv2;
+package com.vanskarner.adapters.common.adapters;
 
 import android.annotation.SuppressLint;
 import android.widget.Filter;

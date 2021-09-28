@@ -10,8 +10,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.vanskarner.adapters.common.bases.BaseActivity;
-import com.vanskarner.adapters.common.listener.Paginationv2;
+import com.vanskarner.adapters.ui.BaseActivity;
+import com.vanskarner.adapters.common.adapters.Pagination;
 import com.vanskarner.adapters.common.reactive_views.RxSearchObservable;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
@@ -26,14 +26,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SearchPaginationActivity extends BaseActivity
-        implements SearchPaginationContract.view, Paginationv2.OnLoadMoreListener {
+        implements SearchPaginationContract.view, Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
     SearchView searchView;
     List<PersonModel> list = new ArrayList<>();
     SearchPaginationFilterAdapter adapter = new SearchPaginationFilterAdapter(list);
-    Paginationv2 pagination = new Paginationv2(this,
-            Paginationv2.LAST_POSITION_COMPLETE);
+    Pagination pagination = new Pagination(this,
+            Pagination.LAST_POSITION_COMPLETE);
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     SearchPaginationContract.presenter presenter;
 

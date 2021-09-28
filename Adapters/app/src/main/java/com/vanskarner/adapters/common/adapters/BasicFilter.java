@@ -2,7 +2,9 @@ package com.vanskarner.adapters.common.adapters;
 
 import android.annotation.SuppressLint;
 import android.widget.Filter;
+import android.widget.Filterable;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
@@ -16,10 +18,10 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
     private final RecyclerView.Adapter<S> adapter;
     private final Filtered<T> filtered;
 
-    public BasicFilter(List<T> list,
-                       List<T> originalList,
-                       RecyclerView.Adapter<S> adapter,
-                       Filtered<T> filtered) {
+    public BasicFilter(@NonNull List<T> list,
+                       @NonNull List<T> originalList,
+                       @NonNull RecyclerView.Adapter<S> adapter,
+                       @NonNull Filtered<T> filtered) {
         this.list = list;
         this.originalList = originalList;
         this.adapter = adapter;
@@ -34,7 +36,7 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         } else {
             String filterPatter = constraint.toString().toLowerCase().trim();
             for (T item : originalList) {
-                if (filtered.filterCondition(item, filterPatter)) {
+                if (filtered.onFilterCondition(item, filterPatter)) {
                     filteredList.add(item);
                 }
             }
@@ -53,8 +55,10 @@ public class BasicFilter<T, S extends ViewHolder> extends Filter {
         adapter.notifyDataSetChanged();
     }
 
-    interface Filtered<T> {
-        boolean filterCondition(T item, String filterPattern);
+    public interface Filtered<T> extends Filterable {
+
+        boolean onFilterCondition(T item, String filterPattern);
+
     }
 
 }

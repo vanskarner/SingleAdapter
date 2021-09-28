@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.vanskarner.adapters.common.adapterv2.EndlessFilterRecyclerAdapter;
+import com.vanskarner.adapters.common.adapters.EndlessFilterRecyclerAdapter;
 import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.R;
 
