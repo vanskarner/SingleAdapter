@@ -39,7 +39,6 @@ public class PersonModel {
     @Override
     public String toString() {
         return "PersonModel{" +
-                "name='" + name +
-                '}';
+                "name='" + name + "'}";
     }
 }
