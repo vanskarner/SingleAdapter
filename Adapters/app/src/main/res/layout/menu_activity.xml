@@ -40,4 +40,11 @@
         android:layout_margin="@dimen/small_spacing"
         android:text="@string/search_pagination" />
 
+    <Button
+        android:id="@+id/btnMultiPagination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_spacing"
+        android:text="@string/multi_pagination" />
+
 </LinearLayout>

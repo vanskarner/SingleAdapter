@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.ui.grid_pagination.GridPaginationActivity;
+import com.vanskarner.adapters.ui.multi_adapters.MultiPaginationActivity;
 import com.vanskarner.adapters.ui.search_pagination.SearchPaginationActivity;
 import com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity;
 import com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity;
@@ -42,6 +43,11 @@ public class MenuActivity extends AppCompatActivity {
         findViewById(R.id.btnSearchPagination)
                 .setOnClickListener(view -> {
                     Intent intent = new Intent(this, SearchPaginationActivity.class);
+                    startActivity(intent);
+                });
+        findViewById(R.id.btnMultiPagination)
+                .setOnClickListener(view -> {
+                    Intent intent = new Intent(this, MultiPaginationActivity.class);
                     startActivity(intent);
                 });
     }

@@ -11,7 +11,8 @@
         android:theme="@style/Theme.Adapters"
         tools:ignore="AllowBackup">
 
-        <activity android:name="com.vanskarner.adapters.ui.MenuActivity"
+        <activity
+            android:name="com.vanskarner.adapters.ui.MenuActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +40,11 @@
         <activity
             android:name="com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity"
             android:theme="@style/Theme.Adapters.FullScreen" />
+
+        <activity
+            android:name="com.vanskarner.adapters.ui.multi_adapters.MultiPaginationActivity"
+            android:theme="@style/Theme.Adapters.FullScreen" />
+
     </application>
 
 </manifest>
