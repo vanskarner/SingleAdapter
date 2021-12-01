@@ -7,7 +7,7 @@
 
         <variable
             name="personSecond"
-            type="com.vanskarner.adapters.ui.multi_adapters.Person.PersonSecond" />
+            type="com.vanskarner.adapters.ui.multi_adapters.news.Person.PersonSecond" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

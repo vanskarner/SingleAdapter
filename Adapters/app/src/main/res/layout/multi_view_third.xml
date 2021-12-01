@@ -6,7 +6,7 @@
     <data>
         <variable
             name="personThird"
-            type="com.vanskarner.adapters.ui.multi_adapters.Person.PersonThird" />
+            type="com.vanskarner.adapters.ui.multi_adapters.news.Person.PersonThird" />
     </data>
 
     <androidx.cardview.widget.CardView

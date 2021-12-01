@@ -2,6 +2,7 @@ package com.vanskarner.adapters.ui.multi_adapters;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.ui.NoPages;
+import com.vanskarner.adapters.ui.multi_adapters.news.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,26 @@ class MultiPaginationModel {
                     list.add(new Person.PersonThird(R.drawable.img_15, "Charlotte " + page, "24"));
                     return list;
                 });
+    }
+
+    public List<Person> sampleData2() {
+        List<Person> list = new ArrayList<>();
+        list.add(new Person.PersonOne(R.drawable.img_1, "Sophia "));
+        list.add(new Person.PersonSecond(R.drawable.img_2, "Emma "));
+        list.add(new Person.PersonThird(R.drawable.img_3, "Isabella ", "23"));
+        list.add(new Person.PersonOne(R.drawable.img_4, "Olivia "));
+        list.add(new Person.PersonThird(R.drawable.img_5, "Ava ", "25"));
+        list.add(new Person.PersonSecond(R.drawable.img_6, "Emily "));
+        list.add(new Person.PersonThird(R.drawable.img_7, "Abigail ", "22"));
+        list.add(new Person.PersonOne(R.drawable.img_8, "Mia "));
+        list.add(new Person.PersonSecond(R.drawable.img_9, "Madison "));
+        list.add(new Person.PersonOne(R.drawable.img_10, "Elizabeth "));
+        list.add(new Person.PersonSecond(R.drawable.img_11, "Lindsay "));
+        list.add(new Person.PersonThird(R.drawable.img_12, "Valerie ", "25"));
+        list.add(new Person.PersonSecond(R.drawable.img_13, "Amara "));
+        list.add(new Person.PersonOne(R.drawable.img_14, "Leanne "));
+        list.add(new Person.PersonThird(R.drawable.img_15, "Charlotte ", "24"));
+        return list;
     }
 
 }
