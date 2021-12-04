@@ -1,6 +1,7 @@
 package com.vanskarner.adapters.ui.multi_adapters;
 
 import com.vanskarner.adapters.R;
+import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
 import com.vanskarner.adapters.ui.NoPages;
 import com.vanskarner.adapters.ui.multi_adapters.news.Person;
 
@@ -40,8 +41,8 @@ class MultiPaginationModel {
                 });
     }
 
-    public List<Person> sampleData2() {
-        List<Person> list = new ArrayList<>();
+    public List<AdapterItem> sampleData2() {
+        List<AdapterItem> list = new ArrayList<>();
         list.add(new Person.PersonOne(R.drawable.img_1, "Sophia "));
         list.add(new Person.PersonSecond(R.drawable.img_2, "Emma "));
         list.add(new Person.PersonThird(R.drawable.img_3, "Isabella ", "23"));

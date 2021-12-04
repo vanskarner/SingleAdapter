@@ -1,6 +1,8 @@
 package com.vanskarner.adapters.ui.multi_adapters.news;
 
-public abstract class Person implements Element {
+import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
+
+public abstract class Person implements AdapterItem {
 
     public static class PersonOne extends Person {
         private final int image;
@@ -19,10 +21,6 @@ public abstract class Person implements Element {
             return name;
         }
 
-        @Override
-        public int accept(Visitor visitor) {
-            return visitor.visit(this);
-        }
     }
 
     public static class PersonSecond extends Person {
@@ -42,10 +40,6 @@ public abstract class Person implements Element {
             return name;
         }
 
-        @Override
-        public int accept(Visitor visitor) {
-            return visitor.visit(this);
-        }
     }
 
     public static class PersonThird extends Person {
@@ -71,9 +65,5 @@ public abstract class Person implements Element {
             return age;
         }
 
-        @Override
-        public int accept(Visitor visitor) {
-            return visitor.visit(this);
-        }
     }
 }
