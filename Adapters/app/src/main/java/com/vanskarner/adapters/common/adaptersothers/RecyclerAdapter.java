@@ -31,13 +31,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        for (Map.Entry<Integer, DelegateAdapter<AdapterItem, RecyclerView.ViewHolder>> entry :
-                mapAdapter.entrySet()) {
-            if (isItsModel(entry.getValue(), position)) {
-                entry.getValue().onBindViewHolder(list.get(position), holder);
-                return;
-            }
-        }
+        search2(position, delegateAdapter -> delegateAdapter.onBindViewHolder(list.get(position), holder));
     }
 
     @Override
@@ -47,23 +41,32 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        int layoutId = 0;
-        for (Map.Entry<Integer, DelegateAdapter<AdapterItem, RecyclerView.ViewHolder>> entry :
-                mapAdapter.entrySet()) {
-            if (isItsModel(entry.getValue(), position)) {
-                return entry.getValue().getLayoutId();
-            }
-        }
-        return layoutId;
+        final int[] layoutId = {0};
+        search2(position, delegateAdapter -> layoutId[0] = delegateAdapter.getLayoutId());
+        return layoutId[0];
     }
+
 
     private boolean isItsModel(DelegateAdapter delegateAdapter, int position) {
         return delegateAdapter.getModelClass().isInstance(list.get(position));
     }
 
+    public void search2(int position, SearchAdapters listener) {
+        for (Map.Entry<Integer, DelegateAdapter<AdapterItem, RecyclerView.ViewHolder>> entry :
+                mapAdapter.entrySet()) {
+            if (isItsModel(entry.getValue(), position)) {
+                listener.something(entry.getValue());
+                return;
+            }
+        }
+    }
+
+    interface SearchAdapters {
+        void something(DelegateAdapter delegateAdapter);
+    }
+
     public void addAdapter(DelegateAdapter delegateAdapter) {
         mapAdapter.put(delegateAdapter.getLayoutId(), delegateAdapter);
     }
-
 
 }
