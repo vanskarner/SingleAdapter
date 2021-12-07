@@ -6,10 +6,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-interface AdapterMethods<M extends AdapterItem, VH extends RecyclerView.ViewHolder> {
+interface AdapterMethods{
 
-    RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater);
+    interface Basic<VH extends RecyclerView.ViewHolder> {
+        VH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater);
+    }
 
-    void onBindViewHolder(M item, VH viewHolder);
+    interface Bind<VH extends RecyclerView.ViewHolder, M extends AdapterItem> {
+        void onBindViewHolder(VH viewHolder, M item);
+    }
 
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
 import com.vanskarner.adapters.common.adaptersothers.CompositeAdapter;
+import com.vanskarner.adapters.common.adaptersothers.LoadAdapter;
 import com.vanskarner.adapters.ui.BaseActivity;
 import com.vanskarner.adapters.ui.multi_adapters.news.MyAdapters;
 
@@ -34,9 +35,10 @@ public class MultiPaginationActivity extends BaseActivity
 
     private void setupView() {
         recyclerView = findViewById(R.id.recyclerPersons);
-        adapter.addBindAdapter(new MyAdapters.AdapterOne());
-        adapter.addBindAdapter(new MyAdapters.AdapterSecond());
-        adapter.addBindAdapter(new MyAdapters.AdapterThird());
+        adapter.addAdapter(new MyAdapters.AdapterOne());
+        adapter.addAdapter(new MyAdapters.AdapterSecond());
+        adapter.addAdapter(new MyAdapters.AdapterThird());
+        //adapter.addAdapter(new LoadAdapter(R.layout.item_loading));
         recyclerView.setAdapter(adapter);
         presenter.loadMore();
     }

@@ -14,16 +14,17 @@ import com.vanskarner.adapters.databinding.MultiViewThirdBinding;
 
 public class MyAdapters {
 
-    public static class AdapterOne extends BindAdapter<Person.PersonOne, AdapterOne.OneViewHolder> {
-
+    public static class AdapterOne
+            extends BindAdapter<Person.PersonOne, AdapterOne.OneViewHolder> {
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
+        public OneViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                LayoutInflater inflater) {
             return new OneViewHolder(MultiViewOneBinding
                     .inflate(inflater, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(Person.PersonOne item, OneViewHolder viewHolder) {
+        public void onBindViewHolder(OneViewHolder viewHolder, Person.PersonOne item) {
             viewHolder.binding.setPersonOne(item);
         }
 
@@ -37,8 +38,7 @@ public class MyAdapters {
             return Person.PersonOne.class;
         }
 
-
-        public static class OneViewHolder extends RecyclerView.ViewHolder {
+        static class OneViewHolder extends RecyclerView.ViewHolder {
             protected MultiViewOneBinding binding;
 
             public OneViewHolder(@NonNull MultiViewOneBinding binding) {
@@ -48,12 +48,18 @@ public class MyAdapters {
         }
     }
 
-    public static class AdapterSecond extends BindAdapter<Person.PersonSecond, AdapterSecond.SecondViewHolder> {
-
+    public static class AdapterSecond
+            extends BindAdapter<Person.PersonSecond, AdapterSecond.SecondViewHolder> {
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
+        public SecondViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                   LayoutInflater inflater) {
             return new SecondViewHolder(MultiViewSecondBinding
                     .inflate(inflater, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(SecondViewHolder viewHolder, Person.PersonSecond item) {
+            viewHolder.binding.setPersonSecond(item);
         }
 
         @Override
@@ -66,12 +72,7 @@ public class MyAdapters {
             return Person.PersonSecond.class;
         }
 
-        @Override
-        public void onBindViewHolder(Person.PersonSecond modeClass, SecondViewHolder viewHolder) {
-            viewHolder.binding.setPersonSecond(modeClass);
-        }
-
-        public static class SecondViewHolder extends RecyclerView.ViewHolder {
+        static class SecondViewHolder extends RecyclerView.ViewHolder {
             protected MultiViewSecondBinding binding;
 
             public SecondViewHolder(@NonNull MultiViewSecondBinding binding) {
@@ -81,15 +82,17 @@ public class MyAdapters {
         }
     }
 
-    public static class AdapterThird extends BindAdapter<Person.PersonThird, AdapterThird.ThirdViewHolder> {
+    public static class AdapterThird
+            extends BindAdapter<Person.PersonThird, AdapterThird.ThirdViewHolder> {
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
+        public ThirdViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                  LayoutInflater inflater) {
             return new ThirdViewHolder(MultiViewThirdBinding
                     .inflate(inflater, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(Person.PersonThird item, ThirdViewHolder viewHolder) {
+        public void onBindViewHolder(ThirdViewHolder viewHolder, Person.PersonThird item) {
             viewHolder.binding.setPersonThird(item);
         }
 
@@ -103,7 +106,7 @@ public class MyAdapters {
             return Person.PersonThird.class;
         }
 
-        public static class ThirdViewHolder extends RecyclerView.ViewHolder {
+        static class ThirdViewHolder extends RecyclerView.ViewHolder {
             protected MultiViewThirdBinding binding;
 
             public ThirdViewHolder(@NonNull MultiViewThirdBinding binding) {

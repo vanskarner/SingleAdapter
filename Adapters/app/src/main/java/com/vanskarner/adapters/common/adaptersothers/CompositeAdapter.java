@@ -16,7 +16,9 @@ import java.util.Objects;
 public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<AdapterItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
+    private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
     private List<AdapterItem> list;
+
 
     @SuppressLint("NotifyDataSetChanged")
     public void setList(List<AdapterItem> list) {
@@ -25,35 +27,53 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         //notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
     }
 
-    public void addBindAdapter(BindAdapter delegateAdapter) {
+    public void addAdapter(BindAdapter delegateAdapter) {
         mapAdapter.put(delegateAdapter.getLayoutId(), delegateAdapter);
     }
 
+    public void addAdapter(LoadAdapter loadAdapter) {
+        this.loadAdapter = loadAdapter;
+    }
+
+    public void showProgress() {
+        loadAdapter.showProgress(this, list);
+    }
+
+    public void hideProgress() {
+        loadAdapter.hideProgress(this, list);
+    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return Objects
-                .requireNonNull(mapAdapter.get(viewType))
-                .onCreateViewHolder(parent, LayoutInflater.from(parent.getContext()));
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return loadAdapter.getLayoutId() == viewType ?
+                loadAdapter.onCreateViewHolder(parent, inflater) :
+                Objects.requireNonNull(mapAdapter.get(viewType))
+                        .onCreateViewHolder(parent, inflater);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        getBinderAdapter(position).onBindViewHolder(list.get(position), holder);
+        filterBinderAdapter(position).onBindViewHolder(holder, list.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        boolean isVisibleProgress = loadAdapter.isVisibleProgress();
+        return list.size() + (isVisibleProgress ? 1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return getBinderAdapter(position).getLayoutId();
+        boolean isVisibleProgress = position >= list.size();
+        return isVisibleProgress ?
+                loadAdapter.getLayoutId() :
+                filterBinderAdapter(position).getLayoutId();
     }
 
-    private BindAdapter getBinderAdapter(int position) {
+    private BindAdapter filterBinderAdapter(int position) {
         for (Map.Entry<Integer, BindAdapter<AdapterItem, RecyclerView.ViewHolder>> entry :
                 mapAdapter.entrySet()) {
             if (isCorrectBindAdapter(entry.getValue(), position)) {
