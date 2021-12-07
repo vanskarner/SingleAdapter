@@ -2,14 +2,16 @@ package com.vanskarner.adapters.common.adaptersothers;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class BindAdapter<M extends AdapterItem, VH extends RecyclerView.ViewHolder>
-        implements AdapterMethods.Basic<VH>, AdapterMethods.Bind<VH, M> {
+public interface BindAdapter<VH extends RecyclerView.ViewHolder, M extends AdapterItem>
+        extends BasicAdapter<VH> {
 
-    public abstract int getLayoutId();
+    void onBindViewHolder(VH viewHolder, M item);
 
-    public abstract Class<M> getModelClass();
+    int setLayoutId();
 
-    public boolean filterItem(M item) {
+    Class<M> setModelClass();
+
+    default boolean filterItem(M item) {
         return true;
     }
 

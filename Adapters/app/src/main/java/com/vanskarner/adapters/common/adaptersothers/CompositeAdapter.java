@@ -1,6 +1,7 @@
 package com.vanskarner.adapters.common.adaptersothers;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final Map<Integer, BindAdapter<AdapterItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
+    private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, AdapterItem>> mapAdapter = new HashMap<>();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
     private List<AdapterItem> list;
 
@@ -27,8 +28,16 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         //notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
     }
 
+    public void addList(@NonNull List<AdapterItem> listAdd) {
+        if (listAdd.size() > 0) {
+            int lastPositionBefore = getItemCount() - 1;
+            list.addAll(listAdd);
+            notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
+        }
+    }
+
     public void addAdapter(BindAdapter delegateAdapter) {
-        mapAdapter.put(delegateAdapter.getLayoutId(), delegateAdapter);
+        mapAdapter.put(delegateAdapter.setLayoutId(), delegateAdapter);
     }
 
     public void addAdapter(LoadAdapter loadAdapter) {
@@ -56,7 +65,9 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        filterBinderAdapter(position).onBindViewHolder(holder, list.get(position));
+        if (!loadAdapter.isVisibleProgress()) {
+            filterBinderAdapter(position).onBindViewHolder(holder, list.get(position));
+        }
     }
 
     @Override
@@ -70,11 +81,11 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         boolean isVisibleProgress = position >= list.size();
         return isVisibleProgress ?
                 loadAdapter.getLayoutId() :
-                filterBinderAdapter(position).getLayoutId();
+                filterBinderAdapter(position).setLayoutId();
     }
 
-    private BindAdapter filterBinderAdapter(int position) {
-        for (Map.Entry<Integer, BindAdapter<AdapterItem, RecyclerView.ViewHolder>> entry :
+    private BindAdapter<RecyclerView.ViewHolder, AdapterItem> filterBinderAdapter(int position) {
+        for (Map.Entry<Integer, BindAdapter<RecyclerView.ViewHolder, AdapterItem>> entry :
                 mapAdapter.entrySet()) {
             if (isCorrectBindAdapter(entry.getValue(), position)) {
                 return entry.getValue();
@@ -88,7 +99,7 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private boolean isCorrectBindAdapter(BindAdapter bindAdapter, int position) {
         AdapterItem item = list.get(position);
-        boolean isCorrectModel = bindAdapter.getModelClass().isInstance(item);
+        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(item);
         boolean isCorrectFilter = bindAdapter.filterItem(item);
         return isCorrectModel && isCorrectFilter;
     }

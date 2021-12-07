@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 @SuppressWarnings("rawtypes")
-public class LoadAdapter implements AdapterMethods.Basic<LoadAdapter.LoadViewHolder> {
+public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
     private final int layoutId;
-    private boolean visibleProgress;
     private boolean enableLoad = true;
+    private boolean visibleProgress;
 
     public LoadAdapter(int layoutId) {
         this.layoutId = layoutId;
@@ -65,4 +65,5 @@ public class LoadAdapter implements AdapterMethods.Basic<LoadAdapter.LoadViewHol
         }
 
     }
+
 }

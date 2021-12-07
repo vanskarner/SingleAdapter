@@ -15,7 +15,7 @@ import com.vanskarner.adapters.databinding.MultiViewThirdBinding;
 public class MyAdapters {
 
     public static class AdapterOne
-            extends BindAdapter<Person.PersonOne, AdapterOne.OneViewHolder> {
+            implements BindAdapter<AdapterOne.OneViewHolder,Person.PersonOne> {
         @Override
         public OneViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                 LayoutInflater inflater) {
@@ -29,12 +29,12 @@ public class MyAdapters {
         }
 
         @Override
-        public int getLayoutId() {
+        public int setLayoutId() {
             return R.layout.multi_view_one;
         }
 
         @Override
-        public Class<Person.PersonOne> getModelClass() {
+        public Class<Person.PersonOne> setModelClass() {
             return Person.PersonOne.class;
         }
 
@@ -49,7 +49,7 @@ public class MyAdapters {
     }
 
     public static class AdapterSecond
-            extends BindAdapter<Person.PersonSecond, AdapterSecond.SecondViewHolder> {
+            implements BindAdapter<AdapterSecond.SecondViewHolder,Person.PersonSecond> {
         @Override
         public SecondViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                    LayoutInflater inflater) {
@@ -63,12 +63,12 @@ public class MyAdapters {
         }
 
         @Override
-        public int getLayoutId() {
+        public int setLayoutId() {
             return R.layout.multi_view_second;
         }
 
         @Override
-        public Class<Person.PersonSecond> getModelClass() {
+        public Class<Person.PersonSecond> setModelClass() {
             return Person.PersonSecond.class;
         }
 
@@ -83,7 +83,7 @@ public class MyAdapters {
     }
 
     public static class AdapterThird
-            extends BindAdapter<Person.PersonThird, AdapterThird.ThirdViewHolder> {
+            implements BindAdapter<AdapterThird.ThirdViewHolder,Person.PersonThird> {
         @Override
         public ThirdViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                   LayoutInflater inflater) {
@@ -97,12 +97,12 @@ public class MyAdapters {
         }
 
         @Override
-        public int getLayoutId() {
+        public int setLayoutId() {
             return R.layout.multi_view_third;
         }
 
         @Override
-        public Class<Person.PersonThird> getModelClass() {
+        public Class<Person.PersonThird> setModelClass() {
             return Person.PersonThird.class;
         }
 
