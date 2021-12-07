@@ -2,7 +2,6 @@ package com.vanskarner.adapters.ui.multi_adapters;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +12,6 @@ import com.vanskarner.adapters.common.adapters.Pagination;
 import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
 import com.vanskarner.adapters.common.adaptersothers.CompositeAdapter;
 import com.vanskarner.adapters.common.adaptersothers.LoadAdapter;
-import com.vanskarner.adapters.models.PersonModel;
 import com.vanskarner.adapters.ui.BaseActivity;
 import com.vanskarner.adapters.ui.multi_adapters.news.MyAdapters;
 
@@ -46,10 +44,10 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
         recyclerView = findViewById(R.id.recyclerPersons);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(pagination);
-        adapter.addAdapter(new MyAdapters.AdapterOne());
-        adapter.addAdapter(new MyAdapters.AdapterSecond());
-        adapter.addAdapter(new MyAdapters.AdapterThird());
-        adapter.addAdapter(new LoadAdapter(R.layout.item_loading));
+        adapter.add(new MyAdapters.AdapterOne());
+        adapter.add(new MyAdapters.AdapterSecond());
+        adapter.add(new MyAdapters.AdapterThird());
+        adapter.add(new LoadAdapter(R.layout.item_loading));
         adapter.setList(list);
 /*        adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();

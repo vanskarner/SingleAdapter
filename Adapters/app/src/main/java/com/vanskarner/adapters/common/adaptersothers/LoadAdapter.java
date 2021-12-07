@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 @SuppressWarnings("rawtypes")
 public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     private static final int DEFAULT_LAYOUT_ID = -1;
@@ -26,17 +24,17 @@ public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
         this.enableLoad = enableLoad;
     }
 
-    protected void showProgress(RecyclerView.Adapter adapter, List<AdapterItem> list) {
+    protected void showProgress(RecyclerView.Adapter adapter, int listSize) {
         if (enableLoad) {
             visibleProgress = true;
-            adapter.notifyItemRangeChanged(list.size(), 1);
+            adapter.notifyItemRangeChanged(listSize, 1);
         }
     }
 
-    protected void hideProgress(RecyclerView.Adapter adapter, List<AdapterItem> list) {
+    protected void hideProgress(RecyclerView.Adapter adapter, int listSize) {
         if (enableLoad && visibleProgress) {
             visibleProgress = false;
-            adapter.notifyItemRangeChanged(list.size(), 1);
+            adapter.notifyItemRangeChanged(listSize, 1);
         }
     }
 
@@ -44,7 +42,7 @@ public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
         return visibleProgress;
     }
 
-    public int getLayoutId() {
+    public int setLayoutId() {
         return layoutId;
     }
 
