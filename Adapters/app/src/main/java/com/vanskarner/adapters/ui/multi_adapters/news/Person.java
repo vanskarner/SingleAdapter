@@ -1,8 +1,8 @@
 package com.vanskarner.adapters.ui.multi_adapters.news;
 
-import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
+import com.vanskarner.adapters.common.adaptersothers.BindItem;
 
-public abstract class Person implements AdapterItem {
+public abstract class Person implements BindItem {
 
     public static class PersonOne extends Person {
         private final int image;

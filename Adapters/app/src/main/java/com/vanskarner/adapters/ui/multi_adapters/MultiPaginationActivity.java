@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.Pagination;
-import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
-import com.vanskarner.adapters.common.adaptersothers.CompositeAdapter;
+import com.vanskarner.adapters.common.adaptersothers.BindItem;
+import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 import com.vanskarner.adapters.common.adaptersothers.LoadAdapter;
 import com.vanskarner.adapters.ui.BaseActivity;
-import com.vanskarner.adapters.ui.multi_adapters.news.MyAdapters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +21,8 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
         Pagination.OnLoadMoreListener {
 
     RecyclerView recyclerView;
-    List<AdapterItem> list = new ArrayList<>();
-    CompositeAdapter adapter = new CompositeAdapter();
+    List<BindItem> list = new ArrayList<>();
+    SingleAdapter adapter = new SingleAdapter();
     Pagination pagination = new Pagination(this,
             Pagination.LAST_POSITION_COMPLETE);
     MultiPaginationContract.presenter presenter;
@@ -44,9 +43,9 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
         recyclerView = findViewById(R.id.recyclerPersons);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(pagination);
-        adapter.add(new MyAdapters.AdapterOne());
+        /*adapter.add(new MyAdapters.AdapterOne());
         adapter.add(new MyAdapters.AdapterSecond());
-        adapter.add(new MyAdapters.AdapterThird());
+        adapter.add(new MyAdapters.AdapterThird());*/
         adapter.add(new LoadAdapter(R.layout.item_loading));
         adapter.setList(list);
 /*        adapter.setOnItemClickListener(view -> {
@@ -89,7 +88,7 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
     }
 
     @Override
-    public void addList(List<AdapterItem> list) {
+    public void addList(List<BindItem> list) {
         pagination.isLoading = false;
         adapter.addList(list);
     }

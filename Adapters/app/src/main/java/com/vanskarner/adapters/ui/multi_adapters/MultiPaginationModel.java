@@ -1,7 +1,7 @@
 package com.vanskarner.adapters.ui.multi_adapters;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
+import com.vanskarner.adapters.common.adaptersothers.BindItem;
 import com.vanskarner.adapters.ui.NoPages;
 import com.vanskarner.adapters.ui.multi_adapters.news.Person;
 
@@ -14,14 +14,14 @@ import io.reactivex.Single;
 class MultiPaginationModel {
     private static final int TOTAL_PAGES = 4;
 
-    public Single<List<AdapterItem>> sampleData(final int page) {
+    public Single<List<BindItem>> sampleData(final int page) {
         return Single.just(true)
                 .delay(4, TimeUnit.SECONDS)
                 .map(value -> {
                     if (page > TOTAL_PAGES) {
                         throw new NoPages();
                     }
-                    List<AdapterItem> list = new ArrayList<>();
+                    List<BindItem> list = new ArrayList<>();
                     list.add(new Person.PersonOne(R.drawable.img_1, "Sophia " + page));
                     list.add(new Person.PersonSecond(R.drawable.img_2, "Emma " + page));
                     list.add(new Person.PersonThird(R.drawable.img_3, "Isabella " + page, "23"));
@@ -41,8 +41,8 @@ class MultiPaginationModel {
                 });
     }
 
-    public List<AdapterItem> sampleData2() {
-        List<AdapterItem> list = new ArrayList<>();
+    public List<BindItem> sampleData2() {
+        List<BindItem> list = new ArrayList<>();
         list.add(new Person.PersonOne(R.drawable.img_1, "Sophia "));
         list.add(new Person.PersonSecond(R.drawable.img_2, "Emma "));
         list.add(new Person.PersonThird(R.drawable.img_3, "Isabella ", "23"));

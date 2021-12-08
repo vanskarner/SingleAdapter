@@ -1,7 +1,6 @@
 package com.vanskarner.adapters.ui.multi_adapters;
 
-import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
-import com.vanskarner.adapters.models.PersonModel;
+import com.vanskarner.adapters.common.adaptersothers.BindItem;
 import com.vanskarner.adapters.ui.BasePresenter;
 
 import java.util.List;
@@ -12,7 +11,7 @@ interface MultiPaginationContract {
 
         void hideProgress();
 
-        void addList(List<AdapterItem> list);
+        void addList(List<BindItem> list);
 
         void showNoPages();
 

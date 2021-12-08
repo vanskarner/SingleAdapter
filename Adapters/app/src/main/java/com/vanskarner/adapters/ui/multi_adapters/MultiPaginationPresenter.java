@@ -2,8 +2,7 @@ package com.vanskarner.adapters.ui.multi_adapters;
 
 import androidx.annotation.NonNull;
 
-import com.vanskarner.adapters.common.adaptersothers.AdapterItem;
-import com.vanskarner.adapters.models.PersonModel;
+import com.vanskarner.adapters.common.adaptersothers.BindItem;
 import com.vanskarner.adapters.ui.NoPages;
 
 import java.util.List;
@@ -31,7 +30,7 @@ class MultiPaginationPresenter implements MultiPaginationContract.presenter {
         model.sampleData(pageNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<AdapterItem>>() {
+                .subscribe(new SingleObserver<List<BindItem>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         compositeDisposable.clear();
@@ -39,7 +38,7 @@ class MultiPaginationPresenter implements MultiPaginationContract.presenter {
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<AdapterItem> personModels) {
+                    public void onSuccess(@NonNull List<BindItem> personModels) {
                         view.hideProgress();
                         view.addList(personModels);
                     }

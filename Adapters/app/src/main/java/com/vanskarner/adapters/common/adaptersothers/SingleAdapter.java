@@ -13,21 +13,20 @@ import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, AdapterItem>> mapAdapter = new HashMap<>();
+    private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> mapAdapter = new HashMap<>();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
-    private List<AdapterItem> list;
-
+    private List<BindItem> list;
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setList(List<AdapterItem> list) {
+    public void setList(List<BindItem> list) {
         this.list = list;
         notifyItemRangeInserted(0, list.size());
         hideProgress();
     }
 
-    public void addList(@NonNull List<AdapterItem> listAdd) {
+    public void addList(@NonNull List<BindItem> listAdd) {
         if (listAdd.size() > 0) {
             int lastPositionBefore = getItemCount() - 1;
             list.addAll(listAdd);
@@ -36,8 +35,8 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public void add(BindAdapter delegateAdapter) {
-        mapAdapter.put(delegateAdapter.setLayoutId(), delegateAdapter);
+    public void add(BindAdapter bindAdapter) {
+        mapAdapter.put(bindAdapter.setLayoutId(), bindAdapter);
     }
 
     public void add(LoadAdapter loadAdapter) {
@@ -83,8 +82,11 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 filterBindAdapter(position).setLayoutId();
     }
 
-    private BindAdapter<RecyclerView.ViewHolder, AdapterItem> filterBindAdapter(int position) {
-        for (Map.Entry<Integer, BindAdapter<RecyclerView.ViewHolder, AdapterItem>> entry :
+    private BindAdapter<RecyclerView.ViewHolder, BindItem> filterBindAdapter(int position) {
+        if (mapAdapter.isEmpty()) {
+            throw new RuntimeException("No BindAdapter added");
+        }
+        for (Map.Entry<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> entry :
                 mapAdapter.entrySet()) {
             if (isCorrectBindAdapter(entry.getValue(), position)) {
                 return entry.getValue();
@@ -92,12 +94,12 @@ public class CompositeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         String messageError = "AdapterItem => "
                 + "[" + list.get(position).getClass().getSimpleName() + "]"
-                + "does not have a BindAdapter assigned";
+                + " does not have a BindAdapter assigned";
         throw new RuntimeException(messageError);
     }
 
     private boolean isCorrectBindAdapter(BindAdapter bindAdapter, int position) {
-        AdapterItem item = list.get(position);
+        BindItem item = list.get(position);
         boolean isCorrectModel = bindAdapter.setModelClass().isInstance(item);
         boolean isCorrectFilter = bindAdapter.filterItem(item);
         return isCorrectModel && isCorrectFilter;
