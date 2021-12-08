@@ -13,6 +13,7 @@ import com.vanskarner.adapters.common.adaptersothers.BindItem;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 import com.vanskarner.adapters.common.adaptersothers.LoadAdapter;
 import com.vanskarner.adapters.ui.BaseActivity;
+import com.vanskarner.adapters.ui.multi_adapters.news.MyAdapters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,10 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
         recyclerView = findViewById(R.id.recyclerPersons);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(pagination);
-        /*adapter.add(new MyAdapters.AdapterOne());
-        adapter.add(new MyAdapters.AdapterSecond());
-        adapter.add(new MyAdapters.AdapterThird());*/
-        adapter.add(new LoadAdapter(R.layout.item_loading));
+        //adapter.add(new MyAdapters.AdapterOne());
+        //adapter.add(new MyAdapters.AdapterSecond());
+        adapter.add(new MyAdapters.AdapterThird());
+        //adapter.add(new LoadAdapter(R.layout.item_loading));
         adapter.setList(list);
 /*        adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();

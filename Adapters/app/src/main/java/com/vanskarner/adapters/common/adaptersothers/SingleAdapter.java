@@ -64,7 +64,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (!loadAdapter.isVisibleProgress()) {
-            filterBindAdapter(position).onBindViewHolder(holder, list.get(position));
+            filterBindAdapter(list.get(position)).onBindViewHolder(holder, list.get(position));
         }
     }
 
@@ -79,29 +79,31 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         boolean isVisibleProgress = position >= list.size();
         return isVisibleProgress ?
                 loadAdapter.setLayoutId() :
-                filterBindAdapter(position).setLayoutId();
+                filterBindAdapter(list.get(position)).setLayoutId();
     }
 
-    private BindAdapter<RecyclerView.ViewHolder, BindItem> filterBindAdapter(int position) {
-        if (mapAdapter.isEmpty()) {
-            throw new RuntimeException("No BindAdapter added");
-        }
+    private BindAdapter<RecyclerView.ViewHolder, BindItem> filterBindAdapter(BindItem bindItem) {
         for (Map.Entry<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> entry :
                 mapAdapter.entrySet()) {
-            if (isCorrectBindAdapter(entry.getValue(), position)) {
+            if (isCorrectBindAdapter(entry.getValue(), bindItem)) {
                 return entry.getValue();
             }
         }
-        String messageError = "AdapterItem => "
-                + "[" + list.get(position).getClass().getSimpleName() + "]"
-                + " does not have a BindAdapter assigned";
-        throw new RuntimeException(messageError);
+        throw filterError(bindItem);
     }
 
-    private boolean isCorrectBindAdapter(BindAdapter bindAdapter, int position) {
-        BindItem item = list.get(position);
-        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(item);
-        boolean isCorrectFilter = bindAdapter.filterItem(item);
+    public RuntimeException filterError(BindItem bindItem) {
+        String messageError = "No BindAdapter added";
+        if (!mapAdapter.isEmpty()) {
+            messageError = "No BindAdapter added for item => "
+                    + "[" + bindItem.getClass().getSimpleName() + "]";
+        }
+        return new RuntimeException(messageError);
+    }
+
+    private boolean isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem) {
+        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(bindItem);
+        boolean isCorrectFilter = bindAdapter.filterItem(bindItem);
         return isCorrectModel && isCorrectFilter;
     }
 
