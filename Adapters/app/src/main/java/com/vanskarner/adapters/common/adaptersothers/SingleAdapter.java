@@ -17,23 +17,14 @@ import java.util.Objects;
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> mapAdapter = new HashMap<>();
+    private final List<BindItem> list = Collections.emptyList();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
-    private List<BindItem> list = Collections.emptyList();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
         defaultDiff.setNewList(newList);
         DiffUtil.calculateDiff(defaultDiff).dispatchUpdatesTo(this);
         hideProgress();
-    }
-
-    public void addList(@NonNull List<BindItem> listAdd) {
-        if (listAdd.size() > 0) {
-            int lastPositionBefore = getItemCount() - 1;
-            list.addAll(listAdd);
-            notifyItemRangeChanged(lastPositionBefore + 1, listAdd.size());
-            hideProgress();
-        }
     }
 
     public void add(BindAdapter bindAdapter) {
@@ -44,8 +35,8 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.loadAdapter = loadAdapter;
     }
 
-    public void add(BaseDiff baseDiff) {
-        this.defaultDiff = baseDiff;
+    public void add(BaseDiff diffUtilCallback) {
+        this.defaultDiff = diffUtilCallback;
     }
 
     public void showProgress() {

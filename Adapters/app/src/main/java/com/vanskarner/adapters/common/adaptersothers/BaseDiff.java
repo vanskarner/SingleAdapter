@@ -6,7 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("rawtypes")
 public abstract class BaseDiff<BI extends BindItem> extends DiffUtil.Callback {
-    private List<BI> oldList;
+    private final List<BI> oldList;
     private List<BI> newList;
 
     public BaseDiff(List<BI> oldList) {
