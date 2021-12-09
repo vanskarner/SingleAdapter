@@ -1,12 +1,13 @@
 package com.vanskarner.adapters.common.adaptersothers;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,12 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> mapAdapter = new HashMap<>();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
-    private List<BindItem> list;
+    private List<BindItem> list = Collections.emptyList();
+    private BaseDiff defaultDiff = new DefaultDiff(list);
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setList(List<BindItem> list) {
-        this.list = list;
-        notifyItemRangeInserted(0, list.size());
+    public void setList(@NonNull final List<? extends BindItem> newList) {
+        defaultDiff.setNewList(newList);
+        DiffUtil.calculateDiff(defaultDiff).dispatchUpdatesTo(this);
         hideProgress();
     }
 
@@ -41,6 +42,10 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void add(LoadAdapter loadAdapter) {
         this.loadAdapter = loadAdapter;
+    }
+
+    public void add(BaseDiff baseDiff) {
+        this.defaultDiff = baseDiff;
     }
 
     public void showProgress() {
@@ -92,7 +97,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         throw filterError(bindItem);
     }
 
-    public RuntimeException filterError(BindItem bindItem) {
+    private RuntimeException filterError(BindItem bindItem) {
         String messageError = "No BindAdapter added";
         if (!mapAdapter.isEmpty()) {
             messageError = "No BindAdapter added for item => "

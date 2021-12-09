@@ -11,9 +11,9 @@ import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.Pagination;
 import com.vanskarner.adapters.common.adaptersothers.BindItem;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
-import com.vanskarner.adapters.common.adaptersothers.LoadAdapter;
 import com.vanskarner.adapters.ui.BaseActivity;
 import com.vanskarner.adapters.ui.multi_adapters.news.MyAdapters;
+import com.vanskarner.adapters.ui.multi_adapters.news.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,11 @@ public class MultiPaginationActivity extends BaseActivity implements MultiPagina
         //adapter.add(new MyAdapters.AdapterSecond());
         adapter.add(new MyAdapters.AdapterThird());
         //adapter.add(new LoadAdapter(R.layout.item_loading));
-        adapter.setList(list);
+        List<Person> peoples = new ArrayList<>();
+        peoples.add(new Person.PersonOne(1, ""));
+        //adapter.setList2(peoples, (SingleAdapter.SomeA<Person>) (oldItem, newItem) -> false);
+//        adapter.setList2(peoples, (SingleAdapter.SomeA<Person>) Object::equals);
+//        adapter.setList(list);
 /*        adapter.setOnItemClickListener(view -> {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             PersonModel model = list.get(viewHolder.getAdapterPosition());
