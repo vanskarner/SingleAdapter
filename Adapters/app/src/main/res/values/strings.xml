@@ -9,8 +9,20 @@
     <string name="staggered_pagination">Staggered Pagination</string>
     <string name="simple_search">Simple Search</string>
 
+    <string name="examples">Examples</string>
+    <string name="simple">Simple</string>
+    <string name="progress">Progress</string>
+    <string name="diffutil">DiffUtil</string>
+
+    <string name="menu_linear">Linear</string>
+    <string name="menu_grid">Grid</string>
+    <string name="menu_multi">MultiView</string>
+
+
     <string name="exception_no_items">End of results</string>
 
     <string name="name">Name: %d</string>
     <string name="age">Age: %d</string>
+
+
 </resources>

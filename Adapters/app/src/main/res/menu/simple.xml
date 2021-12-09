@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/linearItem"
+        android:title="@string/menu_linear" />
+    <item
+        android:id="@+id/gridItem"
+        android:title="@string/menu_grid" />
+    <item
+        android:id="@+id/multiItem"
+        android:title="@string/menu_multi" />
+
+</menu>

@@ -44,6 +44,8 @@
         <activity
             android:name="com.vanskarner.adapters.ui.multi_adapters.MultiPaginationActivity"
             android:theme="@style/Theme.Adapters.FullScreen" />
+        <!--NEWS-->
+
 
     </application>
 
