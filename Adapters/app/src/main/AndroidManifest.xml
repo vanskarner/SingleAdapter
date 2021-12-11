@@ -14,11 +14,11 @@
         <activity
             android:name="com.vanskarner.adapters.ui.MenuActivity"
             android:exported="false">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <activity
@@ -41,11 +41,18 @@
             android:name="com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity"
             android:theme="@style/Theme.Adapters.FullScreen" />
 
-        <activity
-            android:name="com.vanskarner.adapters.ui.multi_adapters.MultiPaginationActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
         <!--NEWS-->
+        <activity
+            android:name="com.vanskarner.adapters.examples.MenuActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.vanskarner.adapters.examples.simple.SimpleActivity" />
 
     </application>
 

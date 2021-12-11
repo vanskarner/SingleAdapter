@@ -1,0 +1,56 @@
+package com.vanskarner.adapters.examples.simple;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.vanskarner.adapters.R;
+import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
+
+class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
+
+    @Override
+    public GridVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
+        View view = inflater.inflate(setLayoutId(), parent, false);
+        return new GridVH(view);
+    }
+
+    @Override
+    public void onBindViewHolder(GridVH viewHolder, WomanModel item) {
+        viewHolder.name.setText(item.getFirstName());
+        Glide.with(viewHolder.image).load(item.getImageID()).into(viewHolder.image);
+    }
+
+    @Override
+    public int setLayoutId() {
+        return R.layout.item_grid2;
+    }
+
+    @Override
+    public Class<WomanModel> setModelClass() {
+        return WomanModel.class;
+    }
+
+    static class GridVH extends RecyclerView.ViewHolder {
+        TextView name;
+        ImageView image;
+
+        public GridVH(@NonNull View itemView) {
+            super(itemView);
+            setupView(itemView);
+        }
+
+        void setupView(View view) {
+            name = view.findViewById(R.id.name);
+            image = view.findViewById(R.id.image);
+        }
+
+    }
+
+}

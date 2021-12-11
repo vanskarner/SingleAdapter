@@ -1,71 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/small_spacing"
+    app:cardElevation="@dimen/small_spacing"
+    app:cardUseCompatPadding="true">
 
-    <data>
-        <variable
-            name="personThird"
-            type="com.vanskarner.adapters.ui.multi_adapters.news.Person.PersonThird" />
-    </data>
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/small_spacing"
-        app:cardElevation="@dimen/small_spacing"
-        app:cardUseCompatPadding="true">
+        android:orientation="horizontal"
+        android:padding="@dimen/small_spacing">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/small_spacing">
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:hint="@string/name"
+            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/first_names" />
 
-            <TextView
-                android:id="@+id/namePerson"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:hint="@string/name"
-                android:text="@{String.format(personThird.name)}"
-                app:layout_constraintEnd_toStartOf="@+id/imagePerson"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:hint="@string/age"
+            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/us_zipcodes" />
 
-            <TextView
-                android:id="@+id/agePerson"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:hint="@string/age"
-                android:text="@{String.format(personThird.age)}"
-                app:layout_constraintEnd_toStartOf="@+id/imagePerson"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/namePerson"
-                tools:ignore="TextContrastCheck" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/item_image_width"
+            android:layout_height="@dimen/item_image_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,ImageContrastCheck"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/imagePerson"
-                imageLoaderGrid="@{personThird.image}"
-                android:layout_width="@dimen/item_image_width"
-                android:layout_height="@dimen/item_image_height"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription,ImageContrastCheck"
-                tools:srcCompat="@tools:sample/avatars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</layout>
+</androidx.cardview.widget.CardView>

@@ -3,7 +3,7 @@ package com.vanskarner.adapters.common.adaptersothers;
 import androidx.recyclerview.widget.RecyclerView;
 
 @SuppressWarnings("rawtypes")
-public interface BindAdapter<VH extends RecyclerView.ViewHolder, M extends BindItem>
+public interface BindAdapter<M extends BindItem, VH extends RecyclerView.ViewHolder>
         extends BasicAdapter<VH> {
 
     void onBindViewHolder(VH viewHolder, M item);

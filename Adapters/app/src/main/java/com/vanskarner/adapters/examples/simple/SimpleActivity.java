@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
@@ -17,7 +19,6 @@ import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 public class SimpleActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    SingleAdapter singleAdapter = new SingleAdapter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,14 +47,43 @@ public class SimpleActivity extends AppCompatActivity {
     }
 
     private void showMultiViewExample() {
+        SingleAdapter singleAdapter = createSingleAdapter();
+        singleAdapter.add(new MultiOneAdapter());
+        singleAdapter.add(new MultiSecondAdapter());
         singleAdapter.setList(DataProvider.sampleData());
+        LinearLayoutManager manager = createLinearLayoutManager();
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(singleAdapter);
     }
 
     private void showGridExample() {
+        SingleAdapter singleAdapter = createSingleAdapter();
+        singleAdapter.add(new GridAdapter());
         singleAdapter.setList(DataProvider.sampleData());
+        GridLayoutManager manager = createGridLayoutManager();
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(singleAdapter);
     }
 
     private void showLinearExample() {
+        SingleAdapter singleAdapter = createSingleAdapter();
+        singleAdapter.add(new LinearAdapter());
         singleAdapter.setList(DataProvider.sampleData());
+        LinearLayoutManager manager = createLinearLayoutManager();
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(singleAdapter);
     }
+
+    public SingleAdapter createSingleAdapter() {
+        return new SingleAdapter();
+    }
+
+    public LinearLayoutManager createLinearLayoutManager() {
+        return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+    }
+
+    public GridLayoutManager createGridLayoutManager() {
+        return new GridLayoutManager(this, 2);
+    }
+
 }

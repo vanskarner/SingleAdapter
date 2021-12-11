@@ -2,19 +2,19 @@ package com.vanskarner.adapters.examples.simple;
 
 import com.vanskarner.adapters.common.adaptersothers.BindItem;
 
-class WomanModel implements BindItem<Integer> {
+public class WomanModel implements BindItem<Integer> {
     private final int id;
     private final int imageID;
     private final String firstName;
     private final String age;
-    private final boolean premium;
+    private final Type type;
 
-    public WomanModel(int id, int imageID, String firstName, String age, boolean premium) {
+    public WomanModel(int id, int imageID, String firstName, String age, Type type) {
         this.id = id;
         this.imageID = imageID;
         this.firstName = firstName;
         this.age = age;
-        this.premium = premium;
+        this.type = type;
     }
 
     public int getId() {
@@ -33,13 +33,18 @@ class WomanModel implements BindItem<Integer> {
         return age;
     }
 
-    public boolean isPremium() {
-        return premium;
+    public Type getType() {
+        return type;
     }
 
     @Override
     public Integer bindItemID() {
         return id;
+    }
+
+    enum Type {
+        ONE,
+        SECOND
     }
 
 }

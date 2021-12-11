@@ -18,17 +18,11 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity2);
         findViewById(R.id.btnSimple)
-                .setOnClickListener(view -> {
-                    goActivity(SimpleActivity.class);
-                });
+                .setOnClickListener(view -> goActivity(SimpleActivity.class));
         findViewById(R.id.btnProgress)
-                .setOnClickListener(view -> {
-                    goActivity(ProgressActivity.class);
-                });
+                .setOnClickListener(view -> goActivity(ProgressActivity.class));
         findViewById(R.id.btnDiffUtil)
-                .setOnClickListener(view -> {
-                    goActivity(DiffUtilActivity.class);
-                });
+                .setOnClickListener(view -> goActivity(DiffUtilActivity.class));
     }
 
     public void goActivity(Class<? extends AppCompatActivity> activity) {

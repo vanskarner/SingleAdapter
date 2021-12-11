@@ -16,14 +16,18 @@ import java.util.Objects;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final Map<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> mapAdapter = new HashMap<>();
-    private final List<BindItem> list = Collections.emptyList();
+    private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
+    private List<? extends BindItem> list = Collections.emptyList();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
         defaultDiff.setNewList(newList);
-        DiffUtil.calculateDiff(defaultDiff).dispatchUpdatesTo(this);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(defaultDiff);
+        /*list.clear();
+        list.addAll(newList);*/
+        list = newList;
+        diffResult.dispatchUpdatesTo(this);
         hideProgress();
     }
 
@@ -78,8 +82,8 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 filterBindAdapter(list.get(position)).setLayoutId();
     }
 
-    private BindAdapter<RecyclerView.ViewHolder, BindItem> filterBindAdapter(BindItem bindItem) {
-        for (Map.Entry<Integer, BindAdapter<RecyclerView.ViewHolder, BindItem>> entry :
+    private BindAdapter<BindItem, RecyclerView.ViewHolder> filterBindAdapter(BindItem bindItem) {
+        for (Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> entry :
                 mapAdapter.entrySet()) {
             if (isCorrectBindAdapter(entry.getValue(), bindItem)) {
                 return entry.getValue();
