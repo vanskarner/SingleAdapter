@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 
-
 public class SimpleActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -23,8 +22,9 @@ public class SimpleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_pagination_activity);
-        recyclerView = findViewById(R.id.recyclerPersons);
+        setContentView(R.layout.simple_activity);
+        recyclerView = findViewById(R.id.recyclerSimple);
+        showLinearExample();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SimpleActivity extends AppCompatActivity {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new MultiOneAdapter());
         singleAdapter.add(new MultiSecondAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.changeList(DataProvider.sampleData());
         LinearLayoutManager manager = createLinearLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -59,7 +59,7 @@ public class SimpleActivity extends AppCompatActivity {
     private void showGridExample() {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new GridAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.changeList(DataProvider.sampleData());
         GridLayoutManager manager = createGridLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -68,21 +68,21 @@ public class SimpleActivity extends AppCompatActivity {
     private void showLinearExample() {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new LinearAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.changeList(DataProvider.sampleData());
         LinearLayoutManager manager = createLinearLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
     }
 
-    public SingleAdapter createSingleAdapter() {
+    private SingleAdapter createSingleAdapter() {
         return new SingleAdapter();
     }
 
-    public LinearLayoutManager createLinearLayoutManager() {
+    private LinearLayoutManager createLinearLayoutManager() {
         return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
     }
 
-    public GridLayoutManager createGridLayoutManager() {
+    private GridLayoutManager createGridLayoutManager() {
         return new GridLayoutManager(this, 2);
     }
 

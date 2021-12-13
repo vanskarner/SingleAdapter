@@ -17,19 +17,19 @@ import java.util.Objects;
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
-    private List<? extends BindItem> list = Collections.emptyList();
+    private List<? extends BindItem> list = Collections.emptyList();//private List<? extends BindItem> list = Collections.emptyList();
     private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
-    public void setList(@NonNull final List<? extends BindItem> newList) {
+/*    public void setList(@NonNull final List<? extends BindItem> newList) {
         defaultDiff.setNewList(newList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(defaultDiff);
-        /*list.clear();
-        list.addAll(newList);*/
+        *//*list.clear();
+        list.addAll(newList);*//*
         list = newList;
         diffResult.dispatchUpdatesTo(this);
         hideProgress();
-    }
+    }*/
 
     public void add(BindAdapter bindAdapter) {
         mapAdapter.put(bindAdapter.setLayoutId(), bindAdapter);
@@ -49,6 +49,15 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void hideProgress() {
         loadAdapter.hideProgress(this, list.size());
+    }
+
+    public void changeList(List<? extends BindItem> newList) {
+        int currentListSize = list.size();
+        list.clear();
+        notifyItemRangeRemoved(0, currentListSize);
+//        list.addAll(newList);
+        list = newList;
+        notifyItemRangeInserted(0, newList.size());
     }
 
     @NonNull

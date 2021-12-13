@@ -25,7 +25,7 @@ public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     }
 
     protected void showProgress(RecyclerView.Adapter adapter, int listSize) {
-        if (enableLoad) {
+        if (enableLoad && !visibleProgress) {
             visibleProgress = true;
             adapter.notifyItemRangeChanged(listSize, 1);
         }

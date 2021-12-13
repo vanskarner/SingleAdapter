@@ -1,30 +1,25 @@
 package com.vanskarner.adapters.examples.simple;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
+import com.vanskarner.adapters.databinding.ItemGrid2Binding;
 
 class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
 
     @Override
     public GridVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(setLayoutId(), parent, false);
-        return new GridVH(view);
+        return new GridVH(ItemGrid2Binding.inflate(inflater, parent, false));
     }
 
     @Override
     public void onBindViewHolder(GridVH viewHolder, WomanModel item) {
-        viewHolder.name.setText(item.getFirstName());
-        Glide.with(viewHolder.image).load(item.getImageID()).into(viewHolder.image);
+        viewHolder.binding.setWoman(item);
     }
 
     @Override
@@ -38,19 +33,12 @@ class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
     }
 
     static class GridVH extends RecyclerView.ViewHolder {
-        TextView name;
-        ImageView image;
+        ItemGrid2Binding binding;
 
-        public GridVH(@NonNull View itemView) {
-            super(itemView);
-            setupView(itemView);
+        public GridVH(@NonNull ItemGrid2Binding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
-
-        void setupView(View view) {
-            name = view.findViewById(R.id.name);
-            image = view.findViewById(R.id.image);
-        }
-
     }
 
 }

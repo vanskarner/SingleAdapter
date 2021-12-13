@@ -42,9 +42,19 @@ public class WomanModel implements BindItem<Integer> {
         return id;
     }
 
-    enum Type {
+    public enum Type {
         ONE,
         SECOND
     }
 
+    @Override
+    public String toString() {
+        return "WomanModel{" +
+                "id=" + id +
+                ", imageID=" + imageID +
+                ", firstName='" + firstName + '\'' +
+                ", age='" + age + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

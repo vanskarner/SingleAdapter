@@ -1,30 +1,25 @@
 package com.vanskarner.adapters.examples.simple;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
+import com.vanskarner.adapters.databinding.ItemGrid2Binding;
 
 class MultiSecondAdapter implements BindAdapter<WomanModel, MultiSecondAdapter.SecondVH> {
 
     @Override
     public SecondVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(setLayoutId(), parent, false);
-        return new SecondVH(view);
+        return new SecondVH(ItemGrid2Binding.inflate(inflater, parent, false));
     }
 
     @Override
     public void onBindViewHolder(SecondVH viewHolder, WomanModel item) {
-        viewHolder.name.setText(item.getFirstName());
-        Glide.with(viewHolder.image).load(item.getImageID()).into(viewHolder.image);
+        viewHolder.binding.setWoman(item);
     }
 
     @Override
@@ -43,17 +38,11 @@ class MultiSecondAdapter implements BindAdapter<WomanModel, MultiSecondAdapter.S
     }
 
     static class SecondVH extends RecyclerView.ViewHolder {
-        TextView name;
-        ImageView image;
+        ItemGrid2Binding binding;
 
-        public SecondVH(@NonNull View itemView) {
-            super(itemView);
-            setupView(itemView);
-        }
-
-        void setupView(View view) {
-            name = view.findViewById(R.id.name);
-            image = view.findViewById(R.id.image);
+        public SecondVH(@NonNull ItemGrid2Binding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

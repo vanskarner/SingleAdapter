@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.examples.simple;
+package com.vanskarner.adapters.examples.listener;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
+import com.vanskarner.adapters.examples.simple.WomanModel;
 
-class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
+class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAdapter.ListenerVH> {
 
-    @Override
-    public LinearVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(setLayoutId(), parent, false);
-        return new LinearVH(view);
+    private final OnClickItemListener listener;
+
+    public SimpleListenerAdapter(OnClickItemListener listener) {
+        this.listener = listener;
     }
 
     @Override
-    public void onBindViewHolder(LinearVH viewHolder, WomanModel item) {
+    public ListenerVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
+        View view = inflater.inflate(setLayoutId(), parent, false);
+        return new ListenerVH(view, listener);
+    }
+
+    @Override
+    public void onBindViewHolder(ListenerVH viewHolder, WomanModel item) {
         Glide.with(viewHolder.image).load(item.getImageID()).into(viewHolder.image);
         viewHolder.name.setText(item.getFirstName());
     }
@@ -37,15 +44,20 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
         return WomanModel.class;
     }
 
-    static class LinearVH extends RecyclerView.ViewHolder {
+    static class ListenerVH extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
 
-        public LinearVH(@NonNull View itemView) {
+        public ListenerVH(@NonNull View itemView, OnClickItemListener listener) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
+            itemView.setOnClickListener(view -> listener.OnClickItem(getAdapterPosition()));
         }
+    }
+
+    public interface OnClickItemListener {
+        void OnClickItem(int position);
     }
 
 }

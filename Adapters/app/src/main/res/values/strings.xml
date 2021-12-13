@@ -17,6 +17,8 @@
     <string name="menu_linear">Linear</string>
     <string name="menu_grid">Grid</string>
     <string name="menu_multi">MultiView</string>
+    <string name="menu_simple_listener">Simple Listener</string>
+    <string name="menu_multi_listener">Multi Listener</string>
 
 
     <string name="exception_no_items">End of results</string>

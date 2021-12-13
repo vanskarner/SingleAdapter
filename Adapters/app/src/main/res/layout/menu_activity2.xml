@@ -49,6 +49,13 @@
             android:layout_margin="@dimen/small_spacing"
             android:text="@string/diffutil" />
 
+        <Button
+            android:id="@+id/btnListener"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_spacing"
+            android:text="Listeners" />
+
     </LinearLayout>
 
 

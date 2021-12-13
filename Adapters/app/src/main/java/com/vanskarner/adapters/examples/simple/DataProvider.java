@@ -5,7 +5,7 @@ import com.vanskarner.adapters.R;
 import java.util.ArrayList;
 import java.util.List;
 
-class DataProvider {
+public class DataProvider {
 
     public static List<WomanModel> sampleData() {
         List<WomanModel> list = new ArrayList<>();

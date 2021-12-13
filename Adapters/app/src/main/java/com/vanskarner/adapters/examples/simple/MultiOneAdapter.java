@@ -1,25 +1,30 @@
 package com.vanskarner.adapters.examples.simple;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
-import com.vanskarner.adapters.databinding.ItemSimple2Binding;
 
 class MultiOneAdapter implements BindAdapter<WomanModel, MultiOneAdapter.MultiOneVH> {
 
     @Override
     public MultiOneVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        return new MultiOneVH(ItemSimple2Binding.inflate(inflater, parent, false));
+        View view = inflater.inflate(setLayoutId(), parent, false);
+        return new MultiOneVH(view);
     }
 
     @Override
     public void onBindViewHolder(MultiOneVH viewHolder, WomanModel item) {
-        viewHolder.binding.setWoman(item);
+        Glide.with(viewHolder.image).load(item.getImageID()).into(viewHolder.image);
+        viewHolder.name.setText(item.getFirstName());
     }
 
     @Override
@@ -38,11 +43,13 @@ class MultiOneAdapter implements BindAdapter<WomanModel, MultiOneAdapter.MultiOn
     }
 
     static class MultiOneVH extends RecyclerView.ViewHolder {
-        ItemSimple2Binding binding;
+        ImageView image;
+        TextView name;
 
-        public MultiOneVH(@NonNull ItemSimple2Binding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public MultiOneVH(@NonNull View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.image);
+            name = itemView.findViewById(R.id.name);
         }
     }
 
