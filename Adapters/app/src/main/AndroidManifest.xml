@@ -53,7 +53,9 @@
         </activity>
 
         <activity android:name="com.vanskarner.adapters.examples.simple.SimpleActivity" />
-        <activity android:name="com.vanskarner.adapters.examples.progress.ProgressActivity" />
+        <activity
+            android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
+            android:label="Progress" />
         <activity android:name="com.vanskarner.adapters.examples.listener.ListenerActivity" />
 
     </application>
