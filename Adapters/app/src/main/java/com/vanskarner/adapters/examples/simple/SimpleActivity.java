@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
+import com.vanskarner.adapters.examples.DataProvider;
 
 public class SimpleActivity extends AppCompatActivity {
 

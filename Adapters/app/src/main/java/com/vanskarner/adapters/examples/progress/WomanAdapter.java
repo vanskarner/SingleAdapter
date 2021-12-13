@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
-import com.vanskarner.adapters.examples.simple.WomanModel;
+import com.vanskarner.adapters.examples.WomanModel;
 
 class WomanAdapter implements BindAdapter<WomanModel, WomanAdapter.WomanVH> {
 

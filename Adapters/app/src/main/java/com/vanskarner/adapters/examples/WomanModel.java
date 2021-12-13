@@ -1,4 +1,6 @@
-package com.vanskarner.adapters.examples.simple;
+package com.vanskarner.adapters.examples;
+
+import androidx.annotation.NonNull;
 
 import com.vanskarner.adapters.common.adaptersothers.BindItem;
 
@@ -6,14 +8,12 @@ public class WomanModel implements BindItem<Integer> {
     private final int id;
     private final int imageID;
     private final String firstName;
-    private final String age;
     private final Type type;
 
-    public WomanModel(int id, int imageID, String firstName, String age, Type type) {
+    public WomanModel(int id, int imageID, String firstName, Type type) {
         this.id = id;
         this.imageID = imageID;
         this.firstName = firstName;
-        this.age = age;
         this.type = type;
     }
 
@@ -27,10 +27,6 @@ public class WomanModel implements BindItem<Integer> {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public String getAge() {
-        return age;
     }
 
     public Type getType() {
@@ -47,13 +43,13 @@ public class WomanModel implements BindItem<Integer> {
         SECOND
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "WomanModel{" +
                 "id=" + id +
                 ", imageID=" + imageID +
                 ", firstName='" + firstName + '\'' +
-                ", age='" + age + '\'' +
                 ", type=" + type +
                 '}';
     }

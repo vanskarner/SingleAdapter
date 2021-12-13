@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
-import com.vanskarner.adapters.examples.simple.DataProvider;
-import com.vanskarner.adapters.examples.simple.WomanModel;
+import com.vanskarner.adapters.examples.DataProvider;
+import com.vanskarner.adapters.examples.WomanModel;
 
 import java.util.List;
 
@@ -28,6 +28,7 @@ public class ListenerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progress_activity);
         recyclerView = findViewById(R.id.recycler);
+        showSimpleListenerExample();
     }
 
     @Override
@@ -48,18 +49,6 @@ public class ListenerActivity extends AppCompatActivity {
     }
 
     private void showMultiListenerExample() {
-        SimpleListenerAdapter adapter = new SimpleListenerAdapter(position -> {
-            WomanModel item = list.get(position);
-            showMessage(item.toString());
-        });
-        SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(adapter);
-        singleAdapter.changeList(list);
-        recyclerView.setAdapter(singleAdapter);
-    }
-
-
-    private void showSimpleListenerExample() {
         MultiListenerAdapter adapter = new MultiListenerAdapter(new MultiListenerAdapter
                 .OnClickMultiListener() {
             @Override
@@ -79,6 +68,17 @@ public class ListenerActivity extends AppCompatActivity {
                 WomanModel item = list.get(position);
                 showMessage("onClickNameItem->" + item.toString());
             }
+        });
+        SingleAdapter singleAdapter = new SingleAdapter();
+        singleAdapter.add(adapter);
+        singleAdapter.changeList(list);
+        recyclerView.setAdapter(singleAdapter);
+    }
+
+    private void showSimpleListenerExample() {
+        SimpleListenerAdapter adapter = new SimpleListenerAdapter(position -> {
+            WomanModel item = list.get(position);
+            showMessage(item.toString());
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
