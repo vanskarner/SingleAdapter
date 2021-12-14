@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
@@ -18,7 +17,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
     private List<? extends BindItem> list = Collections.emptyList();//private List<? extends BindItem> list = Collections.emptyList();
-    private LoadAdapter loadAdapter = LoadAdapter.disabledLoadAdapter();
+    private final LoadAdapter loadAdapter = new LoadAdapter();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
 /*    public void setList(@NonNull final List<? extends BindItem> newList) {
@@ -35,12 +34,12 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         mapAdapter.put(bindAdapter.setLayoutId(), bindAdapter);
     }
 
-    public void add(LoadAdapter loadAdapter) {
-        this.loadAdapter = loadAdapter;
-    }
-
     public void add(BaseDiff diffUtilCallback) {
         this.defaultDiff = diffUtilCallback;
+    }
+
+    public void add(int idLoadLayout) {
+        loadAdapter.setLayoutId(idLoadLayout);
     }
 
     public void showProgress() {
@@ -55,8 +54,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         int currentListSize = list.size();
         list.clear();
         notifyItemRangeRemoved(0, currentListSize);
-//        list.addAll(newList);
-        list = newList;
+        list = newList;//list.addAll(newList);
         notifyItemRangeInserted(0, newList.size());
     }
 
@@ -64,7 +62,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return loadAdapter.setLayoutId() == viewType ?
+        return loadAdapter.getLayoutId() == viewType ?
                 loadAdapter.onCreateViewHolder(parent, inflater) :
                 Objects.requireNonNull(mapAdapter.get(viewType))
                         .onCreateViewHolder(parent, inflater);
@@ -72,23 +70,25 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (!loadAdapter.isVisibleProgress()) {
+        if (isProgressInactive(position)) {
             filterBindAdapter(list.get(position)).onBindViewHolder(holder, list.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        boolean isVisibleProgress = loadAdapter.isVisibleProgress();
-        return list.size() + (isVisibleProgress ? 1 : 0);
+        return list.size() + (loadAdapter.isVisibleProgress() ? 1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        boolean isVisibleProgress = position >= list.size();
-        return isVisibleProgress ?
-                loadAdapter.setLayoutId() :
-                filterBindAdapter(list.get(position)).setLayoutId();
+        return isProgressInactive(position) ?
+                filterBindAdapter(list.get(position)).setLayoutId() :
+                loadAdapter.getLayoutId();
+    }
+
+    private boolean isProgressInactive(int position) {
+        return position < list.size();
     }
 
     private BindAdapter<BindItem, RecyclerView.ViewHolder> filterBindAdapter(BindItem bindItem) {
@@ -101,6 +101,12 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         throw filterError(bindItem);
     }
 
+    private boolean isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem) {
+        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(bindItem);
+        boolean isCorrectFilter = bindAdapter.filterItem(bindItem);
+        return isCorrectModel && isCorrectFilter;
+    }
+
     private RuntimeException filterError(BindItem bindItem) {
         String messageError = "No BindAdapter added";
         if (!mapAdapter.isEmpty()) {
@@ -108,12 +114,6 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     + "[" + bindItem.getClass().getSimpleName() + "]";
         }
         return new RuntimeException(messageError);
-    }
-
-    private boolean isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem) {
-        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(bindItem);
-        boolean isCorrectFilter = bindAdapter.filterItem(bindItem);
-        return isCorrectModel && isCorrectFilter;
     }
 
 }

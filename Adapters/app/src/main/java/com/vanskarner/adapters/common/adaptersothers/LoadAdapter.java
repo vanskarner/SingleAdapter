@@ -8,46 +8,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 @SuppressWarnings("rawtypes")
-public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
+class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
-    private final int layoutId;
-    private boolean enableLoad = true;
+    private int layoutId = DEFAULT_LAYOUT_ID;
     private boolean visibleProgress;
 
-    public LoadAdapter(int layoutId) {
+    public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
     }
 
-    private LoadAdapter(int layoutId, boolean enableLoad) {
-        this.layoutId = layoutId;
-        this.enableLoad = enableLoad;
+    public int getLayoutId() {
+        return layoutId;
     }
 
-    protected void showProgress(RecyclerView.Adapter adapter, int listSize) {
-        if (enableLoad && !visibleProgress) {
+    public void showProgress(RecyclerView.Adapter adapter, int listSize) {
+        if (isEnableLoad() && !visibleProgress) {
             visibleProgress = true;
-            adapter.notifyItemRangeChanged(listSize, 1);
+            adapter.notifyItemInserted(listSize);
         }
     }
 
-    protected void hideProgress(RecyclerView.Adapter adapter, int listSize) {
-        if (enableLoad && visibleProgress) {
+    public void hideProgress(RecyclerView.Adapter adapter, int listSize) {
+        if (isEnableLoad() && visibleProgress) {
             visibleProgress = false;
-            adapter.notifyItemRangeChanged(listSize, 1);
+            adapter.notifyItemRemoved(listSize);
         }
     }
 
     public boolean isVisibleProgress() {
         return visibleProgress;
-    }
-
-    public int setLayoutId() {
-        return layoutId;
-    }
-
-    protected static LoadAdapter disabledLoadAdapter() {
-        return new LoadAdapter(DEFAULT_LAYOUT_ID, false);
     }
 
     @Override
@@ -57,11 +47,13 @@ public class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     }
 
     static class LoadViewHolder extends RecyclerView.ViewHolder {
-
         public LoadViewHolder(@NonNull View itemView) {
             super(itemView);
         }
+    }
 
+    private boolean isEnableLoad() {
+        return layoutId != DEFAULT_LAYOUT_ID;
     }
 
 }
