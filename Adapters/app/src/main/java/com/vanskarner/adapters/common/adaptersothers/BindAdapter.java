@@ -4,15 +4,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 @SuppressWarnings("rawtypes")
 public interface BindAdapter<M extends BindItem, VH extends RecyclerView.ViewHolder>
-        extends BasicAdapter<VH> {
+        extends OnCreateVH<VH>, OnBindVH<M, VH> {
 
-    void onBindViewHolder(VH viewHolder, M item);
+    Class<M> getModelClass();
 
-    int setLayoutId();
-
-    Class<M> setModelClass();
-
-    default boolean filterItem(M item) {
+    default boolean filter(M item) {
         return true;
     }
 

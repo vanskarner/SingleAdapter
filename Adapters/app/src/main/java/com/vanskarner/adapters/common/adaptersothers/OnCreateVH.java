@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-interface BasicAdapter<VH extends RecyclerView.ViewHolder> {
+interface OnCreateVH<VH extends RecyclerView.ViewHolder> {
 
     VH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater);
 

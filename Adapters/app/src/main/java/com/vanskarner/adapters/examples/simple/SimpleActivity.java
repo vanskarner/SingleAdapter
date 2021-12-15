@@ -69,6 +69,8 @@ public class SimpleActivity extends AppCompatActivity {
     private void showLinearExample() {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new LinearAdapter());
+        singleAdapter.add(new LinearAdapter());
+        singleAdapter.add(new LinearAdapter());
         singleAdapter.changeList(DataProvider.sampleData());
         LinearLayoutManager manager = createLinearLayoutManager();
         recyclerView.setLayoutManager(manager);

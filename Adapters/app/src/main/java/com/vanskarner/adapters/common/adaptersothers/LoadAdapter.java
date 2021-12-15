@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 @SuppressWarnings("rawtypes")
-class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
+class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
     private int layoutId = DEFAULT_LAYOUT_ID;
@@ -47,7 +47,7 @@ class LoadAdapter implements BasicAdapter<LoadAdapter.LoadViewHolder> {
     }
 
     static class LoadViewHolder extends RecyclerView.ViewHolder {
-        public LoadViewHolder(@NonNull View itemView) {
+        LoadViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }

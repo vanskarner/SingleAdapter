@@ -4,8 +4,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,18 +22,18 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final LoadAdapter loadAdapter = new LoadAdapter();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
-/*    public void setList(@NonNull final List<? extends BindItem> newList) {
-        defaultDiff.setNewList(newList);
+    public void setList(@NonNull final List<? extends BindItem> newList) {
+        defaultDiff.setNewList(new ArrayList(newList));
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(defaultDiff);
-        *//*list.clear();
-        list.addAll(newList);*//*
-        list = newList;
+        list.clear();
+        list = newList;//list.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
         hideProgress();
-    }*/
+    }
 
     public void add(BindAdapter bindAdapter) {
-        mapAdapter.put(bindAdapter.setLayoutId(), bindAdapter);
+        int classHashCode = bindAdapter.getClass().hashCode();
+        mapAdapter.put(classHashCode, bindAdapter);
     }
 
     public void add(BaseDiff diffUtilCallback) {
@@ -71,7 +73,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (isProgressInactive(position)) {
-            filterBindAdapter(list.get(position)).onBindViewHolder(holder, list.get(position));
+            filterMap(list.get(position)).getValue().onBindViewHolder(holder, list.get(position));
         }
     }
 
@@ -83,7 +85,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemViewType(int position) {
         return isProgressInactive(position) ?
-                filterBindAdapter(list.get(position)).setLayoutId() :
+                filterMap(list.get(position)).getKey() :
                 loadAdapter.getLayoutId();
     }
 
@@ -91,27 +93,28 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return position < list.size();
     }
 
-    private BindAdapter<BindItem, RecyclerView.ViewHolder> filterBindAdapter(BindItem bindItem) {
+    private Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> filterMap
+            (BindItem item) {
         for (Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> entry :
                 mapAdapter.entrySet()) {
-            if (isCorrectBindAdapter(entry.getValue(), bindItem)) {
-                return entry.getValue();
+            if (isCorrectBindAdapter(entry.getValue(), item)) {
+                return entry;
             }
         }
-        throw filterError(bindItem);
+        throw filterError(item);
     }
 
     private boolean isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem) {
-        boolean isCorrectModel = bindAdapter.setModelClass().isInstance(bindItem);
-        boolean isCorrectFilter = bindAdapter.filterItem(bindItem);
+        boolean isCorrectModel = bindAdapter.getModelClass().isInstance(bindItem);
+        boolean isCorrectFilter = bindAdapter.filter(bindItem);
         return isCorrectModel && isCorrectFilter;
     }
 
-    private RuntimeException filterError(BindItem bindItem) {
+    private RuntimeException filterError(BindItem item) {
         String messageError = "No BindAdapter added";
         if (!mapAdapter.isEmpty()) {
             messageError = "No BindAdapter added for item => "
-                    + "[" + bindItem.getClass().getSimpleName() + "]";
+                    + "[" + item.getClass().getSimpleName() + "]";
         }
         return new RuntimeException(messageError);
     }

@@ -24,7 +24,7 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
 
     @Override
     public ListenerVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(setLayoutId(), parent, false);
+        View view = inflater.inflate(R.layout.item_simple2, parent, false);
         return new ListenerVH(view, listener);
     }
 
@@ -35,12 +35,7 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
     }
 
     @Override
-    public int setLayoutId() {
-        return R.layout.item_simple2;
-    }
-
-    @Override
-    public Class<WomanModel> setModelClass() {
+    public Class<WomanModel> getModelClass() {
         return WomanModel.class;
     }
 

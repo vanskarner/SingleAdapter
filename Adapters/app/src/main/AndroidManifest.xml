@@ -52,11 +52,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.vanskarner.adapters.examples.simple.SimpleActivity" />
+        <activity
+            android:name="com.vanskarner.adapters.examples.simple.SimpleActivity"
+            android:label="Example: Simple" />
         <activity
             android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
-            android:label="Progress" />
-        <activity android:name="com.vanskarner.adapters.examples.listener.ListenerActivity" />
+            android:label="Example: Progress" />
+        <activity
+            android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
+            android:label="Example: Listener" />
 
     </application>
 

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
 import com.vanskarner.adapters.databinding.ItemGrid2Binding;
 import com.vanskarner.adapters.examples.WomanModel;
@@ -24,12 +23,7 @@ class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
     }
 
     @Override
-    public int setLayoutId() {
-        return R.layout.item_grid2;
-    }
-
-    @Override
-    public Class<WomanModel> setModelClass() {
+    public Class<WomanModel> getModelClass() {
         return WomanModel.class;
     }
 
@@ -41,5 +35,4 @@ class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
             this.binding = binding;
         }
     }
-
 }

@@ -18,7 +18,7 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
 
     @Override
     public LinearVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(setLayoutId(), parent, false);
+        View view = inflater.inflate(R.layout.item_simple2, parent, false);
         return new LinearVH(view);
     }
 
@@ -29,12 +29,7 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
     }
 
     @Override
-    public int setLayoutId() {
-        return R.layout.item_simple2;
-    }
-
-    @Override
-    public Class<WomanModel> setModelClass() {
+    public Class<WomanModel> getModelClass() {
         return WomanModel.class;
     }
 
@@ -48,5 +43,4 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
             name = itemView.findViewById(R.id.name);
         }
     }
-
 }
