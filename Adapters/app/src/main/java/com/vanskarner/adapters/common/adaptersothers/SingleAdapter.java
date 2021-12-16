@@ -25,22 +25,22 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void setList(@NonNull final List<? extends BindItem> newList) {
         defaultDiff.setNewList(new ArrayList(newList));
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(defaultDiff);
-        list.clear();
+        //list.clear();
         list = newList;//list.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
         hideProgress();
     }
 
-    public void add(BindAdapter bindAdapter) {
+    public void add(@NonNull final BindAdapter bindAdapter) {
         int classHashCode = bindAdapter.getClass().hashCode();
         mapAdapter.put(classHashCode, bindAdapter);
     }
 
-    public void add(BaseDiff diffUtilCallback) {
+    public void add(@NonNull final BaseDiff diffUtilCallback) {
         this.defaultDiff = diffUtilCallback;
     }
 
-    public void add(int idLoadLayout) {
+    public void add(final int idLoadLayout) {
         loadAdapter.setLayoutId(idLoadLayout);
     }
 
@@ -52,13 +52,14 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         loadAdapter.hideProgress(this, list.size());
     }
 
-    public void changeList(List<? extends BindItem> newList) {
+/*    public void changeList(List<? extends BindItem> newList) {
+        hideProgress();
         int currentListSize = list.size();
         list.clear();
         notifyItemRangeRemoved(0, currentListSize);
         list = newList;//list.addAll(newList);
         notifyItemRangeInserted(0, newList.size());
-    }
+    }*/
 
     @NonNull
     @Override

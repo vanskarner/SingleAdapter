@@ -24,7 +24,7 @@ public class SimpleActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_activity);
-        recyclerView = findViewById(R.id.recyclerSimple);
+        recyclerView = findViewById(R.id.recycler);
         showLinearExample();
     }
 
@@ -51,7 +51,7 @@ public class SimpleActivity extends AppCompatActivity {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new MultiOneAdapter());
         singleAdapter.add(new MultiSecondAdapter());
-        singleAdapter.changeList(DataProvider.sampleData());
+        singleAdapter.setList(DataProvider.sampleData());
         LinearLayoutManager manager = createLinearLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -60,7 +60,7 @@ public class SimpleActivity extends AppCompatActivity {
     private void showGridExample() {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new GridAdapter());
-        singleAdapter.changeList(DataProvider.sampleData());
+        singleAdapter.setList(DataProvider.sampleData());
         GridLayoutManager manager = createGridLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -69,9 +69,7 @@ public class SimpleActivity extends AppCompatActivity {
     private void showLinearExample() {
         SingleAdapter singleAdapter = createSingleAdapter();
         singleAdapter.add(new LinearAdapter());
-        singleAdapter.add(new LinearAdapter());
-        singleAdapter.add(new LinearAdapter());
-        singleAdapter.changeList(DataProvider.sampleData());
+        singleAdapter.setList(DataProvider.sampleData());
         LinearLayoutManager manager = createLinearLayoutManager();
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);

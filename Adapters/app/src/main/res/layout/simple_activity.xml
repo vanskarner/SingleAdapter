@@ -8,7 +8,7 @@
     tools:context=".examples.simple.SimpleActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerSimple"
+        android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

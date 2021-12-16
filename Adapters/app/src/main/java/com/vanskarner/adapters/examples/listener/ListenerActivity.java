@@ -26,7 +26,7 @@ public class ListenerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.progress_activity);
+        setContentView(R.layout.listener_activity);
         recyclerView = findViewById(R.id.recycler);
         showSimpleListenerExample();
     }
@@ -71,7 +71,7 @@ public class ListenerActivity extends AppCompatActivity {
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
-        singleAdapter.changeList(list);
+        singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
     }
 
@@ -82,7 +82,7 @@ public class ListenerActivity extends AppCompatActivity {
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
-        singleAdapter.changeList(list);
+        singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
     }
 

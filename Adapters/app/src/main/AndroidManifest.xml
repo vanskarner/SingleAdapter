@@ -61,6 +61,9 @@
         <activity
             android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
             android:label="Example: Listener" />
+        <activity
+            android:name="com.vanskarner.adapters.examples.diffutil.DiffUtilActivity"
+            android:label="Example: DiffUtil" />
 
     </application>
 

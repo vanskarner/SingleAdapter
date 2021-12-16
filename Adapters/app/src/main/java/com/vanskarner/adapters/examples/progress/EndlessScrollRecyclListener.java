@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.examples;
+package com.vanskarner.adapters.examples.progress;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
