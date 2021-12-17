@@ -18,7 +18,7 @@ class MultiOneAdapter implements BindAdapter<WomanModel, MultiOneAdapter.MultiOn
 
     @Override
     public MultiOneVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.item_simple2, parent, false);
+        View view = inflater.inflate(R.layout.linear_simple, parent, false);
         return new MultiOneVH(view);
     }
 
@@ -42,7 +42,7 @@ class MultiOneAdapter implements BindAdapter<WomanModel, MultiOneAdapter.MultiOn
         ImageView image;
         TextView name;
 
-        public MultiOneVH(@NonNull View itemView) {
+        MultiOneVH(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);

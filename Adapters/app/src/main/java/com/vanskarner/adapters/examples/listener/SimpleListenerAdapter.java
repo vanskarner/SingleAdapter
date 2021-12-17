@@ -24,7 +24,7 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
 
     @Override
     public ListenerVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.item_simple2, parent, false);
+        View view = inflater.inflate(R.layout.linear_simple, parent, false);
         return new ListenerVH(view, listener);
     }
 
@@ -43,7 +43,7 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
         ImageView image;
         TextView name;
 
-        public ListenerVH(@NonNull View itemView, OnClickItemListener listener) {
+        ListenerVH(@NonNull View itemView, OnClickItemListener listener) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);

@@ -18,17 +18,42 @@ import java.util.Objects;
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter = new HashMap<>();
-    private List<? extends BindItem> list = Collections.emptyList();//private List<? extends BindItem> list = Collections.emptyList();
+    private List<? extends BindItem> list = Collections.emptyList();
     private final LoadAdapter loadAdapter = new LoadAdapter();
     private BaseDiff defaultDiff = new DefaultDiff(list);
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
-        defaultDiff.setNewList(new ArrayList(newList));
+        /*defaultDiff.setNewList(new ArrayList(newList));
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(defaultDiff);
-        //list.clear();
+        list.clear();
         list = newList;//list.addAll(newList);
         diffResult.dispatchUpdatesTo(this);
+        hideProgress();*/
         hideProgress();
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return list.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return newList.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return list.get(oldItemPosition).bindItemID().equals(newList.get(newItemPosition).bindItemID());
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return list.get(oldItemPosition).equals(newList.get(newItemPosition));
+            }
+        });
+        this.list.clear();
+        this.list = newList;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public void add(@NonNull final BindAdapter bindAdapter) {
@@ -52,14 +77,14 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         loadAdapter.hideProgress(this, list.size());
     }
 
-/*    public void changeList(List<? extends BindItem> newList) {
+    public void changeList(List<? extends BindItem> newList) {
         hideProgress();
         int currentListSize = list.size();
         list.clear();
         notifyItemRangeRemoved(0, currentListSize);
         list = newList;//list.addAll(newList);
         notifyItemRangeInserted(0, newList.size());
-    }*/
+    }
 
     @NonNull
     @Override

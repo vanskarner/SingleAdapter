@@ -7,7 +7,7 @@ import com.vanskarner.adapters.common.adaptersothers.BindItem;
 public class WomanModel implements BindItem<Integer> {
     private final int id;
     private final int imageID;
-    private final String firstName;
+    private String firstName;
     private final Type type;
 
     public WomanModel(int id, int imageID, String firstName, Type type) {
@@ -27,6 +27,10 @@ public class WomanModel implements BindItem<Integer> {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public void firstNameToUpperCase() {
+        firstName = firstName.toUpperCase();
     }
 
     public Type getType() {

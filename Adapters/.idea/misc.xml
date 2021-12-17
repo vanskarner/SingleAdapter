@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/diff_activity.xml" value="0.1969775924960917" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/grid_pagination_activity.xml" value="0.1" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/item_grid.xml" value="0.25" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/item_grid2.xml" value="0.16032608695652173" />
@@ -33,6 +34,7 @@
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/simple_pagination_activity.xml" value="0.1" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/simple_search_activity.xml" value="0.25" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/layout/staggered_pagination_activity.xml" value="0.14719202898550723" />
+        <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/menu/diffutil.xml" value="0.196875" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/menu/listener.xml" value="0.196875" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/menu/simple.xml" value="0.1" />
         <entry key="..\:/Users/Vanskarner/Documents/GITHUB/AndroidUtilities/Adapters/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21302083333333333" />

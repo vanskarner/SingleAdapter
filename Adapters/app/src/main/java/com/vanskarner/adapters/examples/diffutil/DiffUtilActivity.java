@@ -1,7 +1,10 @@
 package com.vanskarner.adapters.examples.diffutil;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,55 +16,88 @@ import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 import com.vanskarner.adapters.examples.DataProvider;
 import com.vanskarner.adapters.examples.WomanModel;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DiffUtilActivity extends AppCompatActivity {
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    SingleAdapter singleAdapter = new SingleAdapter();
+    List<WomanModel> otherList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_activity);
+        setContentView(R.layout.diff_activity);
         RecyclerView recyclerView = findViewById(R.id.recycler);
-        SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
         recyclerView.setAdapter(singleAdapter);
-        Single.just(true)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .delay(2, TimeUnit.SECONDS)
-                .map(value -> DataProvider.sampleData())
-                .subscribe(new SingleObserver<List<WomanModel>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Log.d("DiffActivty","onSubscribe");
-                        compositeDisposable.add(d);
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull List<WomanModel> womanModels) {
-                        Log.d("DiffActivty","onSuccess"+womanModels.size());
-                        singleAdapter.setList(womanModels);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.d("DiffActivty","onError");
-                    }
-                });
+        showAddItemExample();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        compositeDisposable.clear();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.diffutil, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.addItem) {
+            showAddItemExample();
+        } else if (item.getItemId() == R.id.removeItem) {
+            showRemoveItemExample();
+        } else {
+            showChangeItemExample();
+        }
+        return false;
+    }
+
+    private void showChangeItemExample() {
+        otherList = DataProvider.sampleData();
+        singleAdapter.setList(otherList);
+        scrollListWithDelay(DataProvider.sampleData(), item -> {
+            otherList = new ArrayList<>(otherList);
+            item.firstNameToUpperCase();
+            otherList.set(item.getId() - 1, item);
+            singleAdapter.setList(otherList);
+        });
+    }
+
+    private void showRemoveItemExample() {
+        otherList = DataProvider.sampleData();
+        singleAdapter.setList(otherList);
+        scrollListWithDelay(DataProvider.sampleData(), item -> {
+            otherList = new ArrayList<>(otherList);
+            otherList.remove(0);
+            singleAdapter.setList(otherList);
+        });
+    }
+
+    private void showAddItemExample() {
+        List<WomanModel> reverseList = DataProvider.sampleData();
+        Collections.reverse(reverseList);
+        scrollListWithDelay(reverseList, item -> {
+            otherList = new ArrayList<>(otherList);
+            otherList.add(0, item);
+            singleAdapter.setList(otherList);
+        });
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("CheckResult")
+    public void scrollListWithDelay(List<WomanModel> womanModels, Consumer<WomanModel> consumer) {
+        Observable.fromIterable(womanModels)
+                .concatMap(i -> Observable.just(i).delay(1, TimeUnit.SECONDS))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer);
     }
 }

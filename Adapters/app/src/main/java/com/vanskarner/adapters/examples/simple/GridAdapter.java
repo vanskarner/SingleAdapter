@@ -7,14 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
-import com.vanskarner.adapters.databinding.ItemGrid2Binding;
+import com.vanskarner.adapters.databinding.GridItemBinding;
 import com.vanskarner.adapters.examples.WomanModel;
 
 class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
 
     @Override
     public GridVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        return new GridVH(ItemGrid2Binding.inflate(inflater, parent, false));
+        return new GridVH(GridItemBinding.inflate(inflater, parent, false));
     }
 
     @Override
@@ -28,11 +28,12 @@ class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
     }
 
     static class GridVH extends RecyclerView.ViewHolder {
-        ItemGrid2Binding binding;
+        GridItemBinding binding;
 
-        public GridVH(@NonNull ItemGrid2Binding binding) {
+        GridVH(@NonNull GridItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
+
 }

@@ -19,6 +19,9 @@
     <string name="menu_multi">MultiView</string>
     <string name="menu_simple_listener">Simple Listener</string>
     <string name="menu_multi_listener">Multi Listener</string>
+    <string name="menu_add_item">Add Item</string>
+    <string name="menu_remove_item">Remove Item</string>
+    <string name="menu_change_item">Change Item</string>
 
 
     <string name="exception_no_items">End of results</string>
