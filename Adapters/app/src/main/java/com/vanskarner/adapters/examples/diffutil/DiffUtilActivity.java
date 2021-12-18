@@ -21,11 +21,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -69,7 +66,7 @@ public class DiffUtilActivity extends AppCompatActivity {
         singleAdapter.add(new DiffAdapter());
         singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
-        scrollListWithDelay2(DataProvider.sampleData(), item -> {
+        scrollListWithDelay(DataProvider.sampleData(), item -> {
             item.firstNameToUpperCase();
             list.set(item.getId() - 1, item);
             singleAdapter.setList(list);
@@ -83,7 +80,7 @@ public class DiffUtilActivity extends AppCompatActivity {
         singleAdapter.add(new DiffAdapter());
         singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
-        scrollListWithDelay2(DataProvider.sampleData(), item -> {
+        scrollListWithDelay(DataProvider.sampleData(), item -> {
             list = new ArrayList<>(list);
             list.remove(0);
             singleAdapter.setList(list);
@@ -97,13 +94,13 @@ public class DiffUtilActivity extends AppCompatActivity {
         singleAdapter.add(new DiffAdapter());
         singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
-        scrollListWithDelay2(reverseList(), item -> {
+        scrollListWithDelay(reverseList(), item -> {
             list.add(0, item);
             singleAdapter.setList(list);
         });
     }
 
-    public void scrollListWithDelay2(List<WomanModel> womanModels, Consumer<WomanModel> consumer) {
+    public void scrollListWithDelay(List<WomanModel> womanModels, Consumer<WomanModel> consumer) {
         compositeDisposable.add(Observable.fromIterable(womanModels)
                 .concatMap(i -> Observable.just(i).delay(1, TimeUnit.SECONDS))
                 .subscribeOn(Schedulers.io())
