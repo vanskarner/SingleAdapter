@@ -44,6 +44,7 @@
         <!--NEWS-->
         <activity
             android:name="com.vanskarner.adapters.examples.MenuActivity"
+            android:label="SingleAdapter"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,16 +55,16 @@
 
         <activity
             android:name="com.vanskarner.adapters.examples.simple.SimpleActivity"
-            android:label="Example: Simple" />
+            android:label="SingleAdapter: Simple" />
         <activity
             android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
-            android:label="Example: Progress" />
+            android:label="SingleAdapter: Progress" />
         <activity
             android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
-            android:label="Example: Listener" />
+            android:label="SingleAdapter: OnClickListener" />
         <activity
             android:name="com.vanskarner.adapters.examples.diffutil.DiffUtilActivity"
-            android:label="Example: DiffUtil" />
+            android:label="SingleAdapter: DiffUtil" />
 
     </application>
 

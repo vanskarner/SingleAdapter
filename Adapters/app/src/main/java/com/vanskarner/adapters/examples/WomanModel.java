@@ -3,8 +3,8 @@ package com.vanskarner.adapters.examples;
 import androidx.annotation.NonNull;
 
 import com.vanskarner.adapters.common.adaptersothers.BindItem;
-
-public class WomanModel implements BindItem<Integer> {
+//BindItem<Integer>
+public class WomanModel implements BindItem {
     private final int id;
     private final int imageID;
     private String firstName;
@@ -37,10 +37,10 @@ public class WomanModel implements BindItem<Integer> {
         return type;
     }
 
-    @Override
+    /*@Override
     public Integer bindItemID() {
         return id;
-    }
+    }*/
 
     public enum Type {
         ONE,

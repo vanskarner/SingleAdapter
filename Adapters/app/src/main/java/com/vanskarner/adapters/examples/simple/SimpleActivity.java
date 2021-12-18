@@ -48,43 +48,31 @@ public class SimpleActivity extends AppCompatActivity {
     }
 
     private void showMultiViewExample() {
-        SingleAdapter singleAdapter = createSingleAdapter();
+        SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new MultiOneAdapter());
         singleAdapter.add(new MultiSecondAdapter());
         singleAdapter.setList(DataProvider.sampleData());
-        LinearLayoutManager manager = createLinearLayoutManager();
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
     }
 
     private void showGridExample() {
-        SingleAdapter singleAdapter = createSingleAdapter();
+        SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new GridAdapter());
         singleAdapter.setList(DataProvider.sampleData());
-        GridLayoutManager manager = createGridLayoutManager();
+        GridLayoutManager manager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
     }
 
     private void showLinearExample() {
-        SingleAdapter singleAdapter = createSingleAdapter();
+        SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new LinearAdapter());
         singleAdapter.setList(DataProvider.sampleData());
-        LinearLayoutManager manager = createLinearLayoutManager();
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
-    }
-
-    private SingleAdapter createSingleAdapter() {
-        return new SingleAdapter();
-    }
-
-    private LinearLayoutManager createLinearLayoutManager() {
-        return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-    }
-
-    private GridLayoutManager createGridLayoutManager() {
-        return new GridLayoutManager(this, 2);
     }
 
 }

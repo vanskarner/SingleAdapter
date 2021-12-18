@@ -1,7 +1,7 @@
 package com.vanskarner.adapters.common.adaptersothers;
 
-public interface BindItem<ID> {
+public interface BindItem{
 
-    ID bindItemID();
+    //ID bindItemID();
 
 }
