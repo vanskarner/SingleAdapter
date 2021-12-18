@@ -11,11 +11,13 @@
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/linear_item" />
+        app:spanCount="2"
+        tools:itemCount="15"
+        tools:listitem="@layout/grid_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

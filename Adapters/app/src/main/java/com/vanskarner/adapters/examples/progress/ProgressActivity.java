@@ -1,36 +1,34 @@
 package com.vanskarner.adapters.examples.progress;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.vanskarner.adapters.R;
+import com.vanskarner.adapters.common.adapters.Pagination;
 import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
 import com.vanskarner.adapters.examples.DataProvider;
 import com.vanskarner.adapters.examples.WomanModel;
 
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProgressActivity extends AppCompatActivity implements Pagination.OnLoadMoreListener {
-    private static String TAG = "DEBUGPROGRES";
+    private final static String TAG = "DEBUGPROGRES";
+    private final static int PAGE_LIMIT = 4;
 
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     Pagination pagination = new Pagination(this, Pagination.LAST_POSITION);
     RecyclerView recyclerView;
-    List<WomanModel> list = DataProvider.sampleDataMsg("- 1 -");
+    List<WomanModel> list = new ArrayList<>();
     SingleAdapter singleAdapter = new SingleAdapter();
 
     @Override
@@ -43,40 +41,31 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
         recyclerView.addOnScrollListener(pagination);
+        pagination.onLoadMore();
     }
 
-    public void showNoPages() {
-        Snackbar.make(findViewById(R.id.contentProgress),
-                getString(R.string.exception_no_items), Snackbar.LENGTH_SHORT)
-                .show();
-    }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    @SuppressLint("CheckResult")
     @Override
     public void onLoadMore(int page) {
-        singleAdapter.showProgress();
-        Single.just(DataProvider.sampleData())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .delay(1, TimeUnit.SECONDS)
-                .subscribe(new SingleObserver<List<WomanModel>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull List<WomanModel> list) {
-                        //singleAdapter.hideProgress();
+        if (page != 1) {
+            //singleAdapter.showProgress();
+        }
+        if (page <= PAGE_LIMIT) {
+            compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .delay(1, TimeUnit.SECONDS)
+                    .subscribe(newItems -> {
+                        pagination.isLoading = false;
+                        list.addAll(newItems);
                         singleAdapter.setList(list);
-                    }
+                    }));
+        }
+    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.d(TAG, e.getMessage());
-                    }
-                });
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        compositeDisposable.clear();
     }
 }
