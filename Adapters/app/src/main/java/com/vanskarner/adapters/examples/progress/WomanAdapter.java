@@ -18,7 +18,7 @@ class WomanAdapter implements BindAdapter<WomanModel, WomanAdapter.WomanVH> {
 
     @Override
     public WomanVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.linear_simple, parent, false);
+        View view = inflater.inflate(R.layout.linear_item, parent, false);
         return new WomanVH(view);
     }
 
