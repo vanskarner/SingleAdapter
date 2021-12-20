@@ -20,16 +20,19 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter;
     //private List<? extends BindItem> list = Collections.emptyList();
     private AsyncListDiffer<BindItem> listDiffer;
-    private final LoadAdapter loadAdapter;
+    //private final LoadAdapter loadAdapter;
+    private final LoadAdapter2 loadAdapter;
 
     public SingleAdapter() {
         mapAdapter = new HashMap<>();
         BaseDiffCallback<? extends BindItem> defaultDiff = new DefaultBaseDiff();
         listDiffer = new AsyncListDiffer<>(this, (DiffUtil.ItemCallback<BindItem>) defaultDiff);
-        loadAdapter = new LoadAdapter();
+//        loadAdapter = new LoadAdapter();
+        loadAdapter = new LoadAdapter2();
     }
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
+        hideProgress();
         listDiffer.submitList(new ArrayList<>(newList));
     }
 
@@ -47,11 +50,13 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void showProgress() {
-        loadAdapter.showProgress(this, listDiffer.getCurrentList().size());
+//        loadAdapter.showProgress(this, listDiffer.getCurrentList().size());
+        loadAdapter.showProgress(listDiffer);
     }
 
     public void hideProgress() {
-        loadAdapter.hideProgress(this, listDiffer.getCurrentList().size());
+//        loadAdapter.hideProgress(this, listDiffer.getCurrentList().size());
+        loadAdapter.hideProgress(listDiffer);
     }
 
     @NonNull
@@ -66,7 +71,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (isProgressInactive(position)) {
+        if (isProgressInactive2(position)) {
             BindItem item = getItem(position);
             filterMap(item).getValue().onBindViewHolder(holder, item);
         }
@@ -74,18 +79,22 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return getList().size() + (loadAdapter.isVisibleProgress() ? 1 : 0);
+        return getList().size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return isProgressInactive(position) ?
+        return isProgressInactive2(position) ?
                 filterMap(getItem(position)).getKey() :
                 loadAdapter.getLayoutId();
     }
 
-    private boolean isProgressInactive(int position) {
+    /*private boolean isProgressInactive(int position) {
         return position < getList().size();
+    }*/
+
+    private boolean isProgressInactive2(int position) {
+        return !(getList().get(position) instanceof LoadBindItem);
     }
 
     private List<BindItem> getList() {

@@ -16,6 +16,7 @@ class LoadAdapter2 implements OnCreateVH<LoadAdapter2.LoadViewHolder> {
 
     private int layoutId = DEFAULT_LAYOUT_ID;
     private boolean visibleProgress;
+    private int loadPosition;
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -27,11 +28,9 @@ class LoadAdapter2 implements OnCreateVH<LoadAdapter2.LoadViewHolder> {
 
     public void showProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && !visibleProgress) {
-            /*visibleProgress = true;
-            adapter.notifyItemInserted(listSize);*/
-            List<? extends BindItem> list = asyncListDiffer.getCurrentList();
-            List<BindItem> newList = new ArrayList<>(list);
+            List<BindItem> newList = bindItems(asyncListDiffer);
             newList.add(new LoadBindItem());
+            loadPosition = newList.size() - 1;
             asyncListDiffer.submitList(newList);
             visibleProgress = true;
         }
@@ -39,11 +38,8 @@ class LoadAdapter2 implements OnCreateVH<LoadAdapter2.LoadViewHolder> {
 
     public void hideProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && visibleProgress) {
-            /*visibleProgress = false;
-            adapter.notifyItemRemoved(listSize);*/
-            List<? extends BindItem> list = asyncListDiffer.getCurrentList();
-            List<BindItem> newList = new ArrayList<>(list);
-            newList.remove(list.size() - 1);
+            List<BindItem> newList = bindItems(asyncListDiffer);
+            newList.remove(loadPosition);
             asyncListDiffer.submitList(newList);
             visibleProgress = false;
         }
@@ -67,6 +63,11 @@ class LoadAdapter2 implements OnCreateVH<LoadAdapter2.LoadViewHolder> {
 
     private boolean isEnableLoad() {
         return layoutId != DEFAULT_LAYOUT_ID;
+    }
+
+    private List<BindItem> bindItems(AsyncListDiffer<BindItem> asyncListDiffer) {
+        List<? extends BindItem> list = asyncListDiffer.getCurrentList();
+        return new ArrayList<>(list);
     }
 
 }
