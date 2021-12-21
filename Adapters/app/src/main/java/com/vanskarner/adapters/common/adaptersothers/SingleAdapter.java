@@ -66,8 +66,8 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (isProgressInactive2(position)) {
-            BindItem item = getItem(position);
+        BindItem item = getItem(position);
+        if (isProgressInactive2(item)) {
             filterMap(item).getValue().onBindViewHolder(holder, item);
         }
     }
@@ -79,13 +79,14 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        return isProgressInactive2(position) ?
+        BindItem item = getItem(position);
+        return isProgressInactive2(item) ?
                 filterMap(getItem(position)).getKey() :
                 loadAdapter.getLayoutId();
     }
 
-    private boolean isProgressInactive2(int position) {
-        return !(getList().get(position) instanceof LoadBindItem);
+    private boolean isProgressInactive2(BindItem position) {
+        return !(position instanceof LoadBindItem);
     }
 
     private List<BindItem> getList() {
