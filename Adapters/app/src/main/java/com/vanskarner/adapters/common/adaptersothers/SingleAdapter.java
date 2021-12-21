@@ -18,7 +18,6 @@ import java.util.Objects;
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter;
-    //private List<? extends BindItem> list = Collections.emptyList();
     private AsyncListDiffer<BindItem> listDiffer;
     private final LoadAdapter loadAdapter;
 
