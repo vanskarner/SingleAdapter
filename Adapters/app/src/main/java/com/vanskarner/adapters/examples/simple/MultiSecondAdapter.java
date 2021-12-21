@@ -23,7 +23,7 @@ class MultiSecondAdapter implements BindAdapter<WomanModel, MultiSecondAdapter.S
     }
 
     @Override
-    public Class<WomanModel> getModelItem() {
+    public Class<WomanModel> getClassItem() {
         return WomanModel.class;
     }
 

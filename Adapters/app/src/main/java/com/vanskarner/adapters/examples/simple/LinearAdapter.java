@@ -29,7 +29,7 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
     }
 
     @Override
-    public Class<WomanModel> getModelItem() {
+    public Class<WomanModel> getClassItem() {
         return WomanModel.class;
     }
 

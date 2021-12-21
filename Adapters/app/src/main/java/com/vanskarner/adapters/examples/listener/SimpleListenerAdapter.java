@@ -35,7 +35,7 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
     }
 
     @Override
-    public Class<WomanModel> getModelItem() {
+    public Class<WomanModel> getClassItem() {
         return WomanModel.class;
     }
 

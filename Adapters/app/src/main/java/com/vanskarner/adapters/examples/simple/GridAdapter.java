@@ -23,7 +23,7 @@ class GridAdapter implements BindAdapter<WomanModel, GridAdapter.GridVH> {
     }
 
     @Override
-    public Class<WomanModel> getModelItem() {
+    public Class<WomanModel> getClassItem() {
         return WomanModel.class;
     }
 

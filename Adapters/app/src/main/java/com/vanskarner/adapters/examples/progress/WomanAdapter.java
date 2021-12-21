@@ -23,7 +23,7 @@ class WomanAdapter implements BindAdapter<WomanModel, WomanAdapter.WomanVH> {
     }
 
     @Override
-    public Class<WomanModel> getModelItem() {
+    public Class<WomanModel> getClassItem() {
         return WomanModel.class;
     }
 
