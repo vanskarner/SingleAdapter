@@ -16,7 +16,8 @@ class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
 
     private int layoutId = DEFAULT_LAYOUT_ID;
     private boolean visibleProgress;
-    private int loadPosition;
+    private final LoadBindItem item = new LoadBindItem();
+
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -29,8 +30,7 @@ class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
     public void showProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && !visibleProgress) {
             List<BindItem> newList = bindItems(asyncListDiffer);
-            newList.add(new LoadBindItem());
-            loadPosition = newList.size() - 1;
+            newList.add(item);
             asyncListDiffer.submitList(newList);
             visibleProgress = true;
         }
@@ -39,7 +39,7 @@ class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
     public void hideProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && visibleProgress) {
             List<BindItem> newList = bindItems(asyncListDiffer);
-            newList.remove(loadPosition);
+            newList.remove(item);
             asyncListDiffer.submitList(newList);
             visibleProgress = false;
         }
