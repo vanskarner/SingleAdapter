@@ -34,7 +34,7 @@ class MultiOneAdapter implements BindAdapter<WomanModel, MultiOneAdapter.MultiOn
     }
 
     @Override
-    public Class<WomanModel> getModelClass() {
+    public Class<WomanModel> getModelItem() {
         return WomanModel.class;
     }
 

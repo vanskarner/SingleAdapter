@@ -13,7 +13,7 @@ import com.vanskarner.adapters.examples.WomanModel;
 class DiffAdapter implements BindAdapter<WomanModel, DiffAdapter.DiffVH> {
 
     @Override
-    public Class<WomanModel> getModelClass() {
+    public Class<WomanModel> getModelItem() {
         return WomanModel.class;
     }
 

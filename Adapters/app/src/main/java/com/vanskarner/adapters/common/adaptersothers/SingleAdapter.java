@@ -108,7 +108,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private boolean isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem) {
-        boolean isCorrectModel = bindAdapter.getModelClass().isInstance(bindItem);
+        boolean isCorrectModel = bindAdapter.getModelItem().isInstance(bindItem);
         boolean isCorrectFilter = bindAdapter.filter(bindItem);
         return isCorrectModel && isCorrectFilter;
     }

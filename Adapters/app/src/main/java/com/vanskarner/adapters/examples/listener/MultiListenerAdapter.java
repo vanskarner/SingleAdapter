@@ -35,7 +35,7 @@ class MultiListenerAdapter implements BindAdapter<WomanModel, MultiListenerAdapt
     }
 
     @Override
-    public Class<WomanModel> getModelClass() {
+    public Class<WomanModel> getModelItem() {
         return WomanModel.class;
     }
 
