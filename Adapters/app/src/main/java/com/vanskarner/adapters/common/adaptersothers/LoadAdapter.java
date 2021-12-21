@@ -5,14 +5,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.RecyclerView;
 
-@SuppressWarnings("rawtypes")
+import java.util.ArrayList;
+import java.util.List;
+
 class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
     private int layoutId = DEFAULT_LAYOUT_ID;
     private boolean visibleProgress;
+    private int loadPosition;
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -22,17 +26,22 @@ class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
         return layoutId;
     }
 
-    public void showProgress(RecyclerView.Adapter adapter, int listSize) {
+    public void showProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && !visibleProgress) {
+            List<BindItem> newList = bindItems(asyncListDiffer);
+            newList.add(new LoadBindItem());
+            loadPosition = newList.size() - 1;
+            asyncListDiffer.submitList(newList);
             visibleProgress = true;
-            adapter.notifyItemInserted(listSize);
         }
     }
 
-    public void hideProgress(RecyclerView.Adapter adapter, int listSize) {
+    public void hideProgress(AsyncListDiffer<BindItem> asyncListDiffer) {
         if (isEnableLoad() && visibleProgress) {
+            List<BindItem> newList = bindItems(asyncListDiffer);
+            newList.remove(loadPosition);
+            asyncListDiffer.submitList(newList);
             visibleProgress = false;
-            adapter.notifyItemRemoved(listSize);
         }
     }
 
@@ -54,6 +63,11 @@ class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
 
     private boolean isEnableLoad() {
         return layoutId != DEFAULT_LAYOUT_ID;
+    }
+
+    private List<BindItem> bindItems(AsyncListDiffer<BindItem> asyncListDiffer) {
+        List<? extends BindItem> list = asyncListDiffer.getCurrentList();
+        return new ArrayList<>(list);
     }
 
 }

@@ -20,15 +20,13 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter;
     //private List<? extends BindItem> list = Collections.emptyList();
     private AsyncListDiffer<BindItem> listDiffer;
-    //private final LoadAdapter loadAdapter;
-    private final LoadAdapter2 loadAdapter;
+    private final LoadAdapter loadAdapter;
 
     public SingleAdapter() {
         mapAdapter = new HashMap<>();
         BaseDiffCallback<? extends BindItem> defaultDiff = new DefaultBaseDiff();
         listDiffer = new AsyncListDiffer<>(this, (DiffUtil.ItemCallback<BindItem>) defaultDiff);
-//        loadAdapter = new LoadAdapter();
-        loadAdapter = new LoadAdapter2();
+        loadAdapter = new LoadAdapter();
     }
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
@@ -50,12 +48,10 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void showProgress() {
-//        loadAdapter.showProgress(this, listDiffer.getCurrentList().size());
         loadAdapter.showProgress(listDiffer);
     }
 
     public void hideProgress() {
-//        loadAdapter.hideProgress(this, listDiffer.getCurrentList().size());
         loadAdapter.hideProgress(listDiffer);
     }
 
@@ -88,10 +84,6 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 filterMap(getItem(position)).getKey() :
                 loadAdapter.getLayoutId();
     }
-
-    /*private boolean isProgressInactive(int position) {
-        return position < getList().size();
-    }*/
 
     private boolean isProgressInactive2(int position) {
         return !(getList().get(position) instanceof LoadBindItem);
