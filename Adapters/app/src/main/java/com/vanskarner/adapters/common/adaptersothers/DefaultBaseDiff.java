@@ -4,15 +4,16 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 
-class DefaultBaseDiff<BI extends BindItem> extends BaseDiffCallback<BI> {
+class DefaultBaseDiff extends BaseDiffCallback<BindItem> {
+
     @Override
-    public boolean areItemsTheSame(@NonNull BI oldItem, @NonNull BI newItem) {
+    public boolean areItemsTheSame(@NonNull BindItem oldItem, @NonNull BindItem newItem) {
         return areContentsTheSame(oldItem, newItem);
     }
 
     @SuppressLint("DiffUtilEquals")
     @Override
-    public boolean areContentsTheSame(@NonNull BI oldItem, @NonNull BI newItem) {
+    public boolean areContentsTheSame(@NonNull BindItem oldItem, @NonNull BindItem newItem) {
         return oldItem.equals(newItem);
     }
 
