@@ -29,7 +29,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
-        hideProgress();
+        endlessMethods.setVisibleProgress(false);
         listDiffer.submitList(new ArrayList<>(newList));
     }
 

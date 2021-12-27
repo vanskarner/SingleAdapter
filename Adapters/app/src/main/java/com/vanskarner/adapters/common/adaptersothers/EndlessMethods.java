@@ -8,10 +8,10 @@ import java.util.List;
 class EndlessMethods {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
-    private boolean visibleProgress;
+    private final AsyncListDiffer<BindItem> listDiffer;
     private final LoadAdapter adapter;
     private final LoadBindItem item;
-    private final AsyncListDiffer<BindItem> listDiffer;
+    private boolean visibleProgress;
 
     public EndlessMethods(AsyncListDiffer<BindItem> listDiffer) {
         this.listDiffer = listDiffer;
@@ -29,6 +29,10 @@ class EndlessMethods {
 
     public LoadAdapter getAdapter() {
         return adapter;
+    }
+
+    public void setVisibleProgress(boolean visibleProgress) {
+        this.visibleProgress = visibleProgress;
     }
 
     public void showProgress() {
