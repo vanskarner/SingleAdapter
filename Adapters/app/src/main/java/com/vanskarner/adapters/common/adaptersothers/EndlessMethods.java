@@ -33,18 +33,18 @@ class EndlessMethods {
 
     public void showProgress() {
         if (isEnableLoad() && !visibleProgress) {
-            List<BindItem> newList = bindItems();
-            newList.add(item);
-            listDiffer.submitList(newList);
+            List<BindItem> updateList = bindItems();
+            updateList.add(item);
+            listDiffer.submitList(updateList);
             visibleProgress = true;
         }
     }
 
     public void hideProgress() {
         if (isEnableLoad() && visibleProgress) {
-            List<BindItem> newList = bindItems();
-            newList.remove(item);
-            listDiffer.submitList(newList);
+            List<BindItem> updateList = bindItems();
+            updateList.remove(item);
+            listDiffer.submitList(updateList);
             visibleProgress = false;
         }
     }
