@@ -33,7 +33,7 @@ class EndlessMethods {
 
     public void showProgress() {
         if (isEnableLoad() && !visibleProgress) {
-            List<BindItem> newList = bindItems(listDiffer);
+            List<BindItem> newList = bindItems();
             newList.add(item);
             listDiffer.submitList(newList);
             visibleProgress = true;
@@ -42,7 +42,7 @@ class EndlessMethods {
 
     public void hideProgress() {
         if (isEnableLoad() && visibleProgress) {
-            List<BindItem> newList = bindItems(listDiffer);
+            List<BindItem> newList = bindItems();
             newList.remove(item);
             listDiffer.submitList(newList);
             visibleProgress = false;
@@ -53,8 +53,8 @@ class EndlessMethods {
         return adapter.getLayoutId() != DEFAULT_LAYOUT_ID;
     }
 
-    private List<BindItem> bindItems(AsyncListDiffer<BindItem> asyncListDiffer) {
-        List<? extends BindItem> list = asyncListDiffer.getCurrentList();
+    private List<BindItem> bindItems() {
+        List<? extends BindItem> list = listDiffer.getCurrentList();
         return new ArrayList<>(list);
     }
 
