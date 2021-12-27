@@ -31,10 +31,6 @@ class EndlessMethods {
         return adapter;
     }
 
-    public void setVisibleProgress(boolean visibleProgress) {
-        this.visibleProgress = visibleProgress;
-    }
-
     public void showProgress() {
         if (isEnableLoad() && !visibleProgress) {
             List<BindItem> updateList = bindItems();
@@ -51,6 +47,10 @@ class EndlessMethods {
             listDiffer.submitList(updateList);
             visibleProgress = false;
         }
+    }
+
+    public void setProgressFalse() {
+        visibleProgress = false;
     }
 
     private boolean isEnableLoad() {
