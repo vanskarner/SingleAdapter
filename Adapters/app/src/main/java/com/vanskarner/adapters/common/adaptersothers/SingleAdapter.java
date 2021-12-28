@@ -18,13 +18,15 @@ import java.util.Objects;
 public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter;
-    private AsyncListDiffer<BindItem> listDiffer;
+    private BaseDiffCallback<? extends BindItem> defaultDiff;
+    private final AsyncListDiffer<BindItem> listDiffer;
     private final EndlessLoad endlessLoad;
 
     public SingleAdapter() {
         mapAdapter = new HashMap<>();
-        BaseDiffCallback<? extends BindItem> defaultDiff = new DefaultBaseDiff();
-        listDiffer = new AsyncListDiffer<>(this, (DiffUtil.ItemCallback<BindItem>) defaultDiff);
+        defaultDiff = new DefaultBaseDiff();
+        listDiffer = new AsyncListDiffer<>(this,
+                (DiffUtil.ItemCallback<BindItem>) defaultDiff);
         endlessLoad = new EndlessLoad(listDiffer);
     }
 
@@ -39,12 +41,11 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void set(@NonNull final BaseDiffCallback<? extends BindItem> diffCallback) {
-        this.listDiffer = new AsyncListDiffer<>(this,
-                (DiffUtil.ItemCallback<BindItem>) diffCallback);
+        this.defaultDiff = diffCallback;
     }
 
-    public void set(final int idLoadLayout) {
-        endlessLoad.getAdapter().setLayoutId(idLoadLayout);
+    public void set(final int loadLayoutId) {
+        endlessLoad.getAdapter().setLayoutId(loadLayoutId);
     }
 
     public void showProgress() {
@@ -53,6 +54,11 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void hideProgress() {
         endlessLoad.hideProgress();
+    }
+
+    public boolean isLoad(int position) {
+        BindItem item = getItem(position);
+        return endlessLoad.isLoadInstance(item);
     }
 
     @NonNull
@@ -84,11 +90,6 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return endlessLoad.isLoadInstance(item) ?
                 endlessLoad.getAdapter().getLayoutId() :
                 filterMap(item).getKey();
-    }
-
-    public boolean isLoad(int position) {
-        BindItem item = getItem(position);
-        return endlessLoad.isLoadInstance(item);
     }
 
     private List<BindItem> getList() {
