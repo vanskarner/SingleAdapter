@@ -43,8 +43,8 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         setContentView(R.layout.progress_activity);
         recyclerView = findViewById(R.id.recycler);
         singleAdapter.add(new WomanAdapter());
-        singleAdapter.add(R.layout.item_loading);
-        singleAdapter.setList(list);
+        singleAdapter.set(R.layout.item_loading);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         recyclerView.addOnScrollListener(pagination);
         GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
@@ -89,7 +89,7 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
                         public void onSuccess(@NonNull List<WomanModel> newItems) {
                             pagination.isLoading = false;
                             list.addAll(newItems);
-                            singleAdapter.setList(list);
+                            singleAdapter.set(list);
                             /*singleAdapter.hideProgress();*/
                         }
 

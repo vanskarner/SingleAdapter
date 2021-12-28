@@ -28,21 +28,22 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         endlessLoad = new EndlessLoad(listDiffer);
     }
 
-    public void setList(@NonNull final List<? extends BindItem> newList) {
-        endlessLoad.setProgressFalse();
-        listDiffer.submitList(new ArrayList<>(newList));
-    }
-
     public void add(@NonNull final BindAdapter bindAdapter) {
         int classHashCode = bindAdapter.getClass().hashCode();
         mapAdapter.put(classHashCode, bindAdapter);
     }
 
-    public void add(@NonNull final BaseDiffCallback<? extends BindItem> diffCallback) {
-        this.listDiffer = new AsyncListDiffer<>(this, (DiffUtil.ItemCallback<BindItem>) diffCallback);
+    public void set(@NonNull final List<? extends BindItem> newList) {
+        endlessLoad.setProgressFalse();
+        listDiffer.submitList(new ArrayList<>(newList));
     }
 
-    public void add(final int idLoadLayout) {
+    public void set(@NonNull final BaseDiffCallback<? extends BindItem> diffCallback) {
+        this.listDiffer = new AsyncListDiffer<>(this,
+                (DiffUtil.ItemCallback<BindItem>) diffCallback);
+    }
+
+    public void set(final int idLoadLayout) {
         endlessLoad.getAdapter().setLayoutId(idLoadLayout);
     }
 

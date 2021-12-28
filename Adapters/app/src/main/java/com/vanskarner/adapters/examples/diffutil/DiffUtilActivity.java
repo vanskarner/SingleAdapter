@@ -64,12 +64,12 @@ public class DiffUtilActivity extends AppCompatActivity {
         list = DataProvider.sampleData();
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
-        singleAdapter.setList(list);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         scrollListWithDelay(DataProvider.sampleData(), item -> {
             item.firstNameToUpperCase();
             list.set(item.getId() - 1, item);
-            singleAdapter.setList(list);
+            singleAdapter.set(list);
         });
     }
 
@@ -78,12 +78,12 @@ public class DiffUtilActivity extends AppCompatActivity {
         list = DataProvider.sampleData();
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
-        singleAdapter.setList(list);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         scrollListWithDelay(DataProvider.sampleData(), item -> {
             list = new ArrayList<>(list);
             list.remove(0);
-            singleAdapter.setList(list);
+            singleAdapter.set(list);
         });
     }
 
@@ -92,11 +92,11 @@ public class DiffUtilActivity extends AppCompatActivity {
         list = new ArrayList<>();
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
-        singleAdapter.setList(list);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         scrollListWithDelay(reverseList(), item -> {
             list.add(0, item);
-            singleAdapter.setList(list);
+            singleAdapter.set(list);
         });
     }
 

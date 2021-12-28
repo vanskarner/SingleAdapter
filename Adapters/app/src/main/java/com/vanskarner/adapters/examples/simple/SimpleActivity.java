@@ -51,7 +51,7 @@ public class SimpleActivity extends AppCompatActivity {
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new MultiOneAdapter());
         singleAdapter.add(new MultiSecondAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.set(DataProvider.sampleData());
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -60,7 +60,7 @@ public class SimpleActivity extends AppCompatActivity {
     private void showGridExample() {
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new GridAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.set(DataProvider.sampleData());
         GridLayoutManager manager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
@@ -69,7 +69,7 @@ public class SimpleActivity extends AppCompatActivity {
     private void showLinearExample() {
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new LinearAdapter());
-        singleAdapter.setList(DataProvider.sampleData());
+        singleAdapter.set(DataProvider.sampleData());
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);

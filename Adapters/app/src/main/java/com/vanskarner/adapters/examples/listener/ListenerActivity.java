@@ -71,7 +71,7 @@ public class ListenerActivity extends AppCompatActivity {
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
-        singleAdapter.setList(list);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
     }
 
@@ -82,7 +82,7 @@ public class ListenerActivity extends AppCompatActivity {
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
-        singleAdapter.setList(list);
+        singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
     }
 
