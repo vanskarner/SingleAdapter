@@ -47,14 +47,14 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         singleAdapter.setList(list);
         recyclerView.setAdapter(singleAdapter);
         recyclerView.addOnScrollListener(pagination);
-        /*GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
         Objects.requireNonNull(gridLayoutManager)
                 .setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        return (singleAdapter.isVisibleProgress()) ? 1 : 2;
+                        return (singleAdapter.isLoad(position)) ? 2 : 1;
                     }
-                });*/
+                });
         pagination.onLoadMore();
     }
 

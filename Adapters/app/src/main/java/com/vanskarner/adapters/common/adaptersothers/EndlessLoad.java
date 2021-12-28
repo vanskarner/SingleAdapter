@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import java.util.ArrayList;
 import java.util.List;
 
-class EndlessMethods {
+class EndlessLoad {
     private static final int DEFAULT_LAYOUT_ID = -1;
 
     private final AsyncListDiffer<BindItem> listDiffer;
@@ -13,27 +13,27 @@ class EndlessMethods {
     private final LoadBindItem item;
     private boolean visibleProgress;
 
-    public EndlessMethods(AsyncListDiffer<BindItem> listDiffer) {
+    public EndlessLoad(AsyncListDiffer<BindItem> listDiffer) {
         this.listDiffer = listDiffer;
         adapter = new LoadAdapter(DEFAULT_LAYOUT_ID);
         item = new LoadBindItem();
-    }
-
-    public int getLayoutId() {
-        return adapter.getLayoutId();
-    }
-
-    public void setLayoutId(int layoutId) {
-        adapter.setLayoutId(layoutId);
     }
 
     public LoadAdapter getAdapter() {
         return adapter;
     }
 
+    public void setProgressFalse() {
+        visibleProgress = false;
+    }
+
+    public boolean isLoadInstance(BindItem item) {
+        return item instanceof LoadBindItem;
+    }
+
     public void showProgress() {
         if (isEnableLoad() && !visibleProgress) {
-            List<BindItem> updateList = bindItems();
+            List<BindItem> updateList = createItems();
             updateList.add(item);
             listDiffer.submitList(updateList);
             visibleProgress = true;
@@ -42,22 +42,18 @@ class EndlessMethods {
 
     public void hideProgress() {
         if (isEnableLoad() && visibleProgress) {
-            List<BindItem> updateList = bindItems();
+            List<BindItem> updateList = createItems();
             updateList.remove(item);
             listDiffer.submitList(updateList);
             visibleProgress = false;
         }
     }
 
-    public void setProgressFalse() {
-        visibleProgress = false;
-    }
-
     private boolean isEnableLoad() {
         return adapter.getLayoutId() != DEFAULT_LAYOUT_ID;
     }
 
-    private List<BindItem> bindItems() {
+    private List<BindItem> createItems() {
         List<? extends BindItem> list = listDiffer.getCurrentList();
         return new ArrayList<>(list);
     }

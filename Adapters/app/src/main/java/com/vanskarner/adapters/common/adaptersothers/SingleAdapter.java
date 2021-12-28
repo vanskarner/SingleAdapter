@@ -19,17 +19,17 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private final Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> mapAdapter;
     private AsyncListDiffer<BindItem> listDiffer;
-    private final EndlessMethods endlessMethods;
+    private final EndlessLoad endlessLoad;
 
     public SingleAdapter() {
         mapAdapter = new HashMap<>();
         BaseDiffCallback<? extends BindItem> defaultDiff = new DefaultBaseDiff();
         listDiffer = new AsyncListDiffer<>(this, (DiffUtil.ItemCallback<BindItem>) defaultDiff);
-        endlessMethods = new EndlessMethods(listDiffer);
+        endlessLoad = new EndlessLoad(listDiffer);
     }
 
     public void setList(@NonNull final List<? extends BindItem> newList) {
-        endlessMethods.setProgressFalse();
+        endlessLoad.setProgressFalse();
         listDiffer.submitList(new ArrayList<>(newList));
     }
 
@@ -43,23 +43,23 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void add(final int idLoadLayout) {
-        endlessMethods.setLayoutId(idLoadLayout);
+        endlessLoad.getAdapter().setLayoutId(idLoadLayout);
     }
 
     public void showProgress() {
-        endlessMethods.showProgress();
+        endlessLoad.showProgress();
     }
 
     public void hideProgress() {
-        endlessMethods.hideProgress();
+        endlessLoad.hideProgress();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return endlessMethods.getLayoutId() == viewType ?
-                endlessMethods.getAdapter().onCreateViewHolder(parent, inflater) :
+        return endlessLoad.getAdapter().getLayoutId() == viewType ?
+                endlessLoad.getAdapter().onCreateViewHolder(parent, inflater) :
                 Objects.requireNonNull(mapAdapter.get(viewType))
                         .onCreateViewHolder(parent, inflater);
     }
@@ -67,7 +67,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BindItem item = getItem(position);
-        if (!isLoadInstance(item)) {
+        if (!endlessLoad.isLoadInstance(item)) {
             filterMap(item).getValue().onBindViewHolder(holder, item);
         }
     }
@@ -80,13 +80,14 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemViewType(int position) {
         BindItem item = getItem(position);
-        return isLoadInstance(item) ?
-                endlessMethods.getLayoutId() :
+        return endlessLoad.isLoadInstance(item) ?
+                endlessLoad.getAdapter().getLayoutId() :
                 filterMap(item).getKey();
     }
 
-    private boolean isLoadInstance(BindItem position) {
-        return position instanceof LoadBindItem;
+    public boolean isLoad(int position) {
+        BindItem item = getItem(position);
+        return endlessLoad.isLoadInstance(item);
     }
 
     private List<BindItem> getList() {
