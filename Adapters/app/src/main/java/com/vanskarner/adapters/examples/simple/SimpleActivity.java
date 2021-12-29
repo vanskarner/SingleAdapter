@@ -47,12 +47,12 @@ public class SimpleActivity extends AppCompatActivity {
         return false;
     }
 
-    private void showMultiViewExample() {
+    private void showLinearExample() {
         SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(new MultiOneAdapter());
-        singleAdapter.add(new MultiSecondAdapter());
+        singleAdapter.add(new LinearAdapter());
         singleAdapter.set(DataProvider.sampleData());
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager manager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
     }
@@ -66,11 +66,13 @@ public class SimpleActivity extends AppCompatActivity {
         recyclerView.setAdapter(singleAdapter);
     }
 
-    private void showLinearExample() {
+    private void showMultiViewExample() {
         SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(new LinearAdapter());
+        singleAdapter.add(new MultiOneAdapter());
+        singleAdapter.add(new MultiSecondAdapter());
         singleAdapter.set(DataProvider.sampleData());
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager manager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(singleAdapter);
     }
