@@ -1,9 +1,7 @@
 package com.vanskarner.adapters.examples.progress;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,14 +19,11 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProgressActivity extends AppCompatActivity implements Pagination.OnLoadMoreListener {
-    private final static String TAG = "DEBUGPROGRES";
     private final static int PAGE_LIMIT = 4;
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -65,39 +60,15 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
             if (page != 1) {
                 singleAdapter.showProgress();
             }
-            /*compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))
+            compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .delay(1, TimeUnit.SECONDS)
                     .subscribe(newItems -> {
                         pagination.isLoading = false;
                         list.addAll(newItems);
-                        singleAdapter.setList(list);
-                        *//*singleAdapter.hideProgress();*//*
-                    }));*/
-            Single.just(DataProvider.sampleDataMsg(" - " + page))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .delay(1, TimeUnit.SECONDS)
-                    .subscribe(new SingleObserver<List<WomanModel>>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
-                            compositeDisposable.add(d);
-                        }
-
-                        @Override
-                        public void onSuccess(@NonNull List<WomanModel> newItems) {
-                            pagination.isLoading = false;
-                            list.addAll(newItems);
-                            singleAdapter.set(list);
-                            /*singleAdapter.hideProgress();*/
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            Log.d(TAG, e.getMessage());
-                        }
-                    });
+                        singleAdapter.set(list);
+                    }));
         }
     }
 
