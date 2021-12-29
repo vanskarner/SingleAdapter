@@ -59,33 +59,67 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return getList().size();
     }
 
+    /**
+     * Check if the item in the current position is the progress view
+     *
+     * @param position current item position
+     */
     public boolean isLoad(int position) {
         BindItem item = getItem(position);
         return endlessLoad.isLoadInstance(item);
     }
 
+    /**
+     * Add BindAdapters the final view will contain
+     *
+     * @param bindAdapter an implementation of BindAdapter
+     */
     public void add(@NonNull final BindAdapter bindAdapter) {
         int classHashCode = bindAdapter.getClass().hashCode();
         mapAdapter.put(classHashCode, bindAdapter);
     }
 
+    /**
+     * Set the list of items in the adapter and hide the progress
+     *
+     * @param items Adapter data
+     */
     public void set(@NonNull final List<? extends BindItem> items) {
         endlessLoad.setProgressFalse();
         listDiffer.submitList(new ArrayList<>(items));
     }
 
+    /**
+     * Set custom BaseDiffCallback
+     *
+     * @param diffCallback Custom BaseDiffCallback
+     */
     public void set(@NonNull final BaseDiffCallback<? extends BindItem> diffCallback) {
         this.defaultDiff = diffCallback;
     }
 
+    /**
+     * Set load layout identifier that will be displayed when using
+     * {@link #showProgress()} method
+     *
+     * @param loadLayoutId identify layout for load visualization
+     */
     public void set(final int loadLayoutId) {
         endlessLoad.getAdapter().setLayoutId(loadLayoutId);
     }
 
+    /**
+     * Display load layout that is set with {@link #set(int)} method
+     * In case the layout has not been established, this method will do nothing.
+     */
     public void showProgress() {
         endlessLoad.showProgress();
     }
 
+    /**
+     * Hide load layout.
+     * No need to use it when calling {@link #set(List)} method
+     */
     public void hideProgress() {
         endlessLoad.hideProgress();
     }
