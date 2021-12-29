@@ -2,8 +2,8 @@ package com.vanskarner.adapters.common.adaptersothers;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-interface OnBindVH<M extends BindItem, VH extends RecyclerView.ViewHolder> {
+interface OnBindVH<BI extends BindItem, VH extends RecyclerView.ViewHolder> {
 
-    void onBindViewHolder(VH viewHolder, M item);
+    void onBindViewHolder(VH viewHolder, BI item);
 
 }

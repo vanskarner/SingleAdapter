@@ -69,9 +69,9 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         mapAdapter.put(classHashCode, bindAdapter);
     }
 
-    public void set(@NonNull final List<? extends BindItem> newList) {
+    public void set(@NonNull final List<? extends BindItem> items) {
         endlessLoad.setProgressFalse();
-        listDiffer.submitList(new ArrayList<>(newList));
+        listDiffer.submitList(new ArrayList<>(items));
     }
 
     public void set(@NonNull final BaseDiffCallback<? extends BindItem> diffCallback) {

@@ -2,12 +2,12 @@ package com.vanskarner.adapters.common.adaptersothers;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public interface BindAdapter<M extends BindItem, VH extends RecyclerView.ViewHolder>
-        extends OnCreateVH<VH>, OnBindVH<M, VH> {
+public interface BindAdapter<BI extends BindItem, VH extends RecyclerView.ViewHolder>
+        extends OnCreateVH<VH>, OnBindVH<BI, VH> {
 
-    Class<M> getClassItem();
+    Class<BI> getClassItem();
 
-    default boolean filter(M item) {
+    default boolean filter(BI item) {
         return true;
     }
 

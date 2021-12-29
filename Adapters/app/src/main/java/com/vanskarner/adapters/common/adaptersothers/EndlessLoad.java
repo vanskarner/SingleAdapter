@@ -10,13 +10,13 @@ class EndlessLoad {
 
     private final AsyncListDiffer<BindItem> listDiffer;
     private final LoadAdapter adapter;
-    private final LoadBindItem item;
+    private final LoadBindItem loadItem;
     private boolean visibleProgress;
 
     public EndlessLoad(AsyncListDiffer<BindItem> listDiffer) {
         this.listDiffer = listDiffer;
         adapter = new LoadAdapter(DEFAULT_LAYOUT_ID);
-        item = new LoadBindItem();
+        loadItem = new LoadBindItem();
     }
 
     public LoadAdapter getAdapter() {
@@ -34,7 +34,7 @@ class EndlessLoad {
     public void showProgress() {
         if (isEnableLoad() && !visibleProgress) {
             List<BindItem> updateList = createItems();
-            updateList.add(item);
+            updateList.add(loadItem);
             listDiffer.submitList(updateList);
             visibleProgress = true;
         }
@@ -43,7 +43,7 @@ class EndlessLoad {
     public void hideProgress() {
         if (isEnableLoad() && visibleProgress) {
             List<BindItem> updateList = createItems();
-            updateList.remove(item);
+            updateList.remove(loadItem);
             listDiffer.submitList(updateList);
             visibleProgress = false;
         }
