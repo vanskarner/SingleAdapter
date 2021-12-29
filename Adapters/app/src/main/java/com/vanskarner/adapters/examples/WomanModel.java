@@ -2,7 +2,7 @@ package com.vanskarner.adapters.examples;
 
 import androidx.annotation.NonNull;
 
-import com.vanskarner.adapters.common.adaptersothers.BindItem;
+import com.vanskarner.adapters.singleadapter.BindItem;
 //BindItem<Integer>
 public class WomanModel implements BindItem {
     private final int id;

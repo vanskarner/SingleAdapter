@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vanskarner.adapters.common.adaptersothers.BindAdapter;
+import com.vanskarner.adapters.singleadapter.BindAdapter;
 import com.vanskarner.adapters.databinding.GridItemBinding;
 import com.vanskarner.adapters.examples.WomanModel;
 

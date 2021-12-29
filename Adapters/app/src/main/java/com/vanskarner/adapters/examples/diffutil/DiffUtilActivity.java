@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
+import com.vanskarner.adapters.singleadapter.SingleAdapter;
 import com.vanskarner.adapters.examples.DataProvider;
 import com.vanskarner.adapters.examples.WomanModel;
 
@@ -59,16 +59,15 @@ public class DiffUtilActivity extends AppCompatActivity {
         return false;
     }
 
-    private void showChangeItemExample() {
+    private void showAddItemExample() {
         compositeDisposable.clear();
-        list = DataProvider.sampleData();
+        list = new ArrayList<>();
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
         singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
-        scrollListWithDelay(DataProvider.sampleData(), item -> {
-            item.firstNameToUpperCase();
-            list.set(item.getId() - 1, item);
+        scrollListWithDelay(reverseList(), item -> {
+            list.add(0, item);
             singleAdapter.set(list);
         });
     }
@@ -87,20 +86,21 @@ public class DiffUtilActivity extends AppCompatActivity {
         });
     }
 
-    private void showAddItemExample() {
+    private void showChangeItemExample() {
         compositeDisposable.clear();
-        list = new ArrayList<>();
+        list = DataProvider.sampleData();
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(new DiffAdapter());
         singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
-        scrollListWithDelay(reverseList(), item -> {
-            list.add(0, item);
+        scrollListWithDelay(DataProvider.sampleData(), item -> {
+            item.firstNameToUpperCase();
+            list.set(item.getId() - 1, item);
             singleAdapter.set(list);
         });
     }
 
-    public void scrollListWithDelay(List<WomanModel> womanModels, Consumer<WomanModel> consumer) {
+    private void scrollListWithDelay(List<WomanModel> womanModels, Consumer<WomanModel> consumer) {
         compositeDisposable.add(Observable.fromIterable(womanModels)
                 .concatMap(i -> Observable.just(i).delay(1, TimeUnit.SECONDS))
                 .subscribeOn(Schedulers.io())

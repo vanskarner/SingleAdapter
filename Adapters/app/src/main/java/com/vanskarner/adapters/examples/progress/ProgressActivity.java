@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.adapters.R;
 import com.vanskarner.adapters.common.adapters.Pagination;
-import com.vanskarner.adapters.common.adaptersothers.SingleAdapter;
+import com.vanskarner.adapters.singleadapter.SingleAdapter;
 import com.vanskarner.adapters.examples.DataProvider;
 import com.vanskarner.adapters.examples.WomanModel;
 
