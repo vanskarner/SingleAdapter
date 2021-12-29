@@ -48,6 +48,17 @@ public class ListenerActivity extends AppCompatActivity {
         return false;
     }
 
+    private void showSimpleListenerExample() {
+        SimpleListenerAdapter adapter = new SimpleListenerAdapter(position -> {
+            WomanModel item = list.get(position);
+            showMessage(item.toString());
+        });
+        SingleAdapter singleAdapter = new SingleAdapter();
+        singleAdapter.add(adapter);
+        singleAdapter.set(list);
+        recyclerView.setAdapter(singleAdapter);
+    }
+
     private void showMultiListenerExample() {
         MultiListenerAdapter adapter = new MultiListenerAdapter(new MultiListenerAdapter
                 .OnClickMultiListener() {
@@ -68,17 +79,6 @@ public class ListenerActivity extends AppCompatActivity {
                 WomanModel item = list.get(position);
                 showMessage("onClickNameItem->" + item.toString());
             }
-        });
-        SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(adapter);
-        singleAdapter.set(list);
-        recyclerView.setAdapter(singleAdapter);
-    }
-
-    private void showSimpleListenerExample() {
-        SimpleListenerAdapter adapter = new SimpleListenerAdapter(position -> {
-            WomanModel item = list.get(position);
-            showMessage(item.toString());
         });
         SingleAdapter singleAdapter = new SingleAdapter();
         singleAdapter.add(adapter);
