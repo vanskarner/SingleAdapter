@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.examples.diffutil.DiffUtilActivity;
+import com.vanskarner.adapters.examples.diff_util.DiffUtilActivity;
 import com.vanskarner.adapters.examples.listener.ListenerActivity;
 import com.vanskarner.adapters.examples.progress.ProgressActivity;
 import com.vanskarner.adapters.examples.simple.SimpleActivity;

@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.examples.diffutil;
+package com.vanskarner.adapters.examples.diff_util;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

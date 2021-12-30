@@ -28,7 +28,7 @@
             android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
             android:label="SingleAdapter: OnClickListener" />
         <activity
-            android:name="com.vanskarner.adapters.examples.diffutil.DiffUtilActivity"
+            android:name="com.vanskarner.adapters.examples.diff_util.DiffUtilActivity"
             android:label="SingleAdapter: DiffUtil" />
         <activity
             android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
