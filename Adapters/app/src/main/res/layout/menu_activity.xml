@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_spacing"
-            android:text="@string/diffutil" />
+            android:text="@string/diff_util" />
 
         <Button
             android:id="@+id/btnProgress"

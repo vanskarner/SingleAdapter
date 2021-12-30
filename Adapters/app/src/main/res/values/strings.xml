@@ -3,7 +3,7 @@
 
     <string name="simple">Simple</string>
     <string name="progress">Progress</string>
-    <string name="diffutil">DiffUtil</string>
+    <string name="diff_util">DiffUtil</string>
     <string name="listeners">Listeners</string>
 
 
