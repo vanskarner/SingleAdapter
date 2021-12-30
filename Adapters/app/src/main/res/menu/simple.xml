@@ -7,8 +7,6 @@
     <item
         android:id="@+id/gridItem"
         android:title="@string/menu_grid" />
-    <item
-        android:id="@+id/multiItem"
-        android:title="@string/menu_multi" />
+    <item android:title="@string/menu_multi" />
 
 </menu>

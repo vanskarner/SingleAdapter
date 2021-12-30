@@ -3,7 +3,5 @@
     <item
         android:id="@+id/simpleListenerItem"
         android:title="@string/menu_simple_listener" />
-    <item
-        android:id="@+id/multiListenerItem"
-        android:title="@string/menu_multi_listener" />
+    <item android:title="@string/menu_multi_listener" />
 </menu>
