@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.vanskarner.adapters">
+    package="com.utility.adapters">
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,7 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name="com.vanskarner.adapters.examples.MenuActivity"
+            android:name="com.utility.adapters.examples.MenuActivity"
             android:exported="false"
             android:label="SingleAdapter">
             <intent-filter>
@@ -22,16 +22,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vanskarner.adapters.examples.simple.SimpleActivity"
+            android:name="com.utility.adapters.examples.simple.SimpleActivity"
             android:label="SingleAdapter: Simple" />
         <activity
-            android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
+            android:name="com.utility.adapters.examples.listener.ListenerActivity"
             android:label="SingleAdapter: OnClickListener" />
         <activity
-            android:name="com.vanskarner.adapters.examples.diff_util.DiffUtilActivity"
+            android:name="com.utility.adapters.examples.diff_util.DiffUtilActivity"
             android:label="SingleAdapter: DiffUtil" />
         <activity
-            android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
+            android:name="com.utility.adapters.examples.progress.ProgressActivity"
             android:label="SingleAdapter: Progress" />
 
     </application>
