@@ -66,10 +66,9 @@ SingleAdapter --> BindItem
 SingleAdapter --> BaseDiffCallback
 SingleAdapter --> EndlessLoad
 BindItem <.. OnBindVH
-BindAdapter ..> BindItem/''/
 BindAdapter --|> OnCreateVH
 BindAdapter --|> OnBindVH
-BaseDiffCallback ..> BindItem/''/
+BaseDiffCallback ..> BindItem
 BaseDiffCallback <|-- DefaultBaseDiff
 EndlessLoad --> BindItem
 EndlessLoad --> LoadAdapter
