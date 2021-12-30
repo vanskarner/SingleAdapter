@@ -1,4 +1,4 @@
-package com.vanskarner.adapters.common.adapters;
+package com.vanskarner.adapters.examples.progress;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;

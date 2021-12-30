@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/image"
-            imageLoaderGrid="@{woman.imageID}"
+            imageLoader="@{woman.imageID}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_grid_height"
             android:adjustViewBounds="true"

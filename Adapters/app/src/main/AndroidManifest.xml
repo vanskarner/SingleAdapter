@@ -12,59 +12,27 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name="com.vanskarner.adapters.ui.MenuActivity"
-            android:exported="false">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name="com.vanskarner.adapters.ui.search_pagination.SearchPaginationActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
-
-        <activity
-            android:name="com.vanskarner.adapters.ui.simple_pagination.SimplePaginationActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
-
-        <activity
-            android:name="com.vanskarner.adapters.ui.grid_pagination.GridPaginationActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
-
-        <activity
-            android:name="com.vanskarner.adapters.ui.staggered_pagination.StaggeredPaginationActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
-
-        <activity
-            android:name="com.vanskarner.adapters.ui.simple_search.SimpleSearchActivity"
-            android:theme="@style/Theme.Adapters.FullScreen" />
-
-        <!--NEWS-->
-        <activity
             android:name="com.vanskarner.adapters.examples.MenuActivity"
-            android:label="SingleAdapter"
-            android:exported="false">
+            android:exported="false"
+            android:label="SingleAdapter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.vanskarner.adapters.examples.simple.SimpleActivity"
             android:label="SingleAdapter: Simple" />
-        <activity
-            android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
-            android:label="SingleAdapter: Progress" />
         <activity
             android:name="com.vanskarner.adapters.examples.listener.ListenerActivity"
             android:label="SingleAdapter: OnClickListener" />
         <activity
             android:name="com.vanskarner.adapters.examples.diffutil.DiffUtilActivity"
             android:label="SingleAdapter: DiffUtil" />
+        <activity
+            android:name="com.vanskarner.adapters.examples.progress.ProgressActivity"
+            android:label="SingleAdapter: Progress" />
 
     </application>
 
