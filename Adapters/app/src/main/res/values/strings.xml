@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">Adapters</string>
-    <string name="search">Search</string>
 
-    <string name="search_pagination">Search Pagination</string>
-    <string name="simple_pagination">Simple Pagination</string>
-    <string name="grid_pagination">Grid Pagination</string>
-    <string name="staggered_pagination">Staggered Pagination</string>
-    <string name="simple_search">Simple Search</string>
+    <string name="simple">Simple</string>
+    <string name="progress">Progress</string>
+    <string name="diff_util">DiffUtil</string>
+    <string name="listeners">Listeners</string>
 
-    <string name="exception_no_items">End of results</string>
+
+    <string name="menu_linear">Linear</string>
+    <string name="menu_grid">Grid</string>
+    <string name="menu_multi">MultiView</string>
+    <string name="menu_simple_listener">Simple Listener</string>
+    <string name="menu_multi_listener">Multi Listener</string>
+    <string name="menu_add_item">Add Item</string>
+    <string name="menu_remove_item">Remove Item</string>
+    <string name="menu_change_item">Change Item</string>
+
+
 </resources>
