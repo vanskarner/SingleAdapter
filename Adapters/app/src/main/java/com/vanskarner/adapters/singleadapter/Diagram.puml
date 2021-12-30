@@ -61,20 +61,20 @@ interface BindAdapter<BI extends BindItem,VH extends ViewHolder>{
     + filter(BI item): boolean
 }
 
-
-OnCreateVH <|-- BindAdapter
-OnBindVH <|-- BindAdapter
-OnBindVH ..> BindItem
-BindAdapter ..> BindItem
-BaseDiffCallback ..> BindItem
+SingleAdapter --> BindAdapter
+SingleAdapter --> BindItem
+SingleAdapter --> BaseDiffCallback
+SingleAdapter --> EndlessLoad
+BindItem <.. OnBindVH
+BindAdapter ..> BindItem/''/
+BindAdapter --|> OnCreateVH
+BindAdapter --|> OnBindVH
+BaseDiffCallback ..> BindItem/''/
 BaseDiffCallback <|-- DefaultBaseDiff
-LoadBindItem --|> BindItem
+EndlessLoad --> BindItem
+EndlessLoad --> LoadAdapter
+EndlessLoad --> LoadBindItem
 LoadAdapter --|> OnCreateVH
-EndlessLoad ..> BindItem
-EndlessLoad ..> LoadAdapter
-EndlessLoad ..> LoadBindItem
-SingleAdapter ..> BaseDiffCallback
-SingleAdapter ..> EndlessLoad
-SingleAdapter ..> BindAdapter
-SingleAdapter ..> BindItem
+LoadBindItem --|> BindItem
+
 @enduml
