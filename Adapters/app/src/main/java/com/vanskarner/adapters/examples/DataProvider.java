@@ -1,34 +1,14 @@
 package com.vanskarner.adapters.examples;
 
 import com.vanskarner.adapters.R;
-import com.vanskarner.adapters.ui.NoPages;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class DataProvider {
-    private static final int TOTAL_PAGES = 4;
 
     public static List<WomanModel> sampleData() {
         return sampleDataMsg("");
-    }
-
-    public static Single<List<WomanModel>> sampleDataPaging(final int page) {
-        return Single.just(true)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .delay(1, TimeUnit.SECONDS)
-                .map(value -> {
-                    if (page > TOTAL_PAGES) {
-                        throw new NoPages();
-                    }
-                    return sampleDataMsg(" - " + page + " - ");
-                });
     }
 
     public static List<WomanModel> sampleDataMsg(String msg) {
