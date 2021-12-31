@@ -1,0 +1,2 @@
+rootProject.name = "SingleAdapter"
+include ':app'
