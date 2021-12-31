@@ -20,15 +20,15 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.menu_activity);
         findViewById(R.id.btnSimple)
                 .setOnClickListener(view -> goActivity(SimpleActivity.class));
-        findViewById(R.id.btnProgress)
-                .setOnClickListener(view -> goActivity(ProgressActivity.class));
-        findViewById(R.id.btnDiffUtil)
-                .setOnClickListener(view -> goActivity(DiffUtilActivity.class));
         findViewById(R.id.btnListener)
                 .setOnClickListener(view -> goActivity(ListenerActivity.class));
+        findViewById(R.id.btnDiffUtil)
+                .setOnClickListener(view -> goActivity(DiffUtilActivity.class));
+        findViewById(R.id.btnProgress)
+                .setOnClickListener(view -> goActivity(ProgressActivity.class));
     }
 
-    public void goActivity(Class<? extends AppCompatActivity> activity) {
+    private void goActivity(Class<? extends AppCompatActivity> activity) {
         Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
