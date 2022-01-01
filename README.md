@@ -1,5 +1,5 @@
 # SingleAdapter
-Use a single adapter to handle views with RecyclerView.Library built around Recyclerview.Adapter
+Use a single adapter to handle views with RecyclerView. Library built around Recyclerview.Adapter
 
 ## Quick Start: for simple views
 ### 1. Initialize `SingleAdapter`
@@ -50,5 +50,13 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
 
 ## More quick guides
 https://github.com/vanskarner/SingleAdapter/wiki
+
+| Simple | Listeners | DiffUtil |
+| ------------- | ------------- | ------------- |
+| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/simple_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/listener_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/diff_example.gif)  |
+
+| Progress |
+| ------------- |
+| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/progress_example.gif)  |
 ---
 Developed by the team [Vanskarner](https://github.com/vanskarner)  :grin:
