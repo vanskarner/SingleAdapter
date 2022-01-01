@@ -13,7 +13,7 @@
 
         <activity
             android:name="com.utility.adapters.examples.MenuActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="SingleAdapter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
