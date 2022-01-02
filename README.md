@@ -1,12 +1,18 @@
 # SingleAdapter
 Use a single adapter to handle views with RecyclerView. Library built around Recyclerview.Adapter
 
-## Quick Start: for simple views
-### 1. Initialize `SingleAdapter`
+## Basic quick start:
+### 1. Implement BindItem in your model class
+```java
+public class WomanModel implements BindItem{
+    ...
+}
+```
+### 2. Initialize SingleAdapter
 ```java
 SingleAdapter singleAdapter = new SingleAdapter();
 ```
-### 2. Create a class that implements BindAdapter
+### 3. Create a class that implements BindAdapter
 ```java
 class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
 
@@ -39,13 +45,11 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
     }
 }
 ```
-### 3. Add the above implementation to your `SingleAdapter`
+### 4. Add the BindAdapter implementation, then set the data and finally set singleadapter in the recyclerview
 ```java
  singleAdapter.add(new LinearAdapter());
- ```
-### 4. Set the data to `SingleAdapter`
-```java
  singleAdapter.set(DataProvider.sampleData());
+ recyclerView.setAdapter(singleAdapter);
  ```
 
 ## More quick guides
