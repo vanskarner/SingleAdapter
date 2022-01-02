@@ -51,12 +51,9 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
 ## More quick guides
 https://github.com/vanskarner/SingleAdapter/wiki
 
-| Simple | Listeners | DiffUtil |
-| ------------- | ------------- | ------------- |
-| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/simple_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/listener_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/diff_example.gif)  |
+| Simple | Listeners | DiffUtil | Progress |
+| ------------- | ------------- | ------------- | ------------- |
+| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/simple_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/listener_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/diff_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/progress_example.gif)  |
 
-| Progress |
-| ------------- |
-| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/refactoring/info/progress_example.gif)  |
 ---
 Developed by the team [Vanskarner](https://github.com/vanskarner)  :grin:
