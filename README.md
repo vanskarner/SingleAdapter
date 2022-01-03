@@ -8,11 +8,7 @@ public class WomanModel implements BindItem{
     ...
 }
 ```
-### 2. Initialize SingleAdapter
-```java
-SingleAdapter singleAdapter = new SingleAdapter();
-```
-### 3. Create a class that implements BindAdapter
+### 2. Create a class that implements BindAdapter
 ```java
 class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
 
@@ -45,13 +41,13 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
     }
 }
 ```
-### 4. Add the BindAdapter implementation, then set the data and finally set singleadapter in the recyclerview
+### 3. Initialize SingleAdapter, add BindAdapter implementation, set the data and set singleadapter in the recyclerview
 ```java
+ SingleAdapter singleAdapter = new SingleAdapter();
  singleAdapter.add(new LinearAdapter());
  singleAdapter.set(DataProvider.sampleData());
  recyclerView.setAdapter(singleAdapter);
  ```
-
 ## More quick guides
 https://github.com/vanskarner/SingleAdapter/wiki
 
