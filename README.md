@@ -48,6 +48,11 @@ class LinearAdapter implements BindAdapter<WomanModel, LinearAdapter.LinearVH> {
  singleAdapter.set(DataProvider.sampleData());
  recyclerView.setAdapter(singleAdapter);
  ```
+ 
+## Communication
+- For bugs: [Here](https://github.com/vanskarner/SingleAdapter/labels/bug)
+- For contributions: [Here](https://github.com/vanskarner/SingleAdapter/labels/enhancement)
+
 ## More quick guides
 https://github.com/vanskarner/SingleAdapter/wiki
 
