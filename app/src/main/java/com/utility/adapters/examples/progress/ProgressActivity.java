@@ -52,7 +52,6 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         pagination.onLoadMore();
     }
 
-
     @Override
     public void onLoadMore(int page) {
         if (page <= PAGE_LIMIT) {

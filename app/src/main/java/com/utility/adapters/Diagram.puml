@@ -28,10 +28,8 @@ class EndlessLoad{
     - listDiffer: AsyncListDiffer<BindItem>
     - adapter: LoadAdapter
     - loadItem: LoadBindItem
-    - visibleProgress: boolean
 
     + getAdapter(): LoadAdapter
-    + setProgressFalse(): void
     + isLoadInstance(BindItem item): boolean
     + showProgress(): void
     + hideProgress(): void

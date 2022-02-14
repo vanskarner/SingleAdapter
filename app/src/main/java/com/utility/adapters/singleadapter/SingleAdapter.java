@@ -85,7 +85,6 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * @param items Adapter data
      */
     public void set(@NonNull final List<? extends BindItem> items) {
-        endlessLoad.setProgressFalse();
         listDiffer.submitList(new ArrayList<>(items));
     }
 
