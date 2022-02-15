@@ -10,19 +10,98 @@ public class Pagination extends RecyclerView.OnScrollListener {
     public static final int LAST_POSITION = 1;
     public static final int LAST_POSITION_COMPLETE = 2;
 
-    public int pageNumber = 1;
-    public boolean isLoading = false;
+    private int pageNumber = 1;
+    private boolean isLoading = false;
     private final OnLoadMoreListener onLoadMoreListener;
     private final int positionType;
 
-    public Pagination(@NonNull OnLoadMoreListener onLoadMoreListener, int positionType) {
-        this.onLoadMoreListener = onLoadMoreListener;
-        this.positionType = filterPositionType(positionType);
+    public interface OnLoadMoreListener {
+        void onLoadMore(int page);
     }
 
-    private static int filterPositionType(int positionType) {
-        return (positionType != LAST_POSITION && positionType != LAST_POSITION_COMPLETE) ?
-                LAST_POSITION_COMPLETE : positionType;
+    public Pagination(@NonNull OnLoadMoreListener onLoadMoreListener, int positionType) {
+        this.onLoadMoreListener = onLoadMoreListener;
+        this.positionType = positionType == LAST_POSITION ? LAST_POSITION : LAST_POSITION_COMPLETE;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
+    }
+
+    public void onLoadMore() {
+        onLoadMoreListener.onLoadMore(pageNumber);
+    }
+
+    public void reset() {
+        pageNumber = 1;
+        isLoading = false;
+    }
+
+    public void increment() {
+        pageNumber++;
+        setLoading(false);
+    }
+
+    @Override
+    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        if (isConditionForScrolled(recyclerView.getLayoutManager(), dy)) {
+            onLoadMoreListener.onLoadMore(pageNumber);
+        }
+    }
+
+    private boolean isConditionForScrolled(RecyclerView.LayoutManager manager, int dy) {
+        return isLayoutManagerNotNull(manager) &&
+                isScrollingUp(dy) &&
+                isLastPosition(manager) &&
+                !isLoading;
+    }
+
+    private boolean isLayoutManagerNotNull(RecyclerView.LayoutManager manager) {
+        return manager != null;
+    }
+
+    private boolean isScrollingUp(int dy) {
+        return dy > 0;
+    }
+
+    private boolean isLastPosition(RecyclerView.LayoutManager manager) {
+        return (getLastPosition(manager) == manager.getItemCount() - 1);
+    }
+
+    private int getLastPosition(@NonNull RecyclerView.LayoutManager layoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
+            return lastPositionGrid((GridLayoutManager) layoutManager);
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            return lastPositionLinear((LinearLayoutManager) layoutManager);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            return lastPositionStaggered((StaggeredGridLayoutManager) layoutManager);
+        }
+        return 0;
+    }
+
+    private int lastPositionGrid(@NonNull GridLayoutManager manager) {
+        return (positionType == LAST_POSITION) ?
+                manager.findLastVisibleItemPosition() :
+                manager.findLastCompletelyVisibleItemPosition();
+    }
+
+    private int lastPositionLinear(@NonNull LinearLayoutManager manager) {
+        return (positionType == LAST_POSITION) ?
+                manager.findLastVisibleItemPosition() :
+                manager.findLastCompletelyVisibleItemPosition();
     }
 
     private int lastPositionStaggered(@NonNull StaggeredGridLayoutManager manager) {
@@ -37,61 +116,6 @@ public class Pagination extends RecyclerView.OnScrollListener {
             max = Math.max(max, value);
         }
         return max;
-    }
-
-    private int lastPositionLinear(@NonNull LinearLayoutManager manager) {
-        return (positionType == LAST_POSITION) ?
-                manager.findLastVisibleItemPosition() :
-                manager.findLastCompletelyVisibleItemPosition();
-    }
-
-    private int lastPositionGrid(@NonNull GridLayoutManager manager) {
-        return (positionType == LAST_POSITION) ?
-                manager.findLastVisibleItemPosition() :
-                manager.findLastCompletelyVisibleItemPosition();
-    }
-
-    private int getLastPosition(@NonNull RecyclerView.LayoutManager layoutManager) {
-        if (layoutManager instanceof LinearLayoutManager) {
-            if (layoutManager instanceof GridLayoutManager) {
-                return lastPositionGrid((GridLayoutManager) layoutManager);
-            }
-            return lastPositionLinear((LinearLayoutManager) layoutManager);
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            return lastPositionStaggered((StaggeredGridLayoutManager) layoutManager);
-        }
-        return 0;
-    }
-
-    private boolean conditionForScrolled(@NonNull RecyclerView.LayoutManager manager) {
-        int lastPosition = getLastPosition(manager);
-        return (lastPosition == manager.getItemCount() - 1);
-    }
-
-    @Override
-    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if (!isLoading && manager != null && conditionForScrolled(manager)) {
-            isLoading = true;
-            onLoadMoreListener.onLoadMore(pageNumber);
-            pageNumber++;
-        }
-    }
-
-    public void onLoadMore() {
-        isLoading = true;
-        onLoadMoreListener.onLoadMore(pageNumber);
-        pageNumber++;
-    }
-
-    public void reset() {
-        pageNumber = 1;
-        isLoading = false;
-    }
-
-    public interface OnLoadMoreListener {
-        void onLoadMore(int page);
     }
 
 }

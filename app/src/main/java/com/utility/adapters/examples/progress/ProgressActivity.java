@@ -58,14 +58,15 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
             if (page != 1) {
                 singleAdapter.showProgress();
             }
+            pagination.setLoading(true);
             compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .delay(1, TimeUnit.SECONDS)
                     .subscribe(newItems -> {
-                        pagination.isLoading = false;
                         list.addAll(newItems);
                         singleAdapter.set(list);
+                        pagination.increment();
                     }));
         }
     }
