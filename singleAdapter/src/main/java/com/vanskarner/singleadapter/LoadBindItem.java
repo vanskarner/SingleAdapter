@@ -1,4 +1,4 @@
-package com.utility.adapters.singleadapter;
+package com.vanskarner.singleadapter;
 
 class LoadBindItem implements BindItem {
 }

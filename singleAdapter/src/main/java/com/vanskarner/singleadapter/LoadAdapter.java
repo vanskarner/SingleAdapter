@@ -1,4 +1,4 @@
-package com.utility.adapters.singleadapter;
+package com.vanskarner.singleadapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
