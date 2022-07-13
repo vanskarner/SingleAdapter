@@ -11,7 +11,7 @@ import com.utility.adapters.databinding.GridItemBinding;
 import com.utility.adapters.examples.WomanModel;
 
 class DiffAdapter implements BindAdapter<WomanModel, DiffAdapter.DiffVH> {
-    //Adapter Example
+
     @Override
     public Class<WomanModel> getClassItem() {
         return WomanModel.class;
