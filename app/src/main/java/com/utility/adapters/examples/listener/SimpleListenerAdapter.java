@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.utility.adapters.R;
-import com.utility.adapters.singleadapter.BindAdapter;
+
 import com.utility.adapters.examples.WomanModel;
+import com.vanskarner.singleadapter.BindAdapter;
 
 class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAdapter.ListenerVH> {
 

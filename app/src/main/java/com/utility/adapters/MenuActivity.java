@@ -1,4 +1,4 @@
-package com.utility.adapters.examples;
+package com.utility.adapters;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.utility.adapters.R;
 import com.utility.adapters.examples.diff_util.DiffUtilActivity;
 import com.utility.adapters.examples.listener.ListenerActivity;
 import com.utility.adapters.examples.progress.ProgressActivity;

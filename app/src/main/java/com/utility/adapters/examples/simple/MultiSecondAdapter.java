@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.utility.adapters.singleadapter.BindAdapter;
 import com.utility.adapters.databinding.GridItemBinding;
 import com.utility.adapters.examples.WomanModel;
+import com.vanskarner.singleadapter.BindAdapter;
 
 class MultiSecondAdapter implements BindAdapter<WomanModel, MultiSecondAdapter.SecondVH> {
 

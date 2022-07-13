@@ -12,7 +12,7 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name="com.utility.adapters.examples.MenuActivity"
+            android:name="com.utility.adapters.MenuActivity"
             android:exported="true"
             android:label="SingleAdapter">
             <intent-filter>

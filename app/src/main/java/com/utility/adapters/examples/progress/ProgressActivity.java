@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utility.adapters.R;
-import com.utility.adapters.singleadapter.SingleAdapter;
+
 import com.utility.adapters.examples.DataProvider;
 import com.utility.adapters.examples.WomanModel;
+import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
