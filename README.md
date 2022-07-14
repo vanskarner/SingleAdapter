@@ -58,7 +58,7 @@ https://github.com/vanskarner/SingleAdapter/wiki
 
 | Simple | Listeners | DiffUtil | Progress |
 | ------------- | ------------- | ------------- | ------------- |
-| ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/master/info/simple_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/master/info/listener_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/master/info/diff_example.gif)  | ![Alt Text](https://github.com/vanskarner/SingleAdapter/blob/master/info/progress_example.gif)  |
+| ![simple_example](https://user-images.githubusercontent.com/39975255/179115142-213ab9e3-79f9-4d2c-970c-01310520d81b.gif)  | ![listener_example](https://user-images.githubusercontent.com/39975255/179115612-92a1296e-9e74-4d57-affb-1c9abdfc5083.gif)  | ![diff_example](https://user-images.githubusercontent.com/39975255/179115701-acb54e9f-a2c8-4f81-aa20-8d76f106bb4c.gif)  | ![progress_example](https://user-images.githubusercontent.com/39975255/179115772-dc730f1c-b6f7-4fea-a698-76ebddd0afd9.gif)  |
 
 ---
 Developed by the team [Vanskarner](https://github.com/vanskarner)  :grin:
