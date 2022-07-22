@@ -17,9 +17,9 @@ import com.vanskarner.singleadapter.BindAdapter;
 
 class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAdapter.ListenerVH> {
 
-    private final OnClickItemListener listener;
+    private OnClickItemListener listener;
 
-    public SimpleListenerAdapter(OnClickItemListener listener) {
+    public void setListener(OnClickItemListener listener) {
         this.listener = listener;
     }
 
