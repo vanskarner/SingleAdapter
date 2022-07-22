@@ -43,7 +43,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (!isLoad(position)) {
-            filterMap(position).getValue().onBindViewHolder(holder, getItem(position));
+            filterMap(position).getValue().onBindViewHolder(holder, getBindItem(position));
         }
     }
 
@@ -65,7 +65,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * @param position current item position
      */
     public boolean isLoad(int position) {
-        BindItem item = getItem(position);
+        BindItem item = getBindItem(position);
         return endlessLoad.isLoadInstance(item);
     }
 
@@ -123,17 +123,29 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         endlessLoad.hideProgress();
     }
 
+    /**
+     * Gets the list item specifying the position
+     *
+     * @param position position in the list
+     * @param <T> generic that implements BindItem
+     * @return Any class that implements BindItem
+     * @throws IndexOutOfBoundsException index of some type is out of range
+     */
+    public <T extends BindItem> T getItem(int position) {
+        return (T) getBindItem(position);
+    }
+
     private List<BindItem> getList() {
         return listDiffer.getCurrentList();
     }
 
-    private BindItem getItem(int position) {
+    private BindItem getBindItem(int position) {
         return getList().get(position);
     }
 
     private Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> filterMap
             (int position) {
-        BindItem item = getItem(position);
+        BindItem item = getBindItem(position);
         for (Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>> entry :
                 mapAdapter.entrySet()) {
             if (isCorrectBindAdapter(entry.getValue(), item)) {

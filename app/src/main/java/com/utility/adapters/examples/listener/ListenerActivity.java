@@ -17,11 +17,9 @@ import com.utility.adapters.examples.DataProvider;
 import com.utility.adapters.examples.WomanModel;
 import com.vanskarner.singleadapter.SingleAdapter;
 
-import java.util.List;
-
 public class ListenerActivity extends AppCompatActivity {
 
-    List<WomanModel> list = DataProvider.sampleData();
+    SingleAdapter singleAdapter;
     RecyclerView recyclerView;
 
     @Override
@@ -50,40 +48,36 @@ public class ListenerActivity extends AppCompatActivity {
     }
 
     private void showSimpleListenerExample() {
-        SimpleListenerAdapter adapter = new SimpleListenerAdapter(position -> {
-            WomanModel item = list.get(position);
+        SimpleListenerAdapter simpleListenerAdapter = new SimpleListenerAdapter();
+        singleAdapter = new SingleAdapter();
+        simpleListenerAdapter.setListener(view -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            WomanModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
             showMessage(item.toString());
         });
-        SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(adapter);
-        singleAdapter.set(list);
+        singleAdapter.add(simpleListenerAdapter);
+        singleAdapter.set(DataProvider.sampleData());
         recyclerView.setAdapter(singleAdapter);
     }
 
     private void showMultiListenerExample() {
-        MultiListenerAdapter adapter = new MultiListenerAdapter(new MultiListenerAdapter
-                .OnClickMultiListener() {
-            @Override
-            public void onClickItem(int position) {
-                WomanModel item = list.get(position);
-                showMessage("onClickItem->" + item.toString());
-            }
-
-            @Override
-            public void onClickImageItem(int position) {
-                WomanModel item = list.get(position);
-                showMessage("onClickImageItem->" + item.toString());
-            }
-
-            @Override
-            public void onClickNameItem(int position) {
-                WomanModel item = list.get(position);
-                showMessage("onClickNameItem->" + item.toString());
-            }
+        MultiListenerAdapter multiListenerAdapter = new MultiListenerAdapter();
+        singleAdapter = new SingleAdapter();
+        multiListenerAdapter.setListeners(itemView -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) itemView.getTag();
+            WomanModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
+            showMessage("onClickItem->" + item.toString());
+        }, itemImageView -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) itemImageView.getTag();
+            WomanModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
+            showMessage("onClickImageItem->" + item.toString());
+        }, itemNameView -> {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) itemNameView.getTag();
+            WomanModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
+            showMessage("onClickNameItem->" + item.toString());
         });
-        SingleAdapter singleAdapter = new SingleAdapter();
-        singleAdapter.add(adapter);
-        singleAdapter.set(list);
+        singleAdapter.add(multiListenerAdapter);
+        singleAdapter.set(DataProvider.sampleData());
         recyclerView.setAdapter(singleAdapter);
     }
 

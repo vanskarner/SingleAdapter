@@ -17,16 +17,22 @@ import com.vanskarner.singleadapter.BindAdapter;
 
 class MultiListenerAdapter implements BindAdapter<WomanModel, MultiListenerAdapter.ListenerVH> {
 
-    private final OnClickMultiListener listener;
+    private View.OnClickListener itemListener;
+    private View.OnClickListener itemImageListener;
+    private View.OnClickListener itemNameListener;
 
-    public MultiListenerAdapter(OnClickMultiListener listener) {
-        this.listener = listener;
+    public void setListeners(View.OnClickListener itemListener,
+                             View.OnClickListener itemImageListener,
+                             View.OnClickListener itemNameListener) {
+        this.itemListener = itemListener;
+        this.itemImageListener = itemImageListener;
+        this.itemNameListener = itemNameListener;
     }
 
     @Override
     public ListenerVH onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
         View view = inflater.inflate(R.layout.linear_item, parent, false);
-        return new ListenerVH(view, listener);
+        return new ListenerVH(view, itemListener, itemImageListener, itemNameListener);
     }
 
     @Override
@@ -44,22 +50,19 @@ class MultiListenerAdapter implements BindAdapter<WomanModel, MultiListenerAdapt
         ImageView image;
         TextView name;
 
-        ListenerVH(@NonNull View itemView, OnClickMultiListener listener) {
+        ListenerVH(@NonNull View itemView, View.OnClickListener listenerItem,
+                   View.OnClickListener listenerImageItem,
+                   View.OnClickListener listenerNameItem) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
-            itemView.setOnClickListener(view -> listener.onClickItem(getAdapterPosition()));
-            image.setOnClickListener(view -> listener.onClickImageItem(getAdapterPosition()));
-            name.setOnClickListener(view -> listener.onClickNameItem(getAdapterPosition()));
+            super.itemView.setTag(this);
+            image.setTag(this);
+            name.setTag(this);
+            super.itemView.setOnClickListener(listenerItem);
+            image.setOnClickListener(listenerImageItem);
+            name.setOnClickListener(listenerNameItem);
         }
-    }
-
-    public interface OnClickMultiListener {
-        void onClickItem(int position);
-
-        void onClickImageItem(int position);
-
-        void onClickNameItem(int position);
     }
 
 }

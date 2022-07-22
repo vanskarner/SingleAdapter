@@ -17,9 +17,9 @@ import com.vanskarner.singleadapter.BindAdapter;
 
 class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAdapter.ListenerVH> {
 
-    private final OnClickItemListener listener;
+    private View.OnClickListener listener;
 
-    public SimpleListenerAdapter(OnClickItemListener listener) {
+    public void setListener(View.OnClickListener listener) {
         this.listener = listener;
     }
 
@@ -44,16 +44,13 @@ class SimpleListenerAdapter implements BindAdapter<WomanModel, SimpleListenerAda
         ImageView image;
         TextView name;
 
-        ListenerVH(@NonNull View itemView, OnClickItemListener listener) {
+        ListenerVH(@NonNull View itemView, View.OnClickListener listener) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
-            itemView.setOnClickListener(view -> listener.OnClickItem(getAdapterPosition()));
+            super.itemView.setTag(this);
+            super.itemView.setOnClickListener(listener);
         }
-    }
-
-    public interface OnClickItemListener {
-        void OnClickItem(int position);
     }
 
 }
