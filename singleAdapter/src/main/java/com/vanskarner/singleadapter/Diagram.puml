@@ -17,8 +17,9 @@ class SingleAdapter{
     + set(final int loadLayoutId): void
     + showProgress(): void
     + hideProgress(): void
+    + getItem(int position): <T extends BindItem> T
     - getList(): List<BindItem>
-    - getItem(int position): BindItem
+    - getBindItem(int position): BindItem
     - filterMap(int position): Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
     - isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem): boolean
     - filterError(BindItem item): RuntimeException
