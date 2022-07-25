@@ -63,6 +63,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * Check if the item in the current position is the progress view
      *
      * @param position current item position
+     * @return true if the item at the specified position belongs to the loading view
      */
     public boolean isLoad(int position) {
         BindItem item = getBindItem(position);
@@ -80,7 +81,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * Set the list of items in the adapter and hide the progress
+     * Sets the list of items in the adapter and hides the progress view if it's visible
      *
      * @param items Adapter data
      */
@@ -117,7 +118,7 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     /**
      * Hide load layout.
-     * No need to use it when calling {@link #set(List)} method
+     * You don't need to use it if you call the {@link #set(List)} method
      */
     public void hideProgress() {
         endlessLoad.hideProgress();
@@ -127,8 +128,8 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * Gets the list item specifying the position
      *
      * @param position position in the list
-     * @param <T> generic that implements BindItem
-     * @return Any class that implements BindItem
+     * @param <T>      generic that implements BindItem
+     * @return instance of a class that implements BindItem
      * @throws IndexOutOfBoundsException index of some type is out of range
      */
     public <T extends BindItem> T getItem(int position) {
