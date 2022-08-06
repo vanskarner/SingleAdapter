@@ -57,7 +57,7 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
     public void onLoadMore(int page) {
         if (page <= PAGE_LIMIT) {
             if (page != 1) {
-                singleAdapter.showProgress();
+                singleAdapter.setVisibleProgress(true);
             }
             pagination.setLoading(true);
             compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))
