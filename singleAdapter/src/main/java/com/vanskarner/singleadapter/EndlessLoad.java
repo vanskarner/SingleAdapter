@@ -26,23 +26,6 @@ class EndlessLoad {
         return item instanceof LoadBindItem;
     }
 
-    public void showProgress() {
-        if (isEnableLoad()) {
-            List<BindItem> updateList = createItems();
-            updateList.remove(loadItem);
-            updateList.add(loadItem);
-            listDiffer.submitList(updateList);
-        }
-    }
-
-    public void hideProgress() {
-        if (isEnableLoad()) {
-            List<BindItem> updateList = createItems();
-            updateList.remove(loadItem);
-            listDiffer.submitList(updateList);
-        }
-    }
-
     public void setVisibleProgress(boolean isVisible) {
         if (isEnableLoad()) {
             List<BindItem> updateList = createItems();
