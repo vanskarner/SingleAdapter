@@ -43,6 +43,17 @@ class EndlessLoad {
         }
     }
 
+    public void setVisibleProgress(boolean isVisible) {
+        if (isEnableLoad()) {
+            List<BindItem> updateList = createItems();
+            updateList.remove(loadItem);
+            if (isVisible) {
+                updateList.add(loadItem);
+            }
+            listDiffer.submitList(updateList);
+        }
+    }
+
     private boolean isEnableLoad() {
         return adapter.getLayoutId() != DEFAULT_LAYOUT_ID;
     }

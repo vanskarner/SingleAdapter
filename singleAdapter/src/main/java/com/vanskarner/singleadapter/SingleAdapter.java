@@ -125,6 +125,18 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
+     * If the argument is true, it displays the progress layout set with the {@link #set(List)}
+     * method. If you have not established a design, the default design will be loaded.
+     * If the argument is false, the progress will be hidden. There is no need to hide the progress
+     * if you call the {@link #set(List)} method
+     *
+     * @param isVisible indicator to show or hide progress
+     */
+    public void setVisibleProgress(boolean isVisible) {
+        endlessLoad.setVisibleProgress(isVisible);
+    }
+
+    /**
      * Gets the list item specifying the position
      *
      * @param position position in the list
