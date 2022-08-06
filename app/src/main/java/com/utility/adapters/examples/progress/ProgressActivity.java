@@ -38,7 +38,6 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         setContentView(R.layout.progress_activity);
         recyclerView = findViewById(R.id.recycler);
         singleAdapter.add(new WomanAdapter());
-        singleAdapter.set(R.layout.loading_item);
         singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         recyclerView.addOnScrollListener(pagination);
@@ -57,7 +56,7 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
     public void onLoadMore(int page) {
         if (page <= PAGE_LIMIT) {
             if (page != 1) {
-                singleAdapter.showProgress();
+                singleAdapter.setVisibleProgress(true);
             }
             pagination.setLoading(true);
             compositeDisposable.add(Single.just(DataProvider.sampleDataMsg(" - " + page))

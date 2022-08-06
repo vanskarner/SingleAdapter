@@ -99,29 +99,25 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     /**
-     * Set load layout identifier that will be displayed when using
-     * {@link #showProgress()} method
+     * Set progress layout identifier that will be displayed when using
+     * {@link #setVisibleProgress(boolean)} method
      *
-     * @param loadLayoutId identify layout for load visualization
+     * @param loadLayoutId identify layout for progress visualization
      */
     public void set(final int loadLayoutId) {
         endlessLoad.getAdapter().setLayoutId(loadLayoutId);
     }
 
     /**
-     * Display load layout that is set with {@link #set(int)} method
-     * In case the layout has not been established, this method will do nothing.
+     * If the argument is true, it displays the progress layout set with the {@link #set(List)}
+     * method. If you have not established a design, the default design will be loaded.
+     * If the argument is false, the progress will be hidden. There is no need to hide the progress
+     * if you call the {@link #set(List)} method
+     *
+     * @param isVisible indicator to show or hide progress
      */
-    public void showProgress() {
-        endlessLoad.showProgress();
-    }
-
-    /**
-     * Hide load layout.
-     * You don't need to use it if you call the {@link #set(List)} method
-     */
-    public void hideProgress() {
-        endlessLoad.hideProgress();
+    public void setVisibleProgress(boolean isVisible) {
+        endlessLoad.setVisibleProgress(isVisible);
     }
 
     /**

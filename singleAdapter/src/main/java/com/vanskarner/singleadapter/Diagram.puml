@@ -15,8 +15,7 @@ class SingleAdapter{
     + set(final List<? extends BindItem> items): void
     + set(final BaseDiffCallback<? extends BindItem> diffCallback): void
     + set(final int loadLayoutId): void
-    + showProgress(): void
-    + hideProgress(): void
+    + setVisibleProgress(boolean isVisible): void
     + getItem(int position): <T extends BindItem> T
     - getList(): List<BindItem>
     - getBindItem(int position): BindItem
@@ -25,16 +24,13 @@ class SingleAdapter{
     - filterError(BindItem item): RuntimeException
 }
 class EndlessLoad{
-    - {static} DEFAULT_LAYOUT_ID = -1: int
     - listDiffer: AsyncListDiffer<BindItem>
     - adapter: LoadAdapter
     - loadItem: LoadBindItem
 
     + getAdapter(): LoadAdapter
     + isLoadInstance(BindItem item): boolean
-    + showProgress(): void
-    + hideProgress(): void
-    - isEnableLoad(): boolean
+    + setVisibleProgress(boolean isVisible): void
     - createItems(): List<BindItem>
 }
 class LoadAdapter{
