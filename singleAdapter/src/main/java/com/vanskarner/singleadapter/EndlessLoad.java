@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class EndlessLoad {
-    private static final int DEFAULT_LAYOUT_ID = -1;
 
     private final AsyncListDiffer<BindItem> listDiffer;
     private final LoadAdapter adapter;
@@ -14,7 +13,7 @@ class EndlessLoad {
 
     public EndlessLoad(AsyncListDiffer<BindItem> listDiffer) {
         this.listDiffer = listDiffer;
-        adapter = new LoadAdapter(DEFAULT_LAYOUT_ID);
+        adapter = new LoadAdapter();
         loadItem = new LoadBindItem();
     }
 
@@ -27,18 +26,12 @@ class EndlessLoad {
     }
 
     public void setVisibleProgress(boolean isVisible) {
-        if (isEnableLoad()) {
             List<BindItem> updateList = createItems();
             updateList.remove(loadItem);
             if (isVisible) {
                 updateList.add(loadItem);
             }
             listDiffer.submitList(updateList);
-        }
-    }
-
-    private boolean isEnableLoad() {
-        return adapter.getLayoutId() != DEFAULT_LAYOUT_ID;
     }
 
     private List<BindItem> createItems() {

@@ -9,11 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class LoadAdapter implements OnCreateVH<LoadAdapter.LoadViewHolder> {
 
-    private int layoutId;
-
-    public LoadAdapter(int layoutId) {
-        this.layoutId = layoutId;
-    }
+    private int layoutId = R.layout.progress_view;
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
