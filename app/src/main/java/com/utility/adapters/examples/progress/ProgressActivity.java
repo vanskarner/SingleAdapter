@@ -38,7 +38,6 @@ public class ProgressActivity extends AppCompatActivity implements Pagination.On
         setContentView(R.layout.progress_activity);
         recyclerView = findViewById(R.id.recycler);
         singleAdapter.add(new WomanAdapter());
-        singleAdapter.set(R.layout.loading_item);
         singleAdapter.set(list);
         recyclerView.setAdapter(singleAdapter);
         recyclerView.addOnScrollListener(pagination);
