@@ -41,9 +41,6 @@ class LoadAdapter{
     + getLayoutId(): int
 }
 class LoadBindItem
-/'abstract class  "abstract class"<T extends String>{
-
-}'/
 abstract class BaseDiffCallback<BI extends BindItem>{
     + {abstract} areItemsTheSame(): boolean
     + {abstract} areContentsTheSame(): boolean
