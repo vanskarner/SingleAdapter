@@ -1,5 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
+
+/'Specification of classes and interfaces'/
 class SingleAdapter{
     - mapAdapter: Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
     - defaultDiff: BaseDiffCallback<? extends BindItem>
@@ -39,6 +41,9 @@ class LoadAdapter{
     + getLayoutId(): int
 }
 class LoadBindItem
+/'abstract class  "abstract class"<T extends String>{
+
+}'/
 abstract class BaseDiffCallback<BI extends BindItem>{
     + {abstract} areItemsTheSame(): boolean
     + {abstract} areContentsTheSame(): boolean
@@ -55,20 +60,31 @@ interface BindAdapter<BI extends BindItem,VH extends ViewHolder>{
     + getClassItem(): Class<BI>
     + filter(BI item): boolean
 }
+class LoadViewHolder
 
-SingleAdapter --> BindAdapter
-SingleAdapter --> BindItem
+/'Relations'/
 SingleAdapter --> BaseDiffCallback
 SingleAdapter --> EndlessLoad
-BindItem <.. OnBindVH
 BindAdapter --|> OnCreateVH
 BindAdapter --|> OnBindVH
-BaseDiffCallback ..> BindItem
 BaseDiffCallback <|-- DefaultBaseDiff
-EndlessLoad --> BindItem
 EndlessLoad --> LoadAdapter
 EndlessLoad --> LoadBindItem
-LoadAdapter --|> OnCreateVH
-LoadBindItem --|> BindItem
+LoadAdapter ..|> OnCreateVH
+LoadBindItem ..|> BindItem
+LoadViewHolder --+ LoadAdapter
+
+/'visual customization'/
+interface BindItem #paleGreen
+interface OnCreateVH #paleGreen
+interface OnBindVH #paleGreen
+interface BindAdapter #paleGreen
+class SingleAdapter #deepskyblue
+abstract class BaseDiffCallback #deepskyblue
+class EndlessLoad #deepskyblue
+class DefaultBaseDiff #deepskyblue
+class LoadBindItem #deepskyblue
+class LoadViewHolder #deepskyblue
+class LoadAdapter #deepskyblue
 
 @enduml
