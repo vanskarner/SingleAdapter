@@ -75,6 +75,13 @@ LoadBindItem ..|> BindItem
 LoadViewHolder --+ LoadAdapter
 
 /'visual customization'/
+hide LoadViewHolder members
+hide LoadBindItem members
+hide DefaultBaseDiff members
+hide BindItem members
+hide OnCreateVH attributes
+hide BindAdapter attributes
+hide OnBindVH attributes
 interface BindItem #paleGreen
 interface OnCreateVH #paleGreen
 interface OnBindVH #paleGreen
