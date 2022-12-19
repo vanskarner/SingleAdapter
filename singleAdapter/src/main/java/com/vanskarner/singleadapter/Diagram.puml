@@ -8,54 +8,55 @@ class SingleAdapter{
     - listDiffer: AsyncListDiffer<BindItem>
     - endlessLoad: EndlessLoad
 
-    + onCreateViewHolder(ViewGroup parent, int viewType): RecyclerView.ViewHolder
-    + onBindViewHolder(RecyclerView.ViewHolder holder, int position): void
-    + getItemViewType(int position): int
+    + SingleAdapter()
+    + onCreateViewHolder(ViewGroup, int): RecyclerView.ViewHolder
+    + onBindViewHolder(RecyclerView.ViewHolder, int): void
+    + getItemViewType(int): int
     + getItemCount(): int
-    + isLoad(int position): boolean
-    + add(final BindAdapter bindAdapter): void
-    + set(final List<? extends BindItem> items): void
-    + set(final BaseDiffCallback<? extends BindItem> diffCallback): void
-    + set(final int loadLayoutId): void
-    + setVisibleProgress(boolean isVisible): void
-    + getItem(int position): <T extends BindItem> T
+    + isLoad(int): boolean
+    + add(BindAdapter): void
+    + set(List<? extends BindItem>): void
+    + set(BaseDiffCallback<? extends BindItem>): void
+    + set(int): void
+    + setVisibleProgress(boolean): void
+    + getItem(int): <T extends BindItem> T
     - getList(): List<BindItem>
-    - getBindItem(int position): BindItem
-    - filterMap(int position): Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
-    - isCorrectBindAdapter(BindAdapter bindAdapter, BindItem bindItem): boolean
-    - filterError(BindItem item): RuntimeException
+    - getBindItem(int): BindItem
+    - filterMap(int): Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
+    - isCorrectBindAdapter(BindAdapter, BindItem): boolean
+    - filterError(BindItem): RuntimeException
 }
 class EndlessLoad{
     - listDiffer: AsyncListDiffer<BindItem>
     - adapter: LoadAdapter
     - loadItem: LoadBindItem
 
+    + EndlessLoad(AsyncListDiffer<BindItem>)
     + getAdapter(): LoadAdapter
-    + isLoadInstance(BindItem item): boolean
-    + setVisibleProgress(boolean isVisible): void
+    + isLoadInstance(BindItem): boolean
+    + setVisibleProgress(boolean): void
     - createItems(): List<BindItem>
 }
 class LoadAdapter{
     - layoutId: int
-    + setLayoutId(int layoutId): void
+
+    + LoadAdapter()
+    + setLayoutId(int): void
     + getLayoutId(): int
 }
 class LoadBindItem
-abstract class BaseDiffCallback<BI extends BindItem>{
-    + {abstract} areItemsTheSame(): boolean
-    + {abstract} areContentsTheSame(): boolean
-}
+abstract class BaseDiffCallback<BI extends BindItem>
 class DefaultBaseDiff
 interface BindItem
 interface OnCreateVH<VH extends ViewHolder>{
     + onCreateViewHolder(ViewGroup parent, LayoutInflater inflater): VH
 }
 interface OnBindVH<BI extends BindItem,VH extends ViewHolder>{
-    + onBindViewHolder(VH viewHolder, BI item): void
+    + onBindViewHolder(VH, BI): void
 }
 interface BindAdapter<BI extends BindItem,VH extends ViewHolder>{
     + getClassItem(): Class<BI>
-    + filter(BI item): boolean
+    + filter(BI): boolean
 }
 class LoadViewHolder
 
@@ -74,6 +75,7 @@ LoadViewHolder --+ LoadAdapter
 /'visual customization'/
 hide LoadViewHolder members
 hide LoadBindItem members
+hide BaseDiffCallback members
 hide DefaultBaseDiff members
 hide BindItem members
 hide OnCreateVH attributes
