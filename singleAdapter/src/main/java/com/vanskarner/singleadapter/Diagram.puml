@@ -3,10 +3,6 @@
 
 /'Specification of classes and interfaces'/
 class SingleAdapter{
-    - mapAdapter: Map<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
-    - defaultDiff: BaseDiffCallback<? extends BindItem>
-    - listDiffer: AsyncListDiffer<BindItem>
-    - endlessLoad: EndlessLoad
 
     + SingleAdapter()
     + onCreateViewHolder(ViewGroup, int): RecyclerView.ViewHolder
@@ -27,9 +23,6 @@ class SingleAdapter{
     - filterError(BindItem): RuntimeException
 }
 class EndlessLoad{
-    - listDiffer: AsyncListDiffer<BindItem>
-    - adapter: LoadAdapter
-    - loadItem: LoadBindItem
 
     + EndlessLoad(AsyncListDiffer<BindItem>)
     + getAdapter(): LoadAdapter
@@ -48,26 +41,31 @@ class LoadBindItem
 abstract class BaseDiffCallback<BI extends BindItem>
 class DefaultBaseDiff
 interface BindItem
-interface OnCreateVH<VH extends ViewHolder>{
-    + onCreateViewHolder(ViewGroup parent, LayoutInflater inflater): VH
+interface OnCreateVH<VH extends RecyclerView.ViewHolder>{
+    + onCreateViewHolder(ViewGroup, LayoutInflater): VH
 }
-interface OnBindVH<BI extends BindItem,VH extends ViewHolder>{
+interface OnBindVH<BI extends BindItem,VH extends RecyclerView.ViewHolder>{
     + onBindViewHolder(VH, BI): void
 }
-interface BindAdapter<BI extends BindItem,VH extends ViewHolder>{
+interface BindAdapter<BI extends BindItem,VH extends RecyclerView.ViewHolder>{
     + getClassItem(): Class<BI>
     + filter(BI): boolean
 }
 class LoadViewHolder
 
 /'Relations'/
-SingleAdapter --> BaseDiffCallback
-SingleAdapter --> EndlessLoad
+SingleAdapter --> "1" BaseDiffCallback : -defaultDiff
+SingleAdapter --> "1" EndlessLoad : -endlessLoad
+SingleAdapter --> "0..*" BindItem : -listDiffer
+SingleAdapter --> "1..*" BindAdapter : -mapAdapter
 BindAdapter --|> OnCreateVH
 BindAdapter --|> OnBindVH
 BaseDiffCallback <|-- DefaultBaseDiff
-EndlessLoad --> LoadAdapter
-EndlessLoad --> LoadBindItem
+EndlessLoad --> "1" LoadAdapter : adapter
+EndlessLoad --> "1" LoadBindItem :loadItem
+
+EndlessLoad --> "0..*" BindItem : - listDiffer
+
 LoadAdapter ..|> OnCreateVH
 LoadBindItem ..|> BindItem
 LoadViewHolder --+ LoadAdapter
