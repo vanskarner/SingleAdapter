@@ -63,9 +63,7 @@ BindAdapter --|> OnBindVH
 BaseDiffCallback <|-- DefaultBaseDiff
 EndlessLoad --> "1" LoadAdapter : adapter
 EndlessLoad --> "1" LoadBindItem :loadItem
-
 EndlessLoad --> "0..*" BindItem : - listDiffer
-
 LoadAdapter ..|> OnCreateVH
 LoadBindItem ..|> BindItem
 LoadViewHolder --+ LoadAdapter
