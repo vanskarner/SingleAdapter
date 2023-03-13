@@ -16,6 +16,9 @@ class SingleAdapter{
     + set(int): void
     + setVisibleProgress(boolean): void
     + getItem(int): <T extends BindItem> T
+    + getDiffCallback(): BaseDiffCallback<? extends BindItem>
+    + getProgressLayoutId(): int
+    + isAdapterPresent(BindAdapter): boolean
     - getList(): List<BindItem>
     - getBindItem(int): BindItem
     - filterMap(int): Map.Entry<Integer, BindAdapter<BindItem, RecyclerView.ViewHolder>>
