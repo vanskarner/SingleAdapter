@@ -132,6 +132,37 @@ public class SingleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return (T) getBindItem(position);
     }
 
+    /**
+     * Gets the established DiffCallback, if none has been set, {@link DefaultBaseDiff} is used.
+     *
+     * @return instance that extends BaseDiffCallback
+     */
+    public BaseDiffCallback<? extends BindItem> getDiffCallback() {
+        return defaultDiff;
+    }
+
+    /**
+     * Gets the progress layout identifier, if none has been set the one specified in
+     * {@link LoadAdapter} is used
+     *
+     * @return progress layout identifier
+     */
+    public int getProgressLayoutId() {
+        return endlessLoad.getAdapter().getLayoutId();
+    }
+
+    /**
+     * Returns true if the specified {@link BindAdapter} has been added by the
+     * {@link #add(BindAdapter)} method, otherwise it will return false
+     *
+     * @param bindAdapter an implementation of BindAdapter
+     * @return true if the {@link BindAdapter} is registered and false otherwise
+     */
+    public boolean isAdapterPresent(BindAdapter bindAdapter) {
+        int key = bindAdapter.getClass().hashCode();
+        return mapAdapter.get(key) != null;
+    }
+
     private List<BindItem> getList() {
         return listDiffer.getCurrentList();
     }
